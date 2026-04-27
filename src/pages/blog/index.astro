@@ -1,0 +1,177 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
+
+const fmt = (d: Date) =>
+  new Intl.DateTimeFormat('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
+
+const categories = Array.from(new Set(posts.map((p) => p.data.category)));
+---
+<Layout
+  title="ブログ｜CINEMA REEL 新宿"
+  description="新宿のレンタルシアター CINEMA REEL の公式ブログ。プライベートシネマの楽しみ方、推し活上映会、誕生日サプライズ、デート利用などのアイデアと、新宿駅近のスペース選びの知見を発信。"
+>
+  <section class="blog-hero">
+    <div class="container">
+      <p class="reel-section-num">— Journal</p>
+      <h1 class="blog-hero-title">
+        <span class="en italic">Reel</span> Notes.
+      </h1>
+      <p class="blog-hero-lead">
+        新宿のプライベートシネマでの過ごし方、貸切スペース選びのコツ、推し活・誕生日・デートのアイデア。
+        小さな映写室から、暗い夜の使い方を綴ります。
+      </p>
+    </div>
+  </section>
+
+  <section class="blog-list-section">
+    <div class="container">
+      {categories.length > 0 && (
+        <nav class="cat-nav" aria-label="カテゴリ">
+          <a href="/blog/" class="cat-pill active">すべて</a>
+          {categories.map((c) => (
+            <a href={`/blog/category/${encodeURIComponent(c)}/`} class="cat-pill">{c}</a>
+          ))}
+        </nav>
+      )}
+
+      {posts.length === 0 ? (
+        <p class="blog-empty">記事を準備中です。</p>
+      ) : (
+        <ul class="blog-list">
+          {posts.map((post) => (
+            <li class="blog-row">
+              <a href={`/blog/${post.slug}/`} class="blog-row-link">
+                {post.data.heroImage && (
+                  <div class="blog-row-img" style={`background-image: url('${post.data.heroImage}');`}></div>
+                )}
+                <div class="blog-row-body">
+                  <p class="blog-row-meta">
+                    <span class="cat">{post.data.category}</span>
+                    <span class="dot">·</span>
+                    <time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
+                  </p>
+                  <h2 class="blog-row-title">{post.data.title}</h2>
+                  <p class="blog-row-desc">{post.data.description}</p>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+
+  <style>
+    .blog-hero {
+      padding: 96px 0 56px;
+      border-bottom: 1px solid var(--film-edge);
+      background: linear-gradient(180deg, var(--bg-deep), var(--bg));
+    }
+    .blog-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      margin: 14px 0 18px;
+    }
+    .blog-hero-title .en { font-family: var(--font-display); }
+    .blog-hero-title .italic { font-style: italic; color: var(--gold-bright); }
+    .blog-hero-lead {
+      max-width: 720px;
+      color: var(--ink-muted);
+      line-height: 2;
+      margin: 0;
+    }
+
+    .blog-list-section { padding: 56px 0 96px; }
+
+    .cat-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px dashed var(--film-edge);
+    }
+    .cat-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 16px;
+      border: 1px solid var(--film-edge);
+      color: var(--ink-muted);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      border-radius: 999px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .cat-pill.active,
+    .cat-pill:hover {
+      border-color: var(--gold);
+      color: var(--gold-bright);
+    }
+
+    .blog-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .blog-row { border-bottom: 1px solid var(--film-edge); padding-bottom: 32px; }
+    .blog-row-link {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+    @media (max-width: 700px) {
+      .blog-row-link { grid-template-columns: 1fr; }
+    }
+    .blog-row-img {
+      aspect-ratio: 16 / 9;
+      background-size: cover;
+      background-position: center;
+      border: 1px solid var(--film-edge);
+    }
+    .blog-row-meta {
+      font-family: var(--font-aux);
+      letter-spacing: 0.16em;
+      color: var(--ink-muted);
+      font-size: 0.8rem;
+      margin: 0 0 12px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .blog-row-meta .cat { color: var(--gold); }
+    .blog-row-meta .dot { color: var(--ink-dim); }
+    .blog-row-title {
+      font-family: var(--font-jp);
+      font-weight: 700;
+      font-size: clamp(1.15rem, 2vw, 1.4rem);
+      color: var(--ink);
+      margin: 0 0 12px;
+      letter-spacing: 0.04em;
+      line-height: 1.5;
+      transition: color 0.2s;
+    }
+    .blog-row-link:hover .blog-row-title { color: var(--gold-bright); }
+    .blog-row-desc {
+      color: var(--ink-muted);
+      line-height: 1.9;
+      margin: 0;
+      font-size: 0.95rem;
+    }
+    .blog-empty {
+      color: var(--ink-muted);
+      text-align: center;
+      padding: 60px 0;
+    }
+  </style>
+</Layout>

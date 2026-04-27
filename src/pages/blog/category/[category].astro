@@ -1,0 +1,124 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  const categories = Array.from(new Set(posts.map((p) => p.data.category)));
+  return categories.map((category) => ({
+    params: { category },
+    props: {
+      posts: posts
+        .filter((p) => p.data.category === category)
+        .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()),
+      category,
+    },
+  }));
+}
+
+const { posts, category } = Astro.props;
+
+const fmt = (d: Date) =>
+  new Intl.DateTimeFormat('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
+---
+<Layout
+  title={`${category}｜CINEMA REEL 新宿 ブログ`}
+  description={`CINEMA REEL 新宿のブログ「${category}」カテゴリの記事一覧です。`}
+>
+  <section class="blog-hero">
+    <div class="container">
+      <p class="reel-section-num">— Category</p>
+      <h1 class="blog-hero-title">{category}</h1>
+      <p class="blog-hero-lead">「{category}」カテゴリの記事一覧。</p>
+      <p><a href="/blog/" class="back-link">← ブログ一覧へ戻る</a></p>
+    </div>
+  </section>
+
+  <section class="blog-list-section">
+    <div class="container">
+      <ul class="blog-list">
+        {posts.map((post) => (
+          <li class="blog-row">
+            <a href={`/blog/${post.slug}/`} class="blog-row-link">
+              {post.data.heroImage && (
+                <div class="blog-row-img" style={`background-image: url('${post.data.heroImage}');`}></div>
+              )}
+              <div class="blog-row-body">
+                <p class="blog-row-meta">
+                  <time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
+                </p>
+                <h2 class="blog-row-title">{post.data.title}</h2>
+                <p class="blog-row-desc">{post.data.description}</p>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <style>
+    .blog-hero {
+      padding: 96px 0 56px;
+      border-bottom: 1px solid var(--film-edge);
+      background: linear-gradient(180deg, var(--bg-deep), var(--bg));
+    }
+    .blog-hero-title {
+      font-family: var(--font-jp);
+      font-weight: 700;
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: var(--gold-bright);
+      margin: 14px 0 14px;
+    }
+    .blog-hero-lead {
+      color: var(--ink-muted);
+      margin: 0 0 18px;
+    }
+    .back-link {
+      font-family: var(--font-display);
+      font-style: italic;
+      letter-spacing: 0.1em;
+      color: var(--ink-muted);
+      font-size: 0.9rem;
+    }
+    .back-link:hover { color: var(--gold-bright); }
+
+    .blog-list-section { padding: 56px 0 96px; }
+    .blog-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 32px; }
+    .blog-row { border-bottom: 1px solid var(--film-edge); padding-bottom: 32px; }
+    .blog-row-link {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+    @media (max-width: 700px) { .blog-row-link { grid-template-columns: 1fr; } }
+    .blog-row-img {
+      aspect-ratio: 16 / 9;
+      background-size: cover;
+      background-position: center;
+      border: 1px solid var(--film-edge);
+    }
+    .blog-row-meta {
+      font-family: var(--font-aux);
+      letter-spacing: 0.16em;
+      color: var(--ink-muted);
+      font-size: 0.8rem;
+      margin: 0 0 12px;
+    }
+    .blog-row-title {
+      font-family: var(--font-jp);
+      font-weight: 700;
+      font-size: clamp(1.15rem, 2vw, 1.4rem);
+      color: var(--ink);
+      margin: 0 0 12px;
+    }
+    .blog-row-link:hover .blog-row-title { color: var(--gold-bright); }
+    .blog-row-desc {
+      color: var(--ink-muted);
+      line-height: 1.9;
+      margin: 0;
+      font-size: 0.95rem;
+    }
+  </style>
+</Layout>

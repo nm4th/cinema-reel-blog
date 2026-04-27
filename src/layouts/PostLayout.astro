@@ -1,0 +1,300 @@
+---
+import Layout from './Layout.astro';
+
+export interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  category: string;
+  tags?: string[];
+  heroImage?: string;
+}
+
+const { title, description, pubDate, updatedDate, category, tags = [], heroImage } = Astro.props;
+
+const fmt = (d: Date) =>
+  new Intl.DateTimeFormat('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' }).format(d);
+---
+<Layout title={`${title}｜CINEMA REEL 新宿`} description={description} ogImage={heroImage} bodyClass="post-body">
+  <article class="post">
+    <div class="post-hero" style={heroImage ? `background-image: url('${heroImage}');` : ''}>
+      <div class="post-hero-overlay">
+        <div class="container">
+          <p class="post-meta-top">
+            <span class="reel-section-num">{category}</span>
+          </p>
+          <h1 class="post-title">{title}</h1>
+          <p class="post-meta">
+            <time datetime={pubDate.toISOString()}>{fmt(pubDate)}</time>
+            {updatedDate && (
+              <span class="post-meta-sep">/ 更新 <time datetime={updatedDate.toISOString()}>{fmt(updatedDate)}</time></span>
+            )}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container post-grid">
+      <div class="post-content">
+        <slot />
+
+        {tags.length > 0 && (
+          <div class="post-tags" aria-label="タグ">
+            {tags.map((t) => <span class="post-tag">#{t}</span>)}
+          </div>
+        )}
+
+        <aside class="post-cta">
+          <p class="post-cta-lead">この空間を貸切で予約する</p>
+          <p class="post-cta-sub">CINEMA REEL 新宿は新宿駅徒歩2分、最大6名のプライベートシネマ。空き状況とご予約はスペースマーケットから。</p>
+          <a class="post-cta-btn" href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">
+            予約サイトを開く
+          </a>
+        </aside>
+      </div>
+
+      <aside class="post-side">
+        <div class="post-side-card">
+          <h3>CINEMA REEL 新宿</h3>
+          <ul>
+            <li>新宿駅徒歩2分・大江戸線新宿西口駅徒歩1分</li>
+            <li>EPSON 4Kプロジェクター + 大型スクリーン</li>
+            <li>Netflix / Prime / U-NEXT / Disney+ / Abema 視聴可</li>
+            <li>最大6名・約19㎡（12畳）</li>
+            <li>営業時間 7:00 – 23:00</li>
+          </ul>
+          <a class="post-side-link" href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">
+            空き状況を確認 →
+          </a>
+        </div>
+
+        <div class="post-side-card subtle">
+          <h3>ブログ一覧</h3>
+          <p><a href="/blog/">記事一覧へ →</a></p>
+        </div>
+      </aside>
+    </div>
+  </article>
+
+  <style>
+    .post-body { background: var(--bg); }
+
+    .post-hero {
+      min-height: 360px;
+      background-size: cover;
+      background-position: center;
+      background-color: var(--bg-deep);
+      position: relative;
+      border-bottom: 1px solid var(--film-edge);
+    }
+    .post-hero-overlay {
+      min-height: 360px;
+      display: flex;
+      align-items: flex-end;
+      background: linear-gradient(180deg, rgba(5,4,3,0.55) 0%, rgba(5,4,3,0.92) 100%);
+      padding: 60px 0 40px;
+    }
+    .post-meta-top { margin: 0 0 16px; }
+    .post-title {
+      font-family: var(--font-jp);
+      font-weight: 700;
+      font-size: clamp(1.7rem, 4vw, 2.6rem);
+      color: var(--ink);
+      margin: 0;
+      line-height: 1.4;
+      max-width: 920px;
+    }
+    .post-meta {
+      margin: 18px 0 0;
+      font-family: var(--font-aux);
+      letter-spacing: 0.18em;
+      color: var(--ink-muted);
+      font-size: 0.85rem;
+    }
+    .post-meta-sep { margin-left: 10px; }
+
+    .post-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 56px;
+      padding-top: 56px;
+      padding-bottom: 80px;
+    }
+    @media (max-width: 900px) {
+      .post-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    .post-content :global(p) {
+      font-family: var(--font-jp);
+      color: #ece1cb;
+      font-size: 1.02rem;
+      line-height: 2;
+      letter-spacing: 0.04em;
+      margin: 0 0 1.6em;
+    }
+    .post-content :global(h2) {
+      font-family: var(--font-jp);
+      font-weight: 700;
+      font-size: 1.45rem;
+      color: var(--gold-bright);
+      margin: 2.4em 0 0.9em;
+      padding-bottom: 0.4em;
+      border-bottom: 1px solid var(--film-edge);
+      letter-spacing: 0.05em;
+    }
+    .post-content :global(h3) {
+      font-family: var(--font-jp);
+      font-weight: 600;
+      font-size: 1.18rem;
+      color: var(--ink);
+      margin: 2em 0 0.7em;
+      letter-spacing: 0.04em;
+    }
+    .post-content :global(ul),
+    .post-content :global(ol) {
+      padding-left: 1.4em;
+      margin: 0 0 1.6em;
+      color: #ece1cb;
+    }
+    .post-content :global(li) {
+      margin-bottom: 0.5em;
+      line-height: 1.9;
+    }
+    .post-content :global(a) {
+      color: var(--gold-bright);
+      border-bottom: 1px dashed var(--gold);
+    }
+    .post-content :global(a:hover) {
+      color: var(--ink);
+      border-bottom-color: var(--ink);
+    }
+    .post-content :global(blockquote) {
+      border-left: 3px solid var(--gold);
+      padding: 0.6em 1.2em;
+      margin: 1.6em 0;
+      color: var(--ink-muted);
+      background: rgba(201,169,97,0.04);
+      font-style: italic;
+    }
+    .post-content :global(strong) { color: var(--gold-bright); font-weight: 600; }
+    .post-content :global(img) {
+      border-radius: var(--radius);
+      margin: 1.2em 0;
+      border: 1px solid var(--film-edge);
+    }
+    .post-content :global(table) {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.4em 0;
+      font-size: 0.95rem;
+    }
+    .post-content :global(th),
+    .post-content :global(td) {
+      border: 1px solid var(--film-edge);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .post-content :global(th) {
+      background: var(--bg-card);
+      color: var(--gold-bright);
+      font-weight: 600;
+    }
+
+    .post-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 32px 0 0;
+      padding-top: 24px;
+      border-top: 1px dashed var(--film-edge);
+    }
+    .post-tag {
+      font-family: var(--font-aux);
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.1em;
+    }
+
+    .post-cta {
+      margin: 56px 0 0;
+      padding: 36px 32px;
+      border: 1px solid var(--gold);
+      background: linear-gradient(180deg, rgba(201,169,97,0.05), transparent);
+      border-radius: var(--radius);
+      text-align: center;
+    }
+    .post-cta-lead {
+      margin: 0 0 12px;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--gold-bright);
+      letter-spacing: 0.08em;
+    }
+    .post-cta-sub {
+      margin: 0 0 22px;
+      color: var(--ink-muted);
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+    .post-cta-btn {
+      display: inline-block;
+      padding: 14px 38px;
+      background: var(--gold);
+      color: var(--bg-deep);
+      font-family: var(--font-display);
+      font-style: italic;
+      letter-spacing: 0.18em;
+      font-size: 0.95rem;
+      transition: background 0.25s ease;
+    }
+    .post-cta-btn:hover { background: var(--gold-bright); color: var(--bg-deep); }
+
+    .post-side { display: flex; flex-direction: column; gap: 24px; position: sticky; top: 96px; align-self: start; }
+    .post-side-card {
+      padding: 24px 22px;
+      border: 1px solid var(--film-edge);
+      background: var(--bg-card);
+      border-radius: var(--radius);
+    }
+    .post-side-card h3 {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.05rem;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      margin: 0 0 14px;
+    }
+    .post-side-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .post-side-card li {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: var(--ink-muted);
+      padding-left: 14px;
+      position: relative;
+    }
+    .post-side-card li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+    }
+    .post-side-link {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-style: italic;
+      letter-spacing: 0.1em;
+      color: var(--gold-bright);
+      font-size: 0.9rem;
+    }
+    .post-side-card.subtle { background: transparent; }
+  </style>
+</Layout>
