@@ -126,12 +126,19 @@ npm run new-post -- "新宿で○○する完全ガイド" デート 誕生日 �
 ## サーバー情報（重要）
 
 - ホスティング: お名前.com RSプラン
-- 公開フォルダ: `/public_html/cinema-reel.com/`
+- 公開フォルダ（サーバー絶対パス）: `/public_html/cinema-reel.com/`
 - SSL: 無料SSL（Let's Encrypt）
 - リダイレクト: `.htaccess` で http → https（既存設定維持）
 - GitHub Secrets: `FTP_SERVER` / `FTP_USERNAME` / `FTP_PASSWORD`
 
-`server-dir` は **`/public_html/cinema-reel.com/`** が正解（逆順 `/cinema-reel.com/public_html/` ではない）。
+### `server-dir` の罠（実機で確認済み）
+
+お名前.com Navi 「ファイル管理 → 選択中のドメイン: cinema-reel.com」から作成した FTP アカウントは **ドメインスコープ**で、ログイン時の root（`/`）がすでに `/public_html/cinema-reel.com/` の中を指す。
+そのため deploy.yml の `server-dir` は **`./` が正解**。
+絶対パス `/public_html/cinema-reel.com/` を指定すると `550 Can't change directory` が発生する。
+
+逆に、お名前.com の master FTP アカウント（全ドメイン横断で使うタイプ）を使う場合は `/public_html/cinema-reel.com/` が正解になる。
+**今回のリポジトリで使っているのはドメインスコープ FTP** なので `./` を維持すること。
 
 ## お問い合わせフォーム
 

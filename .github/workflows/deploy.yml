@@ -31,7 +31,10 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: /public_html/cinema-reel.com/
+          # Onamae.com domain-scoped FTP account: login root is already
+          # /public_html/cinema-reel.com/, so use "./" not the absolute path.
+          server-dir: ./
+          log-level: standard
           exclude: |
             **/.git*
             **/.git*/**
