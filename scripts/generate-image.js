@@ -65,22 +65,35 @@ export async function generateImage({
   }
 
   console.log(`🎨 generate: ${rel}`);
-  const response = await fetch('https://api.openai.com/v1/images/generations', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model: 'dall-e-3',
-      prompt,
-      n: 1,
-      size,
-      style,
-      quality,
-      response_format: 'b64_json',
-    }),
-  });
+
+  // Tier-0 OpenAI accounts cap DALL-E 3 around 1 image/min.
+  // Retry on 429 with backoff so a single workflow run can finish a batch.
+  const MAX_ATTEMPTS = 5;
+  const BACKOFFS_MS = [30_000, 60_000, 75_000, 90_000];
+  let response;
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    response = await fetch('https://api.openai.com/v1/images/generations', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'dall-e-3',
+        prompt,
+        n: 1,
+        size,
+        style,
+        quality,
+        response_format: 'b64_json',
+      }),
+    });
+
+    if (response.status !== 429 || attempt === MAX_ATTEMPTS) break;
+    const wait = BACKOFFS_MS[attempt - 1] ?? 90_000;
+    console.log(`   ⏳ 429 rate-limited, retrying in ${Math.round(wait / 1000)}s (attempt ${attempt}/${MAX_ATTEMPTS - 1})`);
+    await new Promise((res) => setTimeout(res, wait));
+  }
 
   if (!response.ok) {
     const text = await response.text();

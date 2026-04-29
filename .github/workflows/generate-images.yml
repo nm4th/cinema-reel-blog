@@ -35,6 +35,7 @@ jobs:
           node-version: '20'
 
       - name: Generate images from manifest
+        id: generate
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
@@ -47,7 +48,10 @@ jobs:
           fi
           node scripts/generate-images.js $ARGS
 
+      # Always commit whatever images succeeded, even if some entries 429'd.
+      # Re-running the workflow will pick up the rest via skip-if-exists.
       - name: Commit generated images
+        if: always()
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'

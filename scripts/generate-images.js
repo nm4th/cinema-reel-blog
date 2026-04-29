@@ -58,16 +58,28 @@ async function main() {
 
   const results = { generated: 0, skipped: 0, failed: 0 };
 
-  for (const entry of entries) {
+  // Pause between successful generations to stay under the per-minute rate
+  // limit (Tier 0 ≈ 1 image/min for DALL-E 3). Skips/failures don't pause.
+  const THROTTLE_MS = 8_000;
+
+  for (let i = 0; i < entries.length; i++) {
+    const entry = entries[i];
+    let didCall = false;
     try {
       const r = await generateImage({ ...entry, overwrite: force });
       if (r.skipped) results.skipped++;
-      else results.generated++;
+      else {
+        results.generated++;
+        didCall = true;
+      }
     } catch (err) {
       console.error(`❌ ${entry.slug}/${entry.filename}: ${err.message}`);
       results.failed++;
     }
     console.log('');
+    if (didCall && i < entries.length - 1) {
+      await new Promise((res) => setTimeout(res, THROTTLE_MS));
+    }
   }
 
   console.log('────────────────────────────');
