@@ -146,7 +146,37 @@ npm run new-post -- "新宿で○○する完全ガイド" デート 誕生日 �
 FTP サーバー（実機）: `www1020.onamae.ne.jp`
 接続先ディレクトリ（クライアント設定では入力不要）: `/home/r9262022/public_html/`
 
-## お問い合わせフォーム
+## 画像生成（DALL-E MCP）
+
+`.mcp.json` でプロジェクトローカルの DALL-E MCP サーバーを登録済み。
+詳しい使い方は `mcp-servers/dalle/README.md` を参照。
+
+ざっくり:
+
+```
+mcp__dalle__generate_image
+  prompt:  英語の詳細プロンプト（dark cinematic, gold/crimson 推奨）
+  slug:    記事スラッグ → 保存フォルダ名
+  size:    1792x1024 (default) / 1024x1024 / 1024x1792
+  style:   natural (default) / vivid
+  quality: standard (default) / hd
+```
+
+→ `public/images/blog/<slug>/NN.png` に保存され、`![](/images/blog/<slug>/NN.png)`
+で記事に貼れる。
+
+CINEMA REEL 新宿の世界観に合わせるための英語プロンプトひな形:
+
+```
+A dark cinematic interior of a private screening room in Tokyo Shinjuku,
+warm gold accent lighting, soft film grain, deep shadows, crimson velvet
+sofa, large projection screen showing [SCENE], shallow depth of field,
+35mm film photography aesthetic, moody and intimate atmosphere.
+```
+
+API キーは `.env.local`（プロジェクトルート、git無視）に置く。
+
+
 
 - サービス: Formspree（無料プラン）
 - フォーム ID: `xqewogvj`

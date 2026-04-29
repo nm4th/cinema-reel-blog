@@ -1,0 +1,15 @@
+{
+  "name": "cinema-reel-dalle-mcp",
+  "version": "0.1.0",
+  "description": "Project-local MCP server that generates images via OpenAI DALL-E 3 and saves them under public/images/blog/.",
+  "type": "module",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "openai": "^4.71.1"
+  }
+}
