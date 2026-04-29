@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "dalle": {
-      "command": "node",
-      "args": ["./mcp-servers/dalle/server.js"]
-    }
-  }
-}

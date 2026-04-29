@@ -1,0 +1,65 @@
+name: Generate Blog Images (DALL-E)
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Force regenerate all (override skip-if-exists; will burn API credits)'
+        type: boolean
+        default: false
+      slug:
+        description: 'Optional: only generate images for this slug (filter)'
+        type: string
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: generate-images
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Need a token that can push commits back to main
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate images from manifest
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          ARGS=""
+          if [[ "${{ inputs.force }}" == "true" ]]; then
+            ARGS="$ARGS --force"
+          fi
+          if [[ -n "${{ inputs.slug }}" ]]; then
+            ARGS="$ARGS --slug ${{ inputs.slug }}"
+          fi
+          node scripts/generate-images.js $ARGS
+
+      - name: Commit generated images
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/images/
+          if git diff --cached --quiet; then
+            echo "No new images to commit."
+            exit 0
+          fi
+          NEW_COUNT=$(git diff --cached --name-only --diff-filter=A | grep -c '^public/images/' || true)
+          MSG="feat(images): generate $NEW_COUNT blog image(s) via DALL-E"
+          if [[ "${{ inputs.force }}" == "true" ]]; then
+            MSG="$MSG (force)"
+          fi
+          git commit -m "$MSG"
+          git push origin HEAD:main

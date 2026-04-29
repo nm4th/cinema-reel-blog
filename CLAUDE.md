@@ -146,35 +146,71 @@ npm run new-post -- "新宿で○○する完全ガイド" デート 誕生日 �
 FTP サーバー（実機）: `www1020.onamae.ne.jp`
 接続先ディレクトリ（クライアント設定では入力不要）: `/home/r9262022/public_html/`
 
-## 画像生成（DALL-E MCP）
+## 画像生成（DALL-E via GitHub Actions）
 
-`.mcp.json` でプロジェクトローカルの DALL-E MCP サーバーを登録済み。
-詳しい使い方は `mcp-servers/dalle/README.md` を参照。
+サンドボックス（Claude Code Web / Mac Desktop）からは外部 API へのアクセスが制限されているので、
+画像生成は **GitHub Actions の hosted runner で OpenAI DALL-E 3 を叩く**構成にしてある。
 
-ざっくり:
+### 仕組み
 
 ```
-mcp__dalle__generate_image
-  prompt:  英語の詳細プロンプト（dark cinematic, gold/crimson 推奨）
-  slug:    記事スラッグ → 保存フォルダ名
-  size:    1792x1024 (default) / 1024x1024 / 1024x1792
-  style:   natural (default) / vivid
-  quality: standard (default) / hd
+scripts/image-manifest.json         ← 画像ごとに prompt/slug/size/style/quality を定義
+scripts/generate-image.js           ← OpenAI Images API を直叩きする最小スクリプト（依存ゼロ）
+scripts/generate-images.js          ← マニフェストを読んで一括生成、skip-if-exists
+.github/workflows/generate-images.yml ← workflow_dispatch で手動起動、結果を main にコミット
 ```
 
-→ `public/images/blog/<slug>/NN.png` に保存され、`![](/images/blog/<slug>/NN.png)`
-で記事に貼れる。
+### 使い方（GitHub UI）
 
-CINEMA REEL 新宿の世界観に合わせるための英語プロンプトひな形:
+1. リポジトリの **Actions タブ** → 左ペインから **"Generate Blog Images (DALL-E)"** を選択
+2. 右上の **Run workflow** を押す
+3. オプション:
+   - `force` ― true にすると既存画像も再生成（API クレジット消費注意）
+   - `slug` ― 特定の記事スラッグだけに絞り込み（空欄ならマニフェスト全件）
+4. 実行 → 数分後、`public/images/blog/<slug>/<filename>.png` がコミットされる
+5. main への push で FTP デプロイが連動して走る
+
+### 新しい記事に画像を足したい時
+
+1. `scripts/image-manifest.json` に新しい entry を追加
+   ```json
+   {
+     "slug": "<記事のスラッグ>",
+     "filename": "hero",
+     "size": "1792x1024",
+     "style": "vivid",
+     "quality": "hd",
+     "prompt": "<英語の詳細プロンプト>"
+   }
+   ```
+2. main に push（マニフェスト更新だけ）
+3. Actions タブから手動で **Run workflow** を実行
+4. 新規 entry のみ生成（既存はスキップ）
+
+### コスト目安（DALL-E 3）
+
+| 解像度 | standard | hd |
+| ---- | ---- | ---- |
+| 1024×1024 | $0.040 | $0.080 |
+| 1792×1024 / 1024×1792 | $0.080 | $0.120 |
+
+各記事 hero(hd) 1枚 + inline(standard) 3枚 = $0.36/記事。
+
+### CINEMA REEL 新宿の世界観に合わせる英語プロンプトひな形
 
 ```
 A dark cinematic interior of a private screening room in Tokyo Shinjuku,
-warm gold accent lighting, soft film grain, deep shadows, crimson velvet
-sofa, large projection screen showing [SCENE], shallow depth of field,
-35mm film photography aesthetic, moody and intimate atmosphere.
+warm gold and crimson accent lighting, soft 35mm film grain, deep shadows,
+[SCENE], shallow depth of field, intimate atmosphere, no readable text
 ```
 
-API キーは `.env.local`（プロジェクトルート、git無視）に置く。
+DALL-E は文字レンダが弱いので **「no readable text」「no clearly identifiable
+corporate logos」を明示**しておくと事故が減る。人物は anonymous silhouettes /
+back view に逃がすと不気味の谷を回避しやすい。
+
+### GitHub Secrets
+
+- `OPENAI_API_KEY` ― OpenAI Platform で発行、課金設定済みのアカウントのもの
 
 
 
