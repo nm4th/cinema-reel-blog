@@ -133,12 +133,18 @@ npm run new-post -- "新宿で○○する完全ガイド" デート 誕生日 �
 
 ### `server-dir` の罠（実機で確認済み）
 
-お名前.com Navi 「ファイル管理 → 選択中のドメイン: cinema-reel.com」から作成した FTP アカウントは **ドメインスコープ**で、ログイン時の root（`/`）がすでに `/public_html/cinema-reel.com/` の中を指す。
-そのため deploy.yml の `server-dir` は **`./` が正解**。
-絶対パス `/public_html/cinema-reel.com/` を指定すると `550 Can't change directory` が発生する。
+お名前.com RS プランの FTP アカウント（例: `cinema-reel@cinema-reel.com`）は、ログイン後 **chroot されてユーザーから見た `/` が `/home/<acct>/public_html/`** になる。
+そして「※ホームページデータは public_html 内の各ドメイン名のフォルダにアップロードしてください」と Navi 側にも明記されている通り、各ドメインのファイルは chroot 直下の **ドメイン名フォルダ**に置く必要がある。
 
-逆に、お名前.com の master FTP アカウント（全ドメイン横断で使うタイプ）を使う場合は `/public_html/cinema-reel.com/` が正解になる。
-**今回のリポジトリで使っているのはドメインスコープ FTP** なので `./` を維持すること。
+したがって deploy.yml の `server-dir` は **`./cinema-reel.com/` が正解**。
+
+実機で踏んだ NG パターン:
+- ❌ `/public_html/cinema-reel.com/` ― chroot を超える絶対パス → `550 Can't change directory`
+- ❌ `./` ― chroot 直下（= `public_html/` 直下）に配置されてしまい、Web で公開されない
+- ✅ `./cinema-reel.com/` ― 正解
+
+FTP サーバー（実機）: `www1020.onamae.ne.jp`
+接続先ディレクトリ（クライアント設定では入力不要）: `/home/r9262022/public_html/`
 
 ## お問い合わせフォーム
 

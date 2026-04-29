@@ -31,9 +31,10 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          # Onamae.com domain-scoped FTP account: login root is already
-          # /public_html/cinema-reel.com/, so use "./" not the absolute path.
-          server-dir: ./
+          # Onamae.com RS plan FTP: user chroot is /home/<acct>/public_html/.
+          # Each domain's files must go into a subfolder named after the domain.
+          # So we deploy to ./cinema-reel.com/ relative to the chroot.
+          server-dir: ./cinema-reel.com/
           log-level: standard
           exclude: |
             **/.git*
