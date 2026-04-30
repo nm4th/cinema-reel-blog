@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { resolvePostThumbnail } from '../lib/post.ts';
 
 const posts = (await getCollection('posts', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
@@ -511,10 +512,12 @@ const venuePhotos = [
           <a class="more-link" href="/blog/">ブログ一覧へ →</a>
         </div>
         <div class="blog-grid stagger reveal-up">
-          {posts.map((post) => (
+          {posts.map((post) => {
+            const thumb = resolvePostThumbnail(post.data);
+            return (
             <a class="blog-card" href={`/blog/${post.slug}/`}>
-              {post.data.heroImage && (
-                <div class="blog-card-img" style={`background-image: url('${post.data.heroImage}');`}></div>
+              {thumb && (
+                <div class="blog-card-img" style={`background-image: url('${thumb}');`}></div>
               )}
               <div class="blog-card-body">
                 <p class="blog-card-meta">
@@ -526,7 +529,8 @@ const venuePhotos = [
                 <p class="blog-card-desc">{post.data.description}</p>
               </div>
             </a>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

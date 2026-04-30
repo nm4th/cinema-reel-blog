@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { resolvePostThumbnail } from '../../../lib/post.ts';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts', ({ data }) => !data.draft);
@@ -42,11 +43,13 @@ const fmt = (d: Date) =>
   <section class="blog-list-section">
     <div class="container">
       <ul class="blog-list">
-        {posts.map((post) => (
+        {posts.map((post) => {
+          const thumb = resolvePostThumbnail(post.data);
+          return (
           <li class="blog-row">
             <a href={`/blog/${post.slug}/`} class="blog-row-link">
-              {post.data.heroImage && (
-                <div class="blog-row-img" style={`background-image: url('${post.data.heroImage}');`}></div>
+              {thumb && (
+                <div class="blog-row-img" style={`background-image: url('${thumb}');`}></div>
               )}
               <div class="blog-row-body">
                 <p class="blog-row-meta">
@@ -57,7 +60,8 @@ const fmt = (d: Date) =>
               </div>
             </a>
           </li>
-        ))}
+          );
+        })}
       </ul>
     </div>
   </section>

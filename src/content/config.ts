@@ -9,6 +9,7 @@ const posts = defineCollection({
     updatedDate: z.coerce.date().optional(),
     category: z.enum([
       '利用ガイド',
+      '上映ガイド',
       '推し活',
       'デート',
       'パーティー',

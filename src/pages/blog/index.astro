@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { resolvePostThumbnail } from '../../lib/post.ts';
 
 const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
@@ -47,11 +48,13 @@ const categories = Array.from(new Set(posts.map((p) => p.data.category)));
         <p class="blog-empty">記事を準備中です。</p>
       ) : (
         <ul class="blog-list">
-          {posts.map((post) => (
+          {posts.map((post) => {
+            const thumb = resolvePostThumbnail(post.data);
+            return (
             <li class="blog-row">
               <a href={`/blog/${post.slug}/`} class="blog-row-link">
-                {post.data.heroImage && (
-                  <div class="blog-row-img" style={`background-image: url('${post.data.heroImage}');`}></div>
+                {thumb && (
+                  <div class="blog-row-img" style={`background-image: url('${thumb}');`}></div>
                 )}
                 <div class="blog-row-body">
                   <p class="blog-row-meta">
@@ -64,7 +67,8 @@ const categories = Array.from(new Set(posts.map((p) => p.data.category)));
                 </div>
               </a>
             </li>
-          ))}
+            );
+          })}
         </ul>
       )}
     </div>
