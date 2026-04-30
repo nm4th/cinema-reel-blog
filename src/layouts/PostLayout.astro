@@ -175,11 +175,15 @@ const breadcrumbs = [
       margin-bottom: 0.5em;
       line-height: 1.9;
     }
-    .post-content :global(a) {
+    /* Inline article links use gold-bright with a dashed underline.
+       The `:not(.post-cta-btn)` exclusion prevents this style from
+       leaking into the gold pill button below the article body — that
+       button needs deep-black text on gold for readable contrast. */
+    .post-content :global(a:not(.post-cta-btn)) {
       color: var(--gold-bright);
       border-bottom: 1px dashed var(--gold);
     }
-    .post-content :global(a:hover) {
+    .post-content :global(a:not(.post-cta-btn):hover) {
       color: var(--ink);
       border-bottom-color: var(--ink);
     }
