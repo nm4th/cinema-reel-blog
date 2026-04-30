@@ -4,12 +4,20 @@ description: "Netflix Japan で4月2日に全10話一挙配信された話題の
 pubDate: 2026-04-30
 category: "推し活"
 tags: ["Netflix", "九条の大罪", "話題作", "上映ガイド", "柳楽優弥", "松村北斗", "池田エライザ", "リーガルドラマ"]
-heroImage: "/images/blog/2026-04-30-kujo-no-taizai-netflix-watch-guide/hero.png"
 ---
 
 Netflix Japan で2026年4月2日に全10話一挙配信が始まった『九条の大罪』が、配信開始から数週間が経った今も Netflix Japan のランキング上位を走り続けています。原作は真鍋昌平のリーガルマンガ、主演は柳楽優弥、共演に松村北斗、池田エライザ、生田斗真ら——「悪徳弁護士」と呼ばれる九条間人が、現実の「黒」を弁護していく姿を描く硬派なリーガルドラマです。
 
-本記事では、公式から発表されている **配信情報・キャスト・公式予告編** を整理し、最後に「全10話を友達や家族と大画面で観るならどう組むか」までまとめました。題材的に重い作品なので、深夜に1人で——ではなく、感想を交わしながら観ると面白さが倍増するタイプの作品でもあります。
+本記事では、公式から発表されている **配信情報・キャスト・公式予告編・特別映像** を整理し、最後に「全10話を友達や家族と大画面で観るならどう組むか」までまとめました。題材的に重い作品なので、深夜に1人で——ではなく、感想を交わしながら観ると面白さが倍増するタイプの作品でもあります。
+
+まずはトーンを掴むために Netflix Japan 公式チャンネルが公開している予告編をどうぞ。
+
+<div class="video-embed">
+  <iframe
+    src="https://www.youtube.com/embed/7rVBPPvqPzc"
+    title="九条の大罪 公式予告編 | Netflix"
+    allowfullscreen loading="lazy"></iframe>
+</div>
 
 ## 作品概要 ― 4月2日に全10話一挙配信、Netflix Japan ランキング上位を継続
 
@@ -40,20 +48,40 @@ Netflix Japan で2026年4月2日に全10話一挙配信が始まった『九条�
 
 ファン層の重なる SixTONES の松村北斗目当てで観始めた人が、柳楽優弥の九条にハマって沼に落ちる——という流れも SNS で観測されています。
 
-## 公式予告編
-
-実際のトーンを掴むには、Netflix公式チャンネルが公開している予告編を観るのがいちばん早いです。
+原作者・真鍋昌平とキャストによる対談映像も Netflix Japan 公式から公開されています。原作からの再現度や、現場の空気感が見えるVol.1がこちら。
 
 <div class="video-embed">
   <iframe
-    src="https://www.youtube.com/embed/7rVBPPvqPzc"
-    title="九条の大罪 公式予告編 | Netflix"
+    src="https://www.youtube.com/embed/AfXts8q0B1g"
+    title="九条の大罪 原作者 × キャスト対談 Vol.1 | Netflix Japan"
     allowfullscreen loading="lazy"></iframe>
 </div>
 
-「合法か違法かの線引き」「依頼人の罪と向き合う弁護士の倫理」というテーマが、約2分の映像にぎゅっと圧縮されています。「悪徳弁護士」のフレーズに対して九条が放つセリフが、本作の核を端的に表しています。
+## 九条と烏丸の初対面シーン ― 公式特別映像
 
-別バージョンとして、九条と烏丸の初対面シーンを切り出した特別映像も Netflix Japan が公開しています — [柳楽優弥 × 松村北斗 - 九条と烏丸の初対面](https://www.youtube.com/watch?v=bwEOAJFk1K8)。
+物語の核となる九条と烏丸の出会いは、1話の前半で描かれます。Netflix Japan 公式チャンネルが、その対面シーンを特別映像として公開しています。
+
+<div class="video-embed">
+  <iframe
+    src="https://www.youtube.com/embed/bwEOAJFk1K8"
+    title="九条の大罪 柳楽優弥 × 松村北斗 - 九条と烏丸の初対面 | Netflix Japan"
+    allowfullscreen loading="lazy"></iframe>
+</div>
+
+東大法学部主席卒のエリート烏丸が、なぜ「悪徳弁護士」と呼ばれる九条のもとで働くことを選んだのか——本編を観る前にこのシーンだけでも、本作のテンポと語り口がつかめます。
+
+## 撮影の裏側 ― 「バディの空気感」はこう作られた
+
+柳楽優弥と松村北斗のコンビ感は、画面越しに伝わる関係性の「ほぐれ具合」が見どころのひとつ。Netflix Japan 公式が、その撮影裏側を特別映像として公開しています。
+
+<div class="video-embed">
+  <iframe
+    src="https://www.youtube.com/embed/TDh0YRk-8i8"
+    title="九条の大罪 バディの裏側 | Netflix Japan"
+    allowfullscreen loading="lazy"></iframe>
+</div>
+
+本編を観たあと（あるいは観ながら休憩がてら）に流すと、各シーンの撮影意図が補完されて作品の解像度が一段上がります。
 
 ## 大画面で観たい人向けの選択肢 ― 全10話の重みを正面から受け止める
 

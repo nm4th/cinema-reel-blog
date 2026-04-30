@@ -15,8 +15,22 @@ const { title, description, pubDate, updatedDate, category, tags = [], heroImage
 
 const fmt = (d: Date) =>
   new Intl.DateTimeFormat('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' }).format(d);
+
+const breadcrumbs = [
+  { name: 'ホーム', url: '/' },
+  { name: 'ブログ', url: '/blog/' },
+  { name: category, url: `/blog/category/${encodeURIComponent(category)}/` },
+  { name: title, url: Astro.url.pathname },
+];
 ---
-<Layout title={`${title}｜CINEMA REEL 新宿`} description={description} ogImage={heroImage} bodyClass="post-body">
+<Layout
+  title={`${title}｜CINEMA REEL 新宿`}
+  description={description}
+  ogImage={heroImage}
+  bodyClass="post-body"
+  article={{ pubDate, updatedDate, section: category, tags }}
+  breadcrumbs={breadcrumbs}
+>
   <article class="post">
     <div class="post-hero" style={heroImage ? `background-image: url('${heroImage}');` : ''}>
       <div class="post-hero-overlay">

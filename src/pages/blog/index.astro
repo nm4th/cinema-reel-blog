@@ -14,6 +14,10 @@ const categories = Array.from(new Set(posts.map((p) => p.data.category)));
 <Layout
   title="ブログ｜CINEMA REEL 新宿"
   description="新宿のレンタルシアター CINEMA REEL の公式ブログ。プライベートシネマの楽しみ方、推し活上映会、誕生日サプライズ、デート利用などのアイデアと、新宿駅近のスペース選びの知見を発信。"
+  breadcrumbs={[
+    { name: 'ホーム', url: '/' },
+    { name: 'ブログ', url: '/blog/' },
+  ]}
 >
   <section class="blog-hero">
     <div class="container">

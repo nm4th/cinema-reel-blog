@@ -24,6 +24,11 @@ const fmt = (d: Date) =>
 <Layout
   title={`${category}｜CINEMA REEL 新宿 ブログ`}
   description={`CINEMA REEL 新宿のブログ「${category}」カテゴリの記事一覧です。`}
+  breadcrumbs={[
+    { name: 'ホーム', url: '/' },
+    { name: 'ブログ', url: '/blog/' },
+    { name: category, url: `/blog/category/${encodeURIComponent(category)}/` },
+  ]}
 >
   <section class="blog-hero">
     <div class="container">
