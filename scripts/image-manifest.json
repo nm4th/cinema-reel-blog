@@ -147,6 +147,15 @@
       "style": "natural",
       "quality": "standard",
       "prompt": "Cinematic close-up of a professional DSLR camera mounted on a tripod set up in a dim private cinema room, detailed lens visible in sharp focus, ring light off-frame casting warm gold rim light on the camera body, large blurred projection screen in the background showing a soft abstract glow, dark wood floor and crimson velvet sofa hinted around, soft 35mm film grain, shallow depth of field, no people, no readable text, no clearly identifiable corporate logos"
+    },
+
+    {
+      "slug": "home-decor",
+      "filename": "booking-flow-bg",
+      "size": "1792x1024",
+      "style": "natural",
+      "quality": "standard",
+      "prompt": "Wide cinematic top-down view of a mobile phone resting on a dark wood surface, screen softly glowing with a calendar grid (no readable text or numbers, just abstract grid lines), a small brass key beside it, a folded leather notebook, a tumbler with golden liquid catching warm light, soft gold rim lighting from the side, deep shadows around the edges, 35mm film grain, shallow depth of field, no people, no logos, premium concierge-service aesthetic"
     }
   ]
 }
