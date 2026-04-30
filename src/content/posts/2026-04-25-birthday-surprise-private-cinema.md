@@ -4,7 +4,7 @@ description: "新宿駅徒歩2分のプライベートシネマで誕生日サ�
 pubDate: 2026-04-25
 category: "デート"
 tags: ["誕生日", "サプライズ", "新宿", "デート", "プライベートシネマ", "貸切"]
-heroImage: "https://cdnspacemarket.com/uploads/attachments/1571410/image.jpg?width=1200&quality=85&format=jpg&auto=webp"
+heroImage: "/images/blog/2026-04-25-birthday-surprise-private-cinema/hero.png"
 ---
 
 新宿で誕生日サプライズを企画したい——でも、レストランの個室では他の席が気になり、ホテルのスイートはハードルが高い、家ではどうしても日常感が抜けない。そんな「ちょうどいい特別感」を探している方に向けて、CINEMA REEL 新宿で実際に行われている誕生日サプライズの組み立て方を、当日の動線に沿ってご紹介します。
@@ -25,6 +25,11 @@ heroImage: "https://cdnspacemarket.com/uploads/attachments/1571410/image.jpg?wid
 
 ### 第1部：到着〜入室の演出（約10分）
 
+<figure class="post-figure">
+  <img src="/images/blog/2026-04-25-birthday-surprise-private-cinema/01-entrance.png" alt="ドアの隙間から漏れる温かいゴールドの光と、暗い部屋に映し出されたスクリーン" loading="lazy" />
+  <figcaption>ドアを開けた瞬間に視覚情報が一気に飛び込む——サプライズの最初のピーク。</figcaption>
+</figure>
+
 主役を入室させる瞬間が、サプライズの最初のピークです。先に入室した参加者が照明を暗めにセットし、スクリーンには「Happy Birthday, ○○」のスライドや、出会った頃の写真スライドショーを静止画として表示しておく。ドアを開けた瞬間に、視覚情報が一気に飛び込む構成です。
 
 ここで大事なのは、**「いきなり全員で叫ばない」**こと。映画館のような暗さと大画面の存在感が先に主役を圧倒するように設計すると、感情の波が一段深くなります。声を上げるのは、主役がスクリーンに気付いて立ち止まったあと、ワンテンポ遅れてからで十分。
@@ -43,6 +48,11 @@ heroImage: "https://cdnspacemarket.com/uploads/attachments/1571410/image.jpg?wid
 
 ## メッセージ動画を「映画館仕様」で作る
 
+<figure class="post-figure">
+  <img src="/images/blog/2026-04-25-birthday-surprise-private-cinema/02-screening.png" alt="プライベートシネマの大画面でメッセージ動画を上映している様子" loading="lazy" />
+  <figcaption>4Kプロジェクターの大画面で観るメッセージ動画は、スマホとはまるで別物の重みを持つ。</figcaption>
+</figure>
+
 スマホで見るために作られた縦長・短尺の動画と、大画面で観るための動画は、別物として考えたほうが成功率が上がります。
 
 **画面比は16:9の横長で。** プロジェクターは横長スクリーン前提なので、縦長動画を流すと両端が黒くなり、せっかくの大画面を活かせません。スマホで撮影した素材も、編集時に16:9のキャンバスに配置し直すだけで印象が大きく変わります。
@@ -56,6 +66,11 @@ heroImage: "https://cdnspacemarket.com/uploads/attachments/1571410/image.jpg?wid
 動画の長さは10〜15分が目安。20分を超えると、観る側の集中が落ちてくる傾向があります。
 
 ## ケーキはどこで買う？ ― 新宿駅周辺の調達ルート
+
+<figure class="post-figure">
+  <img src="/images/blog/2026-04-25-birthday-surprise-private-cinema/03-table.png" alt="ダークウッドのテーブルに並ぶカット済みケーキ・グラス・キャンドル" loading="lazy" />
+  <figcaption>ホールケーキとワイングラス、LEDキャンドル——ダークな空間に映える誕生日のテーブル。</figcaption>
+</figure>
 
 CINEMA REEL 新宿は新宿駅から徒歩2分なので、駅構内・駅ビルでケーキを調達してそのまま向かう動線が組めます。
 

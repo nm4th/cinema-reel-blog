@@ -183,6 +183,25 @@ const fmt = (d: Date) =>
       margin: 1.2em 0;
       border: 1px solid var(--film-edge);
     }
+    .post-content :global(figure) {
+      margin: 2em 0;
+      padding: 0;
+    }
+    .post-content :global(figure img) {
+      width: 100%;
+      display: block;
+      margin: 0;
+    }
+    .post-content :global(figcaption) {
+      margin-top: 12px;
+      font-family: var(--font-aux);
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+      text-align: center;
+      letter-spacing: 0.06em;
+      line-height: 1.6;
+    }
     .post-content :global(table) {
       width: 100%;
       border-collapse: collapse;

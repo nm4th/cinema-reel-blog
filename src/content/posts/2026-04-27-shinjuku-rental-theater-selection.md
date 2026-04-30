@@ -4,7 +4,7 @@ description: "新宿でレンタルシアター・プライベートシネマを
 pubDate: 2026-04-27
 category: "比較"
 tags: ["新宿", "レンタルシアター", "プライベートシネマ", "選び方", "比較", "予約"]
-heroImage: "https://cdnspacemarket.com/uploads/attachments/1529635/image.jpg?width=1200&quality=85&format=jpg&auto=webp"
+heroImage: "/images/blog/2026-04-27-shinjuku-rental-theater-selection/hero.png"
 ---
 
 「新宿 レンタルシアター」「新宿 プライベートシネマ」で検索すると、いくつかのスペースが候補に挙がります。どれも写真上は綺麗に見えるものの、いざ予約しようと思うと「自分の用途に本当に合うのはどこか」が判断しにくい——というご相談をよくいただきます。
@@ -12,6 +12,11 @@ heroImage: "https://cdnspacemarket.com/uploads/attachments/1529635/image.jpg?wid
 この記事では、新宿エリアでレンタルシアター・プライベートシネマを選ぶときに、**予約ボタンを押す前に確認しておきたい7つの観点**を整理しました。具体的なスペース名を比較するのではなく、「自分にとっての判断軸」を持って選べるようになる、というのがゴールです。
 
 ## 観点1：映像機器のスペック
+
+<figure class="post-figure">
+  <img src="/images/blog/2026-04-27-shinjuku-rental-theater-selection/01-projector.png" alt="天井設置の4Kプロジェクターから大型スクリーンへ伸びる温かい光の円錐" loading="lazy" />
+  <figcaption>天井固定の4Kプロジェクター——スクリーンへ伸びる光の円錐が体験の核を決める。</figcaption>
+</figure>
 
 レンタルシアターと名乗るスペースでも、設置されているプロジェクターのスペックは大きく差があります。最低限チェックしたいのは以下の3点です。
 
@@ -35,6 +40,11 @@ CINEMA REEL 新宿はEPSON 4Kプロジェクターを採用しており、解像
 
 ## 観点3：収容人数と部屋の広さ
 
+<figure class="post-figure">
+  <img src="/images/blog/2026-04-27-shinjuku-rental-theater-selection/02-interior.png" alt="クリムゾンのソファとダークウッドのテーブル、暗いプライベートシネマの内観" loading="lazy" />
+  <figcaption>密度の高い少人数空間——ソファ・テーブル・スクリーンの距離感が一体感を作る。</figcaption>
+</figure>
+
 「最大◯名」という収容人数表記だけでなく、**実際の広さ（㎡ / 畳）**も合わせて確認します。
 
 | 用途 | 推奨広さ |
@@ -48,6 +58,11 @@ CINEMA REEL 新宿はEPSON 4Kプロジェクターを採用しており、解像
 CINEMA REEL 新宿は約19㎡（12畳）で最大6名収容。「少人数で密度高く楽しむ」サイズ感です。
 
 ## 観点4：立地とアクセス
+
+<figure class="post-figure">
+  <img src="/images/blog/2026-04-27-shinjuku-rental-theater-selection/03-shinjuku-station.png" alt="夕暮れの新宿駅西口エリア、駅前のネオンと人の流れ" loading="lazy" />
+  <figcaption>新宿駅西口——多方面の路線が地下通路で結ばれる、東京屈指のターミナル。</figcaption>
+</figure>
 
 新宿といっても、一口にエリアが広いです。「新宿駅から徒歩◯分」だけでなく、**どの出口・どの路線から最も近いか**を確認するのがコツです。
 

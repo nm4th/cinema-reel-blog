@@ -4,7 +4,7 @@ description: "新宿駅徒歩2分のプライベートシネマで、推しの�
 pubDate: 2026-04-26
 category: "推し活"
 tags: ["推し活", "上映会", "新宿", "ライブビューイング", "同担", "プライベートシネマ"]
-heroImage: "https://cdnspacemarket.com/uploads/attachments/1556569/image.jpg?width=1200&quality=85&format=jpg&auto=webp"
+heroImage: "/images/blog/2026-04-26-oshikatsu-screening-guide/hero.png"
 ---
 
 推しのライブ円盤、出演ドラマの最終回、新曲のMV、生配信の同時視聴——家のテレビで観るのとは段違いの没入感で、しかも同担と声を出しながら楽しめる場所が、新宿にあります。CINEMA REEL 新宿は新宿駅西口から徒歩2分の完全貸切プライベートシネマ。EPSON 4Kプロジェクターと大型スクリーンで、推し活上映会のために設計されたかのような空間です。
@@ -12,6 +12,11 @@ heroImage: "https://cdnspacemarket.com/uploads/attachments/1556569/image.jpg?wid
 このページでは、実際に推し活上映会で使われているCINEMA REEL 新宿の活用方法を、企画段階から当日の運営まで、現場で蓄積されたノウハウベースでまとめました。
 
 ## なぜ「推し活上映会」にプライベートシネマが向くのか
+
+<figure class="post-figure">
+  <img src="/images/blog/2026-04-26-oshikatsu-screening-guide/01-penlights.png" alt="ピンクとシアンに光る2本のペンライトのクローズアップ" loading="lazy" />
+  <figcaption>推しのカラーに灯るペンライト——大画面とコールが解き放たれる瞬間のために。</figcaption>
+</figure>
 
 推しのライブ円盤を家のテレビで観るとき、どうしても気になるポイントが3つあります。
 
@@ -44,6 +49,11 @@ CINEMA REEL 新宿では、以下のVODサービスが**店舗側で契約済み
 - **円盤を持ち込んでスクリーン上映**：個人視聴の範囲を超える「上映会」は、著作権上グレーゾーンになる場合があります。**少人数の友人での視聴**であれば私的利用の範囲内ですが、SNSで参加者を公募するような形は避けるのが無難です。
 
 ## 企画の組み立て方 ― よくある3パターン
+
+<figure class="post-figure">
+  <img src="/images/blog/2026-04-26-oshikatsu-screening-guide/02-group.png" alt="クリムゾンのソファに並んで座り、大画面を眺める友人たち" loading="lazy" />
+  <figcaption>クリムゾンのソファに肩を寄せて、同じ瞬間に拳を上げる——同担と過ごす特別な時間。</figcaption>
+</figure>
 
 ### パターンA：ライブ円盤フル上映会
 
@@ -104,6 +114,11 @@ CINEMA REEL 新宿では、以下のVODサービスが**店舗側で契約済み
 - **紙皿・紙コップ**（人数が多いと現地の6セットでは足りない）
 
 ## 持ち込み飲食 ― 新宿駅周辺の調達
+
+<figure class="post-figure">
+  <img src="/images/blog/2026-04-26-oshikatsu-screening-guide/03-shinjuku-night.png" alt="夕暮れの新宿西口エリア、ネオンと駅前の人混み" loading="lazy" />
+  <figcaption>新宿駅西口の夕暮れ——上映会の前後にも遊べる、立地の良さも推し活向きの理由。</figcaption>
+</figure>
 
 新宿駅構内・駅ビルでサクッと買えるおすすめは以下です。
 
