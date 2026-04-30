@@ -53,6 +53,11 @@ CINEMA REEL 新宿では、以下のVODサービスが**店舗側で契約済み
 - **ライブ配信チケット（PIA LIVE STREAM、Streaming+、ZAIKO等）**：自分のアカウントで購入したものを、大画面で観られます。同時視聴は規約上問題ないか、各サービスの利用規約を一度確認してから利用しましょう。
 - **円盤を持ち込んでスクリーン上映**：個人視聴の範囲を超える「上映会」は、著作権上グレーゾーンになる場合があります。**少人数の友人での視聴**であれば私的利用の範囲内ですが、SNSで参加者を公募するような形は避けるのが無難です。
 
+<aside class="post-cta-inline">
+  <p><strong>CINEMA REEL 新宿</strong>では Netflix・Prime Video・U-NEXT・Disney+・Abema を店舗側でログイン済み。来店してすぐ、推しの出演作品やライブ映像を大画面に。</p>
+  <a href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">空き状況を見る →</a>
+</aside>
+
 ## 企画の組み立て方 ― よくある3パターン
 
 <figure class="post-figure">
@@ -153,6 +158,11 @@ CINEMA REEL 新宿では、以下のVODサービスが**店舗側で契約済み
 土日祝で同条件（4時間）だと ¥2,000/h × 4h + 維持管理費 ¥2,000 = ¥10,000 がスペース費。5人で割ると ひとり ¥2,000 〜 2,500 が追加で乗る計算になります。
 
 最新の正確な料金・空き状況は[スペースマーケットの予約ページ](https://spacemarket.com/p/Rk36vVe7-ZK_fg-E)でご確認ください。
+
+<aside class="post-cta-inline">
+  <p>新宿駅西口徒歩2分の完全貸切プライベートシネマ <strong>CINEMA REEL 新宿</strong>。最大6名・EPSON 4Kプロジェクターと大画面、ふかふかのソファで、自分たちだけの上映時間を。</p>
+  <a href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">空き状況を見る →</a>
+</aside>
 
 ## 上映会を盛り上げる「進行係」の役割
 

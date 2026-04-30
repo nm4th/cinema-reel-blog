@@ -176,9 +176,9 @@ const breadcrumbs = [
       line-height: 1.9;
     }
     /* Inline article links use gold-bright with a dashed underline.
-       The `:not(.post-cta-btn)` exclusion prevents this style from
-       leaking into the gold pill button below the article body — that
-       button needs deep-black text on gold for readable contrast. */
+       The `:not(.post-cta-btn)` exclusion keeps the bottom gold pill
+       readable; the inline mid-article CTA below has its own more-specific
+       rules later in the file that override these. */
     .post-content :global(a:not(.post-cta-btn)) {
       color: var(--gold-bright);
       border-bottom: 1px dashed var(--gold);
@@ -186,6 +186,66 @@ const breadcrumbs = [
     .post-content :global(a:not(.post-cta-btn):hover) {
       color: var(--ink);
       border-bottom-color: var(--ink);
+    }
+
+    /* Inline mid-article CTA — slimmer than the bottom .post-cta block,
+       designed to sit between H2 sections without breaking reading flow.
+       Authors drop <aside class="post-cta-inline"> in Markdown directly. */
+    .post-content :global(.post-cta-inline) {
+      margin: 2.6em 0;
+      padding: 22px 26px;
+      border: 1px solid var(--gold);
+      background: linear-gradient(180deg, rgba(201,169,97,0.06), transparent);
+      border-radius: var(--radius);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 22px;
+      align-items: center;
+    }
+    .post-content :global(.post-cta-inline p) {
+      margin: 0 !important;
+      font-family: var(--font-jp);
+      color: var(--ink) !important;
+      font-size: 0.92rem !important;
+      line-height: 1.85 !important;
+      letter-spacing: 0.04em;
+    }
+    .post-content :global(.post-cta-inline strong) {
+      color: var(--gold-bright);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+    .post-content :global(.post-cta-inline a) {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 22px;
+      background: var(--gold);
+      color: var(--bg-deep);
+      font-family: var(--font-display);
+      font-style: italic;
+      letter-spacing: 0.16em;
+      font-size: 0.88rem;
+      white-space: nowrap;
+      border: 0;
+      transition: background 0.3s var(--ease-luxe), transform 0.4s var(--ease-luxe), box-shadow 0.4s var(--ease-luxe);
+      box-shadow: 0 0 0 0 rgba(232,200,120,0);
+    }
+    .post-content :global(.post-cta-inline a:hover) {
+      background: var(--gold-bright);
+      color: var(--bg-deep);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px -8px rgba(232,200,120,0.55);
+    }
+    @media (max-width: 600px) {
+      .post-content :global(.post-cta-inline) {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 20px 18px;
+      }
+      .post-content :global(.post-cta-inline a) {
+        justify-self: center;
+      }
     }
     .post-content :global(blockquote) {
       border-left: 3px solid var(--gold);

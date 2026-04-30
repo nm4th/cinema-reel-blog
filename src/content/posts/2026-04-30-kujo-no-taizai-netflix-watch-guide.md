@@ -57,6 +57,11 @@ Netflix Japan で2026年4月2日に全10話一挙配信が始まった『九条�
     allowfullscreen loading="lazy"></iframe>
 </div>
 
+<aside class="post-cta-inline">
+  <p>新宿で『九条の大罪』を大画面で観るなら、新宿駅西口徒歩2分の<strong>CINEMA REEL 新宿</strong>。Netflix がログイン済みで、来店してすぐ第1話から再生できます。</p>
+  <a href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">空き状況を見る →</a>
+</aside>
+
 ## 九条と烏丸の初対面シーン ― 公式特別映像
 
 物語の核となる九条と烏丸の出会いは、1話の前半で描かれます。Netflix Japan 公式チャンネルが、その対面シーンを特別映像として公開しています。
@@ -82,6 +87,11 @@ Netflix Japan で2026年4月2日に全10話一挙配信が始まった『九条�
 </div>
 
 本編を観たあと（あるいは観ながら休憩がてら）に流すと、各シーンの撮影意図が補完されて作品の解像度が一段上がります。
+
+<aside class="post-cta-inline">
+  <p><strong>CINEMA REEL 新宿</strong>では Netflix をはじめ Prime Video・U-NEXT・Disney+・Abema が店舗側でログイン済み。九条の表情も烏丸の眼差しも、4Kプロジェクターの大画面で。</p>
+  <a href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">空き状況を見る →</a>
+</aside>
 
 ## 大画面で観たい人向けの選択肢 ― 全10話の重みを正面から受け止める
 

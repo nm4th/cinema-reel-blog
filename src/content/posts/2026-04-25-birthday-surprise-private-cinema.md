@@ -43,6 +43,11 @@ heroImage: "/images/blog/2026-04-25-birthday-surprise-private-cinema/hero.png"
 
 ここまでで約2〜3時間が標準的な構成です。CINEMA REEL 新宿は最低利用時間が平日3時間（朝昼割は2時間）、土日祝も3時間からなので、ちょうど収まりが良いプランになります。
 
+<aside class="post-cta-inline">
+  <p>新宿駅西口徒歩2分の完全貸切プライベートシネマ <strong>CINEMA REEL 新宿</strong>。最大6名・EPSON 4Kプロジェクターと大画面、ふかふかのソファで、自分たちだけの上映時間を。</p>
+  <a href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">空き状況を見る →</a>
+</aside>
+
 ## メッセージ動画を「映画館仕様」で作る
 
 <figure class="post-figure">
@@ -110,6 +115,11 @@ CINEMA REEL 新宿は新宿駅から徒歩2分なので、駅構内・駅ビル�
 土日祝の場合は、スペース利用が ¥2,000/h × 3h で ¥6,000 + 維持管理費 ¥2,000 になるので、合計は約 **¥21,500** 前後。ひとり4,000〜5,500円で、レストランの個室＋コース料理よりも自由度の高い時間が手に入る計算になります。
 
 最新の正確な料金・空き状況は、必ず[スペースマーケットの予約ページ](https://spacemarket.com/p/Rk36vVe7-ZK_fg-E)で確認してから予約してください。
+
+<aside class="post-cta-inline">
+  <p><strong>CINEMA REEL 新宿</strong>では Netflix・Prime Video・U-NEXT・Disney+・Abema を店舗側でログイン済み。ご来店いただいたら、観たい作品をすぐ大画面に映して始められます。</p>
+  <a href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">空き状況を見る →</a>
+</aside>
 
 ## 当日のタイムライン例（19:00予約開始・3時間枠）
 
