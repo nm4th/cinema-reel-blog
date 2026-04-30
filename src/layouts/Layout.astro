@@ -121,6 +121,18 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).href;
       <slot />
     </main>
 
+    <aside class="sticky-cta" aria-label="予約への導線">
+      <div class="sticky-cta-inner">
+        <div class="sticky-cta-meta">
+          <span class="sticky-cta-en">CINEMA REEL 新宿</span>
+          <span class="sticky-cta-jp">新宿駅西口 徒歩2分・最大6名の完全貸切</span>
+        </div>
+        <a class="sticky-cta-btn" href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">
+          予約する
+        </a>
+      </div>
+    </aside>
+
     <footer class="site-footer">
       <div class="container footer-grid">
         <div class="foot-brand">
@@ -196,6 +208,7 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).href;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         overflow-x: hidden;
+        padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
       }
 
       a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
@@ -386,6 +399,79 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname, siteUrl).href;
       }
       @media (max-width: 700px) {
         .foot-cols { grid-template-columns: 1fr; gap: 24px; }
+      }
+
+      .sticky-cta {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1001;
+        background: linear-gradient(180deg, rgba(5,4,3,0.55) 0%, rgba(5,4,3,0.96) 100%);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-top: 1px solid rgba(201, 169, 97, 0.4);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      .sticky-cta-inner {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 12px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .sticky-cta-meta {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+        min-width: 0;
+      }
+      .sticky-cta-en {
+        font-family: var(--font-display);
+        font-style: italic;
+        letter-spacing: 0.16em;
+        color: var(--gold-bright);
+        font-size: 0.95rem;
+      }
+      .sticky-cta-jp {
+        font-family: var(--font-jp);
+        color: var(--ink-muted);
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        margin-top: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .sticky-cta-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 28px;
+        background: var(--gold);
+        color: var(--bg-deep);
+        font-family: var(--font-display);
+        font-style: italic;
+        letter-spacing: 0.16em;
+        font-size: 0.9rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+        transition: background 0.25s ease, color 0.25s ease;
+      }
+      .sticky-cta-btn:hover {
+        background: var(--gold-bright);
+        color: var(--bg-deep);
+      }
+      @media (max-width: 480px) {
+        .sticky-cta-inner { padding: 10px 16px; gap: 12px; }
+        .sticky-cta-en { font-size: 0.88rem; letter-spacing: 0.12em; }
+        .sticky-cta-jp { font-size: 0.68rem; letter-spacing: 0.06em; }
+        .sticky-cta-btn { padding: 11px 22px; font-size: 0.85rem; letter-spacing: 0.12em; }
+      }
+      @media print {
+        .sticky-cta { display: none; }
       }
 
       .reel-section-num {
