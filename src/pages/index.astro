@@ -76,25 +76,25 @@ const faqs = [
 const vodServices = [
   {
     name: 'Netflix',
-    logo: '/vod-logos/netflix.svg',
+    logo: '/vod-logos/netflix.jpg',
     note: 'オリジナルドラマ・映画・アニメ',
     brandColor: '#e50914',
   },
   {
     name: 'Prime Video',
-    logo: '/vod-logos/prime-video.svg',
+    logo: '/vod-logos/prime-video.png',
     note: '映画・スポーツ・PPV',
     brandColor: '#00a8e1',
   },
   {
     name: 'U-NEXT',
-    logo: '/vod-logos/u-next.svg',
+    logo: '/vod-logos/u-next.jpg',
     note: '邦画・洋画・アニメ・ライブ映像',
     brandColor: '#000000',
   },
   {
     name: 'Disney+',
-    logo: '/vod-logos/disney-plus.svg',
+    logo: '/vod-logos/disney-plus.jpg',
     note: 'ディズニー / ピクサー / マーベル / SW',
     brandColor: '#0c2461',
   },
@@ -225,9 +225,9 @@ const venuePhotos = [
 
       <ul class="vod-grid stagger reveal-up">
         {vodServices.map((s) => (
-          <li class="vod-card" style={`--brand: ${s.brandColor};`}>
+          <li class="vod-card" data-service={s.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')} style={`--brand: ${s.brandColor};`}>
             <div class="vod-logo-wrap">
-              <img src={s.logo} alt={`${s.name} ロゴ`} loading="lazy" width="120" height="40" />
+              <img src={s.logo} alt={`${s.name} ロゴ`} loading="lazy" />
             </div>
             <p class="vod-name">{s.name}</p>
             <p class="vod-note">{s.note}</p>
@@ -1238,22 +1238,37 @@ const venuePhotos = [
     }
     .vod-card:hover::before { opacity: 1; }
     .vod-logo-wrap {
-      height: 48px;
+      height: 72px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
     .vod-logo-wrap img {
       max-width: 100%;
-      max-height: 40px;
+      max-height: 64px;
       width: auto;
       height: auto;
       object-fit: contain;
+      border-radius: 12px;
+      transition: filter 0.4s var(--ease-luxe), transform 0.4s var(--ease-luxe);
       filter: brightness(0.95);
-      transition: filter 0.4s var(--ease-luxe);
     }
-    .vod-card:hover .vod-logo-wrap img { filter: brightness(1.1); }
+    .vod-card:hover .vod-logo-wrap img {
+      filter: brightness(1.1);
+      transform: scale(1.04);
+    }
+    /* ABEMA is a horizontal wordmark, not a square app icon — give it
+       wider room and remove the rounded-square treatment. */
+    .vod-card[data-service="abema"] .vod-logo-wrap img {
+      max-height: 36px;
+      max-width: 90%;
+      border-radius: 0;
+      filter: brightness(1.05) invert(0.92);
+    }
+    .vod-card[data-service="abema"]:hover .vod-logo-wrap img {
+      filter: brightness(1.2) invert(0.92);
+    }
     .vod-name {
       font-family: var(--font-display);
       font-style: italic;

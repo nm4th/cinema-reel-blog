@@ -1,20 +1,27 @@
 # VOD Logos
 
-Drop the official brand-asset SVGs (or PNGs) here, named exactly as below.
-The home-page Streaming showcase section reads from this directory.
+Brand-asset images for the home-page Streaming showcase section
+(`src/pages/index.astro`, vodServices array).
 
-| Service | Filename | Official source |
+## Current files
+
+| Filename | Format | Style |
 |---|---|---|
-| Netflix | `netflix.svg` | https://brand.netflix.com/en/assets/brand-symbol/ |
-| Amazon Prime Video | `prime-video.svg` | https://advertising.amazon.com/library/guides/prime-video-brand-assets |
-| U-NEXT | `u-next.svg` | U-NEXT 公式の媒体資料／プレスキット |
-| Disney+ | `disney-plus.svg` | https://thewaltdisneycompany.com/lp/disney-plus-press-kit/ |
-| ABEMA | `abema.svg` | ABEMA 公式の媒体資料 |
+| `netflix.jpg` | JPEG | Square app-icon (red N on black) |
+| `prime-video.png` | PNG | Square app-icon (white wordmark on blue) |
+| `u-next.jpg` | JPEG | Square app-icon (white shield + U-NEXT on black) |
+| `disney-plus.jpg` | JPEG | Square app-icon (white wordmark on blue gradient) |
+| `abema.svg` | SVG | Horizontal wordmark — handled with a per-service CSS override |
 
-If the official site doesn't expose a public brand kit download, Wikipedia
-typically hosts the logo as SVG (Public Domain or fair-use for trademarks).
-Right-click → save the image, rename, and drop in here.
+## To replace any of these
 
-Recommended height: ~40–60px. The CSS in `src/pages/index.astro` will
-constrain max-height to 40px and apply `filter: brightness(...)` on hover,
-so any reasonable size works.
+Drop the new file in this directory with the exact filename. The path is
+referenced from `src/pages/index.astro`. If you change extension, update
+the path in `vodServices` accordingly.
+
+## Sizing
+
+CSS in `src/pages/index.astro` uses `max-height: 64px` and `object-fit:
+contain` so any reasonable raster size renders correctly. App-icon style
+logos get a `border-radius: 12px` for soft rounded corners. ABEMA gets a
+per-service rule (`data-service="abema"`) since it's a wordmark, not an icon.
