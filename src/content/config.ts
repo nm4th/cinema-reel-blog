@@ -18,6 +18,7 @@ const posts = defineCollection({
     ]),
     tags: z.array(z.string()).default([]),
     heroImage: z.string().optional(),
+    heroVideoId: z.string().optional(),
     draft: z.boolean().default(false),
   }),
 });

@@ -9,9 +9,17 @@ export interface Props {
   category: string;
   tags?: string[];
   heroImage?: string;
+  heroVideoId?: string;
 }
 
-const { title, description, pubDate, updatedDate, category, tags = [], heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, category, tags = [], heroImage, heroVideoId } = Astro.props;
+
+// If heroImage is set, use it. Otherwise, if heroVideoId is set (上映ガイド系
+// articles that embed an official trailer), pull the video's high-resolution
+// poster frame from YouTube's public CDN. Otherwise, no hero image (the
+// post-hero block falls back to its bg-deep color with just the title).
+const heroBackground =
+  heroImage ?? (heroVideoId ? `https://img.youtube.com/vi/${heroVideoId}/maxresdefault.jpg` : undefined);
 
 const fmt = (d: Date) =>
   new Intl.DateTimeFormat('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' }).format(d);
@@ -26,13 +34,13 @@ const breadcrumbs = [
 <Layout
   title={`${title}｜CINEMA REEL 新宿`}
   description={description}
-  ogImage={heroImage}
+  ogImage={heroBackground}
   bodyClass="post-body"
   article={{ pubDate, updatedDate, section: category, tags }}
   breadcrumbs={breadcrumbs}
 >
   <article class="post">
-    <div class="post-hero" style={heroImage ? `background-image: url('${heroImage}');` : ''}>
+    <div class="post-hero" style={heroBackground ? `background-image: url('${heroBackground}');` : ''}>
       <div class="post-hero-overlay">
         <div class="container">
           <p class="post-meta-top">

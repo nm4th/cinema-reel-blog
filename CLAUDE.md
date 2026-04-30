@@ -140,7 +140,7 @@
 
 | 用途 | やること | NG |
 |---|---|---|
-| Hero画像 | **設定しない**（frontmatter の `heroImage` を省略）。代わりに記事本文の冒頭、リード直後に公式予告編 iframe を置いて「動画ヒーロー」にする | DALL-E生成画像、公式キービジュアルの hotlink・転載 |
+| Hero画像 | **frontmatter の `heroVideoId` に YouTube 動画 ID を入れる**（例: `heroVideoId: "7rVBPPvqPzc"`）。PostLayout が自動で `https://img.youtube.com/vi/<ID>/maxresdefault.jpg` をヒーロー背景にする。記事内に同じ動画を iframe で埋め込んでいる前提なので一貫性 OK・hotlink も YouTube の公開 CDN なので合法。`heroImage` を別ファイルで指定すれば優先される | DALL-E生成画像、Netflix 等の公式キービジュアルを別 CDN から hotlink・転載 |
 | 作品サムネ | YouTube公式チャンネルの予告編・ティーザー・特別映像を `<div class="video-embed"><iframe>` で埋め込み（複数本OK、3〜5本くらい散らす） | 静止画のキャプチャを保存して再アップ |
 | 出演者写真 | 使わない、テキストリンクのみ | 事務所・公式画像の転載 |
 | 出典 | テキストリンク（公式サイト・公式X・公式YouTube）。`<div class="source-list">` でまとめる | 「画像の引用URL」と称した hotlink |
