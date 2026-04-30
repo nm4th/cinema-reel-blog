@@ -17,10 +17,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install --no-audit --no-fund
 
       - name: Build Astro site
         run: npm run build
@@ -32,7 +31,11 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: /public_html/cinema-reel.com/
+          # Onamae.com RS plan FTP: user chroot is /home/<acct>/public_html/.
+          # Each domain's files must go into a subfolder named after the domain.
+          # So we deploy to ./cinema-reel.com/ relative to the chroot.
+          server-dir: ./cinema-reel.com/
+          log-level: standard
           exclude: |
             **/.git*
             **/.git*/**

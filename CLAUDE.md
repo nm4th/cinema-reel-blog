@@ -126,14 +126,93 @@ npm run new-post -- "新宿で○○する完全ガイド" デート 誕生日 �
 ## サーバー情報（重要）
 
 - ホスティング: お名前.com RSプラン
-- 公開フォルダ: `/public_html/cinema-reel.com/`
+- 公開フォルダ（サーバー絶対パス）: `/public_html/cinema-reel.com/`
 - SSL: 無料SSL（Let's Encrypt）
 - リダイレクト: `.htaccess` で http → https（既存設定維持）
 - GitHub Secrets: `FTP_SERVER` / `FTP_USERNAME` / `FTP_PASSWORD`
 
-`server-dir` は **`/public_html/cinema-reel.com/`** が正解（逆順 `/cinema-reel.com/public_html/` ではない）。
+### `server-dir` の罠（実機で確認済み）
 
-## お問い合わせフォーム
+お名前.com RS プランの FTP アカウント（例: `cinema-reel@cinema-reel.com`）は、ログイン後 **chroot されてユーザーから見た `/` が `/home/<acct>/public_html/`** になる。
+そして「※ホームページデータは public_html 内の各ドメイン名のフォルダにアップロードしてください」と Navi 側にも明記されている通り、各ドメインのファイルは chroot 直下の **ドメイン名フォルダ**に置く必要がある。
+
+したがって deploy.yml の `server-dir` は **`./cinema-reel.com/` が正解**。
+
+実機で踏んだ NG パターン:
+- ❌ `/public_html/cinema-reel.com/` ― chroot を超える絶対パス → `550 Can't change directory`
+- ❌ `./` ― chroot 直下（= `public_html/` 直下）に配置されてしまい、Web で公開されない
+- ✅ `./cinema-reel.com/` ― 正解
+
+FTP サーバー（実機）: `www1020.onamae.ne.jp`
+接続先ディレクトリ（クライアント設定では入力不要）: `/home/r9262022/public_html/`
+
+## 画像生成（DALL-E via GitHub Actions）
+
+サンドボックス（Claude Code Web / Mac Desktop）からは外部 API へのアクセスが制限されているので、
+画像生成は **GitHub Actions の hosted runner で OpenAI DALL-E 3 を叩く**構成にしてある。
+
+### 仕組み
+
+```
+scripts/image-manifest.json         ← 画像ごとに prompt/slug/size/style/quality を定義
+scripts/generate-image.js           ← OpenAI Images API を直叩きする最小スクリプト（依存ゼロ）
+scripts/generate-images.js          ← マニフェストを読んで一括生成、skip-if-exists
+.github/workflows/generate-images.yml ← workflow_dispatch で手動起動、結果を main にコミット
+```
+
+### 使い方（GitHub UI）
+
+1. リポジトリの **Actions タブ** → 左ペインから **"Generate Blog Images (DALL-E)"** を選択
+2. 右上の **Run workflow** を押す
+3. オプション:
+   - `force` ― true にすると既存画像も再生成（API クレジット消費注意）
+   - `slug` ― 特定の記事スラッグだけに絞り込み（空欄ならマニフェスト全件）
+4. 実行 → 数分後、`public/images/blog/<slug>/<filename>.png` がコミットされる
+5. main への push で FTP デプロイが連動して走る
+
+### 新しい記事に画像を足したい時
+
+1. `scripts/image-manifest.json` に新しい entry を追加
+   ```json
+   {
+     "slug": "<記事のスラッグ>",
+     "filename": "hero",
+     "size": "1792x1024",
+     "style": "vivid",
+     "quality": "hd",
+     "prompt": "<英語の詳細プロンプト>"
+   }
+   ```
+2. main に push（マニフェスト更新だけ）
+3. Actions タブから手動で **Run workflow** を実行
+4. 新規 entry のみ生成（既存はスキップ）
+
+### コスト目安（DALL-E 3）
+
+| 解像度 | standard | hd |
+| ---- | ---- | ---- |
+| 1024×1024 | $0.040 | $0.080 |
+| 1792×1024 / 1024×1792 | $0.080 | $0.120 |
+
+各記事 hero(hd) 1枚 + inline(standard) 3枚 = $0.36/記事。
+
+### CINEMA REEL 新宿の世界観に合わせる英語プロンプトひな形
+
+```
+A dark cinematic interior of a private screening room in Tokyo Shinjuku,
+warm gold and crimson accent lighting, soft 35mm film grain, deep shadows,
+[SCENE], shallow depth of field, intimate atmosphere, no readable text
+```
+
+DALL-E は文字レンダが弱いので **「no readable text」「no clearly identifiable
+corporate logos」を明示**しておくと事故が減る。人物は anonymous silhouettes /
+back view に逃がすと不気味の谷を回避しやすい。
+
+### GitHub Secrets
+
+- `OPENAI_API_KEY` ― OpenAI Platform で発行、課金設定済みのアカウントのもの
+
+
 
 - サービス: Formspree（無料プラン）
 - フォーム ID: `xqewogvj`
