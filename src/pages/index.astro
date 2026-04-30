@@ -65,11 +65,44 @@ const faqs = [
   },
   {
     q: '商用撮影や配信に使えますか？',
-    a: 'はい、商用撮影オプション（+¥2,200/h）でご利用いただけます。シックな内装と防音性の高い個室で、配信・収録の用途にも適しています。',
+    a: 'はい、商用撮影オプション（+¥2,200/h）でご利用いただけます。シックな内装の個室で、配信・収録の用途にも適しています（建物の構造上、完全防音ではありませんので、大音量を出す撮影の際はオーナーへ事前にご相談ください）。',
   },
   {
     q: 'キャンセルはできますか？',
     a: 'スペースマーケット規定のキャンセルポリシーが適用されます。利用日からの日数に応じてキャンセル料の発生比率が決まっています。日程変更も同じ扱いになるので、早めにご連絡ください。',
+  },
+];
+
+const vodServices = [
+  {
+    name: 'Netflix',
+    logo: '/vod-logos/netflix.svg',
+    note: 'オリジナルドラマ・映画・アニメ',
+    brandColor: '#e50914',
+  },
+  {
+    name: 'Prime Video',
+    logo: '/vod-logos/prime-video.svg',
+    note: '映画・スポーツ・PPV',
+    brandColor: '#00a8e1',
+  },
+  {
+    name: 'U-NEXT',
+    logo: '/vod-logos/u-next.svg',
+    note: '邦画・洋画・アニメ・ライブ映像',
+    brandColor: '#000000',
+  },
+  {
+    name: 'Disney+',
+    logo: '/vod-logos/disney-plus.svg',
+    note: 'ディズニー / ピクサー / マーベル / SW',
+    brandColor: '#0c2461',
+  },
+  {
+    name: 'ABEMA',
+    logo: '/vod-logos/abema.svg',
+    note: 'スポーツ生中継 / ニュース / バラエティ',
+    brandColor: '#00d264',
   },
 ];
 
@@ -178,6 +211,37 @@ const venuePhotos = [
     </div>
   </section>
 
+  <!-- VOD SHOWCASE -->
+  <section id="vod" class="section vod-showcase">
+    <div class="container">
+      <div class="section-head center reveal-up">
+        <span class="reel-section-num">— Streaming</span>
+        <h2 class="section-title">主要な動画配信サービス、<br />すべてログイン済み。</h2>
+        <p class="section-sub">
+          ご来店いただいたら、すぐに観たい作品を大画面で。
+          ゲストはアカウント情報の入力不要、店舗側ですべて契約済み・ログイン済みの状態でお迎えします。
+        </p>
+      </div>
+
+      <ul class="vod-grid stagger reveal-up">
+        {vodServices.map((s) => (
+          <li class="vod-card" style={`--brand: ${s.brandColor};`}>
+            <div class="vod-logo-wrap">
+              <img src={s.logo} alt={`${s.name} ロゴ`} loading="lazy" width="120" height="40" />
+            </div>
+            <p class="vod-name">{s.name}</p>
+            <p class="vod-note">{s.note}</p>
+          </li>
+        ))}
+      </ul>
+
+      <p class="vod-foot">
+        ※ YouTube はゲストご自身のアカウントでログインしてご利用ください。<br />
+        ※ 各サービスのラインナップは予告なく変更される場合があります。
+      </p>
+    </div>
+  </section>
+
   <!-- SCENES / 02 -->
   <section id="scenes" class="section section-dark">
     <div class="container">
@@ -227,7 +291,7 @@ const venuePhotos = [
           <div class="scene-card-img" style={`background-image: url('${sceneImg('06-shoot')}');`} aria-hidden="true"></div>
           <div class="scene-card-body">
             <h3>撮影 / 配信</h3>
-            <p>商用撮影オプションあり。シックな内装と防音性の高い個室で、配信・収録にも。</p>
+            <p>商用撮影オプションあり。シックな内装で、配信・収録にも。</p>
           </div>
         </article>
       </div>
@@ -1131,6 +1195,89 @@ const venuePhotos = [
       z-index: 0;
     }
     .booking-flow-inner { position: relative; z-index: 1; }
+
+    /* VOD SHOWCASE */
+    .vod-showcase { padding: 96px 0; }
+    .vod-grid {
+      list-style: none;
+      padding: 0;
+      margin: 56px 0 32px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+    }
+    @media (max-width: 900px) { .vod-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 600px) { .vod-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
+
+    .vod-card {
+      --brand: var(--gold);
+      position: relative;
+      padding: 28px 18px 22px;
+      background: var(--bg-card);
+      border: 1px solid var(--film-edge);
+      border-radius: var(--radius);
+      text-align: center;
+      transition: border-color 0.4s var(--ease-luxe), transform 0.4s var(--ease-luxe), box-shadow 0.5s var(--ease-luxe);
+      overflow: hidden;
+    }
+    .vod-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--brand);
+      opacity: 0;
+      transition: opacity 0.4s var(--ease-luxe);
+    }
+    .vod-card:hover {
+      border-color: var(--brand);
+      transform: translateY(-4px);
+      box-shadow: 0 14px 40px -16px color-mix(in srgb, var(--brand) 50%, transparent);
+    }
+    .vod-card:hover::before { opacity: 1; }
+    .vod-logo-wrap {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+    .vod-logo-wrap img {
+      max-width: 100%;
+      max-height: 40px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      filter: brightness(0.95);
+      transition: filter 0.4s var(--ease-luxe);
+    }
+    .vod-card:hover .vod-logo-wrap img { filter: brightness(1.1); }
+    .vod-name {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--ink);
+      margin: 0 0 6px;
+      letter-spacing: 0.08em;
+    }
+    .vod-note {
+      margin: 0;
+      font-size: 0.72rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.04em;
+      line-height: 1.5;
+      font-family: var(--font-jp);
+    }
+    .vod-foot {
+      margin: 32px 0 0;
+      text-align: center;
+      color: var(--ink-dim);
+      font-size: 0.78rem;
+      line-height: 1.9;
+      letter-spacing: 0.04em;
+    }
 
     /* SOCIAL PROOF banner */
     .social-proof {

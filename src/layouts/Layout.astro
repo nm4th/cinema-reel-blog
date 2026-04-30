@@ -220,6 +220,7 @@ const absoluteOgImage = ogImage?.startsWith('http')
           </span>
         </a>
         <nav class="site-nav" aria-label="メインナビゲーション">
+          <a href="/#vod">配信</a>
           <a href="/#scenes">利用シーン</a>
           <a href="/#price">料金</a>
           <a href="/#booking-flow">予約方法</a>
@@ -552,6 +553,8 @@ const absoluteOgImage = ogImage?.startsWith('http')
         position: relative;
         overflow: hidden;
         will-change: transform;
+        white-space: nowrap;
+        flex-shrink: 0;
       }
       .cta-pill::after {
         content: '';
@@ -581,6 +584,18 @@ const absoluteOgImage = ogImage?.startsWith('http')
       @media (max-width: 800px) {
         .site-nav { display: none; }
         .header-inner { gap: 12px; }
+      }
+      @media (max-width: 600px) {
+        .cta-pill {
+          padding: 8px 14px;
+          font-size: 0.8rem;
+          letter-spacing: 0.06em;
+        }
+        .brand-en { font-size: 0.95rem; letter-spacing: 0.12em; }
+        .brand-jp { font-size: 0.62rem; letter-spacing: 0.3em; margin-top: 3px; }
+      }
+      @media (max-width: 400px) {
+        .brand-text { display: none; }
       }
 
       .site-footer {

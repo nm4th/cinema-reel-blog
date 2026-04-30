@@ -105,48 +105,48 @@
       "filename": "01-birthday",
       "size": "1792x1024",
       "style": "natural",
-      "quality": "standard",
-      "prompt": "Cinematic close-up of a beautifully decorated birthday cake with lit candles on a stylish dark wood table inside a private cinema lounge in Tokyo Shinjuku, warm afternoon-or-evening light source softly visible, glassware and a small bouquet beside it, crimson velvet sofa partially visible in soft focus background, projection screen subtly glowing in the distance, premium party still-life aesthetic, 35mm film grain, shallow depth of field, no people, no readable text, no logos, inviting and celebratory mood (NOT pitch-dark night)"
+      "quality": "hd",
+      "prompt": "Photorealistic editorial photograph shot on Canon EOS R5 with RF 35mm f/1.4L lens at f/1.8, of a beautifully decorated birthday cake with lit candles on a stylish dark walnut table inside an upscale private cinema lounge, soft warm afternoon window light raking from the left, two crystal champagne flutes and a small white floral arrangement beside it, crimson velvet sofa partially out of focus in the background, projection screen subtly glowing in deep bokeh, hyperdetailed cake frosting and condensation on the glasses, color graded warm cinematic palette with gold highlights and crimson shadows, fine 35mm film grain, ultra shallow depth of field with creamy bokeh, no people, no readable text, no logos, magazine-quality still life, Kodak Portra 400 color science"
     },
     {
       "slug": "home-scenes",
       "filename": "02-oshikatsu",
       "size": "1792x1024",
       "style": "natural",
-      "quality": "standard",
-      "prompt": "Cinematic wide back view of three anonymous silhouettes on a long crimson velvet sofa in a softly lit private cinema lounge, each holding a glowing penlight of a different color (pink, cyan, warm gold) toward a large bright projection screen showing abstract concert-style light visuals (no readable text or logos), warm gold accent lighting on the side walls, projector beam visible through gentle haze, intimate group viewing atmosphere with energy and joy, 35mm film grain, shallow depth of field, no faces visible"
+      "quality": "hd",
+      "prompt": "Photorealistic editorial photograph shot on Sony A7 IV with 35mm f/1.4 lens, wide back view of three anonymous fans on a long crimson velvet sofa in a softly lit private cinema lounge, each holding a glowing concert penlight of a different color (pink, cyan, warm gold) raised toward a large bright projection screen showing abstract concert-style light visuals (no readable text or logos), warm gold accent lighting on the side walls, projector light beam visible through gentle haze, anamorphic lens flares, no faces visible (only silhouettes from behind), color graded teal-and-gold cinematic palette, fine 35mm film grain, hyperdetailed velvet texture and lens reflections, magazine-quality concert-attendee photograph, intimate group-viewing atmosphere with energy and joy"
     },
     {
       "slug": "home-scenes",
       "filename": "03-date",
       "size": "1792x1024",
       "style": "natural",
-      "quality": "standard",
-      "prompt": "Wide cinematic back view of two anonymous silhouettes sitting close together on a low crimson velvet sofa in a stylish private cinema lounge in Tokyo Shinjuku, watching a softly glowing projection screen showing abstract warm-toned imagery (no readable text), warm gold and amber accent lighting on the side walls, two glasses on a side table catching the light, gentle haze, refined romantic mood (warm rather than dark), 35mm film grain, shallow depth of field, no faces visible"
+      "quality": "hd",
+      "prompt": "Photorealistic editorial photograph shot on Canon EOS R5 with RF 50mm f/1.2L lens at f/1.8, wide back view of an anonymous couple sitting close together on a low crimson velvet sofa in a stylish private cinema lounge in Tokyo, watching a softly glowing projection screen with abstract warm cinematic imagery (no readable text), warm amber and gold accent lighting on the side walls, two crystal glasses on a low side table catching the light with caustic reflections, fine atmospheric haze in the projector beam, hyperdetailed velvet weave and skin tones, no faces visible (only silhouettes from behind), color graded warm cinematic palette, refined romantic mood (warm rather than pitch-dark), Kodak Portra 800 color science, fine 35mm film grain, magazine-quality lifestyle editorial"
     },
     {
       "slug": "home-scenes",
       "filename": "04-girls-night",
       "size": "1792x1024",
       "style": "natural",
-      "quality": "standard",
-      "prompt": "Bright cinematic top-down view of a chic dark wood coffee table set up for an afternoon gathering of friends in a stylish private cinema lounge — four glasses (mix of sparkling wine and tea), a beautiful charcuterie board with cheese, fruit and small pastries, a small floral arrangement, warm soft daylight or lamp light from one side casting golden highlights, polished surfaces reflecting the light, premium hospitality aesthetic, 35mm film grain, shallow depth of field, no people, no readable text, no logos (afternoon / early-evening feel, not night)"
+      "quality": "hd",
+      "prompt": "Photorealistic editorial overhead photograph shot on Hasselblad medium format with 80mm f/2.8 lens, top-down composition of a chic dark walnut coffee table set up for an afternoon gathering inside a stylish private cinema lounge — four crystal coupe glasses (mix of sparkling wine and tea), a beautifully styled charcuterie board with artisan cheese, fresh fruit and pastries, a small fresh floral arrangement, soft warm daylight raking from one side casting golden highlights and elongated shadows, polished wood reflections, hyperdetailed surface textures (cheese rind, condensation, fabric weave), color graded warm editorial palette, fine 35mm film grain, magazine-quality food and lifestyle photograph (afternoon or early-evening feel, NOT night), no people, no readable text, no logos"
     },
     {
       "slug": "home-scenes",
       "filename": "05-sports",
       "size": "1792x1024",
       "style": "natural",
-      "quality": "standard",
-      "prompt": "Cinematic wide back view of three anonymous silhouettes leaning forward and raising arms toward a large bright projection screen showing an out-of-focus athletic stadium scene with vivid green field and stadium lighting (no readable text, no recognizable team logos or jersey numbers), snacks and drinks on a side table, warm gold ambient lighting on the side walls, projector beam softly visible through haze, lively sports-viewing-party mood, 35mm film grain, shallow depth of field"
+      "quality": "hd",
+      "prompt": "Photorealistic editorial photograph shot on Sony A7 IV with 35mm f/2 lens, wide back view of three anonymous friends leaning forward and raising arms in cheering motion toward a large bright projection screen showing an out-of-focus athletic stadium scene with vivid green field and warm stadium lighting (no readable text, no recognizable team logos or jersey numbers), snacks and beer glasses on a low side table in the foreground, warm gold ambient lighting on the side walls, projector light beam softly visible through atmospheric haze, anamorphic lens flares, no faces visible (silhouettes from behind only), color graded warm cinematic palette, fine 35mm film grain, hyperdetailed velvet sofa texture, lively sports-viewing-party mood, magazine-quality lifestyle editorial"
     },
     {
       "slug": "home-scenes",
       "filename": "06-shoot",
       "size": "1792x1024",
       "style": "natural",
-      "quality": "standard",
-      "prompt": "Cinematic mid shot of a professional video production setup inside a stylish cinema-style lounge — a DSLR mounted on a tripod, a softbox light off-frame providing even daylight-balanced illumination, a clapperboard and notebook on a side table, large screen in the background softly visible with warm gold edge lighting, polished dark wood floor, premium small-studio aesthetic with bright but contained light, 35mm film grain, shallow depth of field, no people, no readable text, no clearly identifiable corporate logos"
+      "quality": "hd",
+      "prompt": "Photorealistic editorial photograph shot on Sony A7 IV with 50mm f/1.4 lens at f/2.8, mid shot of a professional video production setup inside a stylish private cinema lounge — a high-end mirrorless camera mounted on a carbon fiber tripod with a cinema lens visible in sharp focus, a softbox light off-frame providing even daylight-balanced illumination, a clapperboard and a leather notebook on a side table, large projection screen in the background softly visible with warm gold edge lighting, polished dark walnut floor with subtle reflections, premium small-studio aesthetic with bright but contained light, hyperdetailed equipment textures, color graded with cool highlights and warm shadows, fine 35mm film grain, no people, no readable text, no clearly identifiable corporate logos, magazine-quality behind-the-scenes editorial"
     },
 
     {

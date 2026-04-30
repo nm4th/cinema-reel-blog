@@ -293,15 +293,33 @@ scripts/generate-images.js          ← マニフェストを読んで一括生�
 
 ### CINEMA REEL 新宿の世界観に合わせる英語プロンプトひな形
 
+「シネマティック + 一眼レフ写実」で生成するために、**撮影機材スペック・色設計・色補正**
+を必ずプロンプトに含める。これがないと CG っぽい仕上がりになる。
+
 ```
-A dark cinematic interior of a private screening room in Tokyo Shinjuku,
-warm gold and crimson accent lighting, soft 35mm film grain, deep shadows,
-[SCENE], shallow depth of field, intimate atmosphere, no readable text
+Photorealistic editorial photograph shot on [Canon EOS R5 with RF 35mm f/1.4L lens
+| Sony A7 IV with 50mm f/1.4 lens | Hasselblad medium format with 80mm f/2.8 lens]
+at f/[1.8〜2.8], [SCENE composition], warm [afternoon | amber | golden hour] light
+[from the left | window light | side rake], [props with hyperdetailed textures],
+color graded warm cinematic palette with gold highlights and crimson shadows,
+fine 35mm film grain, ultra shallow depth of field with creamy bokeh,
+[Kodak Portra 400 | Kodak Portra 800] color science,
+magazine-quality editorial photograph,
+no people | only anonymous silhouettes from behind, no readable text, no logos
 ```
 
-DALL-E は文字レンダが弱いので **「no readable text」「no clearly identifiable
-corporate logos」を明示**しておくと事故が減る。人物は anonymous silhouettes /
-back view に逃がすと不気味の谷を回避しやすい。
+**必ず入れるキーワード**:
+- "Photorealistic editorial photograph" — CG 感を消す
+- "shot on [カメラ] with [レンズ]" — レンズボケと立体感
+- "f/1.8 / f/2.8" — 被写界深度の指定
+- "hyperdetailed [対象] textures" — ディテール強調
+- "color graded warm cinematic palette" — シネマ感
+- "fine 35mm film grain" — フィルム感
+- "Kodak Portra 400/800 color science" — 肌色と陰影の柔らかさ
+- "no readable text, no logos" — 文字事故防止
+- 人物は "anonymous silhouettes from behind" / "no faces visible" に逃がす
+
+quality は **`hd`** を推奨（`standard` だと realism が落ちる。コストは1.5倍）。
 
 ### GitHub Secrets
 
