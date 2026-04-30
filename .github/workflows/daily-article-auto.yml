@@ -1,0 +1,118 @@
+name: Daily Auto-Article
+
+on:
+  schedule:
+    # 08:00 JST = 23:00 UTC the previous day
+    - cron: '0 23 * * *'
+  workflow_dispatch:
+    inputs:
+      force_date:
+        description: 'Override today (YYYY-MM-DD), for testing'
+        required: false
+        type: string
+      auto_publish:
+        description: 'If lint passes, commit directly to main (else open PR)'
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: daily-auto-article
+  cancel-in-progress: false
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate article draft
+        id: draft
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FORCE_DATE: ${{ inputs.force_date }}
+        run: node scripts/draft-daily-article.mjs
+
+      - name: Skip if no topic
+        if: steps.draft.outputs.skipped == 'true'
+        run: |
+          echo "::notice::No suitable topic today — ${{ steps.draft.outputs.reason }}"
+          exit 0
+
+      - name: Lint article
+        id: lint
+        if: steps.draft.outputs.skipped != 'true'
+        continue-on-error: true
+        run: node scripts/lint-article.mjs "${{ steps.draft.outputs.path }}"
+
+      - name: Configure git identity
+        if: steps.draft.outputs.skipped != 'true'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+      - name: Auto-publish to main
+        if: steps.draft.outputs.skipped != 'true' && steps.lint.outputs.passed == 'true' && (inputs.auto_publish == null || inputs.auto_publish == true)
+        run: |
+          git add "${{ steps.draft.outputs.path }}"
+          git commit -m "feat(post): publish daily article — ${{ steps.draft.outputs.title }}"
+
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then
+              echo "::notice::Article published — ${{ steps.draft.outputs.title }}"
+              exit 0
+            fi
+            echo "Push rejected; rebasing on origin/main and retrying (attempt $attempt)…"
+            git fetch origin main
+            git rebase origin/main || { git rebase --abort; exit 1; }
+          done
+          echo "::error::Push failed after 3 attempts."
+          exit 1
+
+      - name: Open PR if lint failed (or auto_publish=false)
+        if: steps.draft.outputs.skipped != 'true' && (steps.lint.outputs.passed != 'true' || inputs.auto_publish == false)
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: auto-draft/${{ steps.draft.outputs.path }}
+          base: main
+          delete-branch: true
+          title: "draft: ${{ steps.draft.outputs.title }}"
+          commit-message: "draft(post): ${{ steps.draft.outputs.title }}"
+          labels: |
+            auto-draft
+            needs-review
+          body: |
+            ## 🤖 自動生成記事ドラフト
+
+            **題材**: ${{ steps.draft.outputs.title }}
+            **カテゴリ**: ${{ steps.draft.outputs.category }}
+            **タイプ**: ${{ steps.draft.outputs.type }}
+
+            ### Lint 結果
+
+            - **passed**: `${{ steps.lint.outputs.passed }}`
+            - **issues**:
+              ${{ steps.lint.outputs.issues }}
+
+            ### マージ前にレビューを
+
+            - 事実の正確性（特に日付・キャスト・配信先）
+            - ブランドトーン
+            - frontmatter の `draft: true` を `false` に切り替えてからマージ
+
+            ---
+            このドラフトは `daily-article-auto.yml` ワークフローによって自動生成されました。

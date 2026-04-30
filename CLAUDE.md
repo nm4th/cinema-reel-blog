@@ -118,10 +118,24 @@
 1. Google Trends Japan trending today entertainment <現在の年月>
 2. Netflix Japan top 10 weekly chart <現在の年月>
 3. Abema 注目番組 生配信 <現在の年月>
-4. PIA LIVE STREAM 配信ライブ 日程 <現在の年月>
+4. Disney+ / U-NEXT / Prime Video new releases Japan <現在の年月>
 ```
 
-**優先順位**: 日程確定の生配信 > 配信開始日確定の作品 > 既配信のトレンド作品
+**優先順位**:
+1. **CINEMA REEL でログイン済みの VOD** で観られる **確定日程の生配信・PPV**（Abema PPV ボクシング、Netflix 生中継、Prime Video / Disney+ / U-NEXT のライブ等）
+2. Netflix Japan / Abema / U-NEXT などで **配信開始日が確定している話題作**（公式プレスリリースあり）
+3. 既配信中の **Top 10 トレンド作品**
+4. **GW / クリスマス / バレンタイン / 卒業 / 新学期 / 夏休み** などの **季節・イベント連動ライフスタイル記事**（カテゴリは `利用ガイド` 等、画像は DALL-E 自前生成）
+
+**除外する題材（auto-pipeline は skip）**:
+- ❌ PIA LIVE STREAM / Streaming+ / ZAIKO 等、CINEMA REEL に **ログインしていない VOD** の配信ライブ
+- ❌ 子供向け・教育コンテンツ（プリキュア、Eテレ等）
+- ❌ 18禁・成人向け作品
+- ❌ 政治・宗教・社会運動・ニュース時事ネタ・スキャンダル
+- ❌ 公式ソース 2 件未満で確認できないもの
+- ❌ 過去同名イベント（毎年やる興行）の年号取り違え可能性が高いもの
+
+「今日は良い題材なし」となった日は **記事生成スキップ**（PR も commit も作らない）が許容されている。
 
 ### 事実確認
 
@@ -238,6 +252,23 @@ PostLayout.astro 側の `.post-cta-inline` CSS が hand off で、ゴールド�
 
 ## 新規記事の作り方
 
+### 自動（デフォルト・毎日 08:00 JST）
+
+`.github/workflows/daily-article-auto.yml` が cron で自動実行:
+
+1. `scripts/draft-daily-article.mjs` が Anthropic API（web_search 内蔵）で今日の題材を調査・選定
+2. 題材なしなら **skip**（commit も PR も作らない）
+3. 題材ありなら full markdown を生成 → `src/content/posts/YYYY-MM-DD-<slug>.md` に保存
+4. `scripts/lint-article.mjs` が品質ゲートチェック（frontmatter / H2数 / inline CTA数 / 禁止フレーズ / 文字数 / 重複）
+5. lint 通過 → **main に直接 commit → deploy.yml で自動公開**
+6. lint 失敗 → **PR をラベル `auto-draft` `needs-review` で開く**（ユーザーが手で直してマージ）
+
+ユーザーは GitHub からの commit / PR メール通知で気付くだけで OK。
+
+GitHub Secrets に `ANTHROPIC_API_KEY` の設定が必須。
+
+### 手動（テスト・即興記事）
+
 ```bash
 # テンプレート生成
 npm run new-post -- "新宿で○○する完全ガイド" デート 誕生日 サプライズ
@@ -245,6 +276,8 @@ npm run new-post -- "新宿で○○する完全ガイド" デート 誕生日 �
 # → src/content/posts/YYYY-MM-DD-slug.md が draft: true で作成される
 # → 執筆して draft: false に変更してから commit & push
 ```
+
+または Actions の **Daily Auto-Article** を `workflow_dispatch` で手動起動（`force_date` で日付上書き、`auto_publish=false` で常に PR 経路）。
 
 ## デプロイ
 
