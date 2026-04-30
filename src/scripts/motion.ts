@@ -2,9 +2,15 @@
  * CINEMA REEL 新宿 — motion enhancement layer.
  *
  * Pure progressive enhancement: every effect here is decorative.
- * If this script fails to load, the site is fully usable and visible.
+ * If this script fails to load, the site is fully usable and visible
+ * (the .has-js class is what opts elements into hidden-start animations).
  * All animations honor prefers-reduced-motion.
  */
+
+// Mark <html> as having JS the moment this script executes.
+// Without this class, .reveal-* classes default to fully visible
+// so the page never gets stuck in "stays at opacity 0" state.
+document.documentElement.classList.add('has-js');
 
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 

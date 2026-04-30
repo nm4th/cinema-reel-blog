@@ -433,37 +433,47 @@ const absoluteOgImage = ogImage?.startsWith('http')
       }
       @media (prefers-reduced-motion: reduce) { .dust { display: none; } }
 
-      /* Scroll-reveal classes (JS adds .is-visible when entering viewport) */
-      .reveal-up {
+      /* Scroll-reveal classes (JS adds .is-visible when entering viewport).
+         Default state is VISIBLE so the page is readable if JS fails to load.
+         The motion script adds .has-js to <html> at the top, which is what
+         actually opts elements into the hidden-start animation. */
+      .reveal-up,
+      .reveal-fade,
+      .reveal-clip {
+        opacity: 1;
+        transform: none;
+        clip-path: none;
+      }
+      :global(html.has-js) .reveal-up {
         opacity: 0;
         transform: translateY(36px);
         transition: opacity 1s var(--ease-luxe), transform 1s var(--ease-luxe);
       }
-      .reveal-fade {
+      :global(html.has-js) .reveal-fade {
         opacity: 0;
         transition: opacity 1.2s var(--ease-luxe);
       }
-      .reveal-clip {
+      :global(html.has-js) .reveal-clip {
         opacity: 0;
         clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
         transition: opacity 1s var(--ease-luxe), clip-path 1.2s var(--ease-curtain);
       }
-      .reveal-up.is-visible,
-      .reveal-fade.is-visible {
+      :global(html.has-js) .reveal-up.is-visible,
+      :global(html.has-js) .reveal-fade.is-visible {
         opacity: 1;
         transform: translateY(0);
       }
-      .reveal-clip.is-visible {
+      :global(html.has-js) .reveal-clip.is-visible {
         opacity: 1;
         clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
       }
-      /* Stagger helper — add data-stagger="N" or .stagger-N on a parent */
-      .stagger > *:nth-child(1) { transition-delay: 0.05s; }
-      .stagger > *:nth-child(2) { transition-delay: 0.15s; }
-      .stagger > *:nth-child(3) { transition-delay: 0.25s; }
-      .stagger > *:nth-child(4) { transition-delay: 0.35s; }
-      .stagger > *:nth-child(5) { transition-delay: 0.45s; }
-      .stagger > *:nth-child(6) { transition-delay: 0.55s; }
+      /* Stagger helper — children of .stagger get cascading delays */
+      :global(html.has-js) .stagger > *:nth-child(1) { transition-delay: 0.05s; }
+      :global(html.has-js) .stagger > *:nth-child(2) { transition-delay: 0.15s; }
+      :global(html.has-js) .stagger > *:nth-child(3) { transition-delay: 0.25s; }
+      :global(html.has-js) .stagger > *:nth-child(4) { transition-delay: 0.35s; }
+      :global(html.has-js) .stagger > *:nth-child(5) { transition-delay: 0.45s; }
+      :global(html.has-js) .stagger > *:nth-child(6) { transition-delay: 0.55s; }
 
       @keyframes flicker {
         0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
