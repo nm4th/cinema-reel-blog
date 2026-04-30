@@ -66,4 +66,22 @@ jobs:
             MSG="$MSG (force)"
           fi
           git commit -m "$MSG"
-          git push origin HEAD:main
+
+          # Push, retrying with a rebase if main moved while images were
+          # being generated (a single DALL-E batch can take 5+ minutes,
+          # plenty of time for a human commit to sneak in).
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then
+              echo "Push succeeded on attempt $attempt."
+              exit 0
+            fi
+            echo "Push rejected; rebasing on origin/main and retrying (attempt $attempt)…"
+            git fetch origin main
+            git rebase origin/main || {
+              echo "Rebase conflict; aborting."
+              git rebase --abort
+              exit 1
+            }
+          done
+          echo "Push failed after 3 attempts."
+          exit 1
