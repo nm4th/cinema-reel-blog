@@ -153,8 +153,8 @@ const venuePhotos = [
         <span class="hero-title-jp stage-4">新宿の、貸切のリール。</span>
       </h1>
       <p class="hero-lead stage-5">
-        新宿駅徒歩2分。EPSON 4Kプロジェクターと大型スクリーンで、<br />
-        映画も推し活も誕生日も、誰にも邪魔されない時間を。
+        新宿駅徒歩2分・最大6名の完全貸切プライベートシネマ。<br />
+        4Kプロジェクターと大画面で、誰にも邪魔されない時間を。
       </p>
       <div class="hero-meta stage-6">
         <span class="hero-meta-rating">
@@ -786,6 +786,53 @@ const venuePhotos = [
       margin-left: 4px;
     }
     .hero-cta { display: flex; flex-wrap: wrap; gap: 16px; }
+
+    /* Mobile-tuned spacing — the default hero crams too much into one
+       viewport on phones because of the sticky header + sticky bottom CTA
+       eating ~144px of usable height. Loosen sizes and tighten gaps so it
+       reads as breathing-room cinematic instead of stuffed. */
+    @media (max-width: 600px) {
+      .hero { min-height: auto; }
+      .hero-inner { padding: 56px 0 80px; }
+      .hero-title { gap: 2px; line-height: 0.92; }
+      .hero-title-en {
+        font-size: clamp(2.4rem, 11vw, 4rem);
+        letter-spacing: 0.04em;
+      }
+      .hero-title-jp {
+        margin-top: 18px;
+        font-size: 0.78rem;
+        letter-spacing: 0.32em;
+      }
+      .hero-eyebrow {
+        font-size: 0.72rem;
+        letter-spacing: 0.32em;
+        margin: 0 0 14px;
+      }
+      .hero-lead {
+        margin: 22px 0 20px;
+        font-size: 0.88rem;
+        line-height: 1.85;
+        max-width: none;
+      }
+      .hero-lead br { display: none; }
+      .hero-meta {
+        font-size: 0.74rem;
+        letter-spacing: 0.1em;
+        gap: 8px 10px;
+        margin-bottom: 28px;
+      }
+      .hero-meta-rating-of { display: none; }
+      .hero-cta { gap: 10px; width: 100%; }
+      .hero-cta .btn {
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 12px 16px;
+        font-size: 0.82rem;
+        letter-spacing: 0.1em;
+      }
+      .hero-scroll-cue { bottom: 16px; }
+    }
 
     /* Subtle "scroll for more" cue at the bottom of hero */
     .hero-scroll-cue {
