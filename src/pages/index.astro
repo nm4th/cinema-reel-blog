@@ -11,6 +11,27 @@ const fmt = (d: Date) =>
 
 const heroImg = 'https://cdnspacemarket.com/uploads/attachments/1571410/image.jpg?width=1600&quality=85&format=jpg&auto=webp';
 const wideImg = 'https://cdnspacemarket.com/uploads/attachments/1585361/image.jpg?width=1600&quality=85&format=jpg&auto=webp';
+
+const sceneImg = (n: string) => `/images/blog/home-scenes/${n}.png`;
+
+const venuePhotos = [
+  {
+    src: 'https://cdnspacemarket.com/uploads/attachments/1571410/image.jpg?width=900&quality=85&format=jpg&auto=webp',
+    caption: 'スクリーン正面',
+  },
+  {
+    src: 'https://cdnspacemarket.com/uploads/attachments/1556569/image.jpg?width=900&quality=85&format=jpg&auto=webp',
+    caption: '室内・ソファ',
+  },
+  {
+    src: 'https://cdnspacemarket.com/uploads/attachments/1529635/image.jpg?width=900&quality=85&format=jpg&auto=webp',
+    caption: '4Kプロジェクター',
+  },
+  {
+    src: 'https://cdnspacemarket.com/uploads/attachments/1585361/image.jpg?width=900&quality=85&format=jpg&auto=webp',
+    caption: '空間全景',
+  },
+];
 ---
 <Layout>
   <!-- HERO -->
@@ -92,29 +113,66 @@ const wideImg = 'https://cdnspacemarket.com/uploads/attachments/1585361/image.jp
       </div>
       <div class="scenes-grid">
         <article class="scene-card">
-          <h3>誕生日サプライズ</h3>
-          <p>大画面のメッセージ動画と、ホールケーキの灯り。レストランでは作れない、貸切だけの瞬間を。</p>
+          <div class="scene-card-img" style={`background-image: url('${sceneImg('01-birthday')}');`} aria-hidden="true"></div>
+          <div class="scene-card-body">
+            <h3>誕生日サプライズ</h3>
+            <p>大画面のメッセージ動画と、ホールケーキの灯り。レストランでは作れない、貸切だけの瞬間を。</p>
+          </div>
         </article>
         <article class="scene-card">
-          <h3>推し活・上映会</h3>
-          <p>ライブ映像、出演ドラマ、推しのMV。ペンライトを振っても、声を出しても、誰も止めません。</p>
+          <div class="scene-card-img" style={`background-image: url('${sceneImg('02-oshikatsu')}');`} aria-hidden="true"></div>
+          <div class="scene-card-body">
+            <h3>推し活・上映会</h3>
+            <p>ライブ映像、出演ドラマ、推しのMV。ペンライトを掲げて、同担と「同じ瞬間」を共有する空間。</p>
+          </div>
         </article>
         <article class="scene-card">
-          <h3>デート / 記念日</h3>
-          <p>ふたりだけのスクリーンで、思い出の映画をもう一度。終電を気にしない夜のために。</p>
+          <div class="scene-card-img" style={`background-image: url('${sceneImg('03-date')}');`} aria-hidden="true"></div>
+          <div class="scene-card-body">
+            <h3>デート / 記念日</h3>
+            <p>ふたりだけのスクリーンで、思い出の映画をもう一度。終電を気にしない夜のために。</p>
+          </div>
         </article>
         <article class="scene-card">
-          <h3>女子会・パーティー</h3>
-          <p>持ち込み自由、6人までゆったり。映画→おしゃべり→映画、と気分のままに。</p>
+          <div class="scene-card-img" style={`background-image: url('${sceneImg('04-girls-night')}');`} aria-hidden="true"></div>
+          <div class="scene-card-body">
+            <h3>女子会・パーティー</h3>
+            <p>持ち込み自由、6人までゆったり。映画→おしゃべり→映画、と気分のままに。</p>
+          </div>
         </article>
         <article class="scene-card">
-          <h3>スポーツ観戦</h3>
-          <p>サッカー、野球、F1、格闘技。家のテレビでは出せない没入感を、新宿のど真ん中で。</p>
+          <div class="scene-card-img" style={`background-image: url('${sceneImg('05-sports')}');`} aria-hidden="true"></div>
+          <div class="scene-card-body">
+            <h3>スポーツ観戦</h3>
+            <p>サッカー、野球、F1、格闘技。家のテレビでは出せない没入感を、新宿のど真ん中で。</p>
+          </div>
         </article>
         <article class="scene-card">
-          <h3>撮影 / 配信</h3>
-          <p>商用撮影オプションあり。シックな内装と安定したWi-Fiで、配信・収録にも。</p>
+          <div class="scene-card-img" style={`background-image: url('${sceneImg('06-shoot')}');`} aria-hidden="true"></div>
+          <div class="scene-card-body">
+            <h3>撮影 / 配信</h3>
+            <p>商用撮影オプションあり。シックな内装と安定したWi-Fiで、配信・収録にも。</p>
+          </div>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- VENUE GALLERY -->
+  <section class="venue-gallery">
+    <div class="container">
+      <div class="section-head center">
+        <span class="reel-section-num">— Venue</span>
+        <h2 class="section-title">この空間で、過ごす夜。</h2>
+        <p class="section-sub">19㎡の完全個室・大型スクリーン・クリムゾンのソファ・4Kプロジェクター。</p>
+      </div>
+      <div class="venue-strip">
+        {venuePhotos.map((p) => (
+          <figure class="venue-strip-item">
+            <img src={p.src} alt={p.caption} loading="lazy" />
+            <figcaption>{p.caption}</figcaption>
+          </figure>
+        ))}
       </div>
     </div>
   </section>
@@ -513,13 +571,25 @@ const wideImg = 'https://cdnspacemarket.com/uploads/attachments/1585361/image.jp
     @media (max-width: 900px) { .scenes-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 600px) { .scenes-grid { grid-template-columns: 1fr; } }
     .scene-card {
-      padding: 32px 28px;
       background: var(--bg-card);
       border: 1px solid var(--film-edge);
       border-radius: var(--radius);
       transition: border-color 0.3s, transform 0.3s;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
     .scene-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+    .scene-card-img {
+      aspect-ratio: 16 / 10;
+      background-size: cover;
+      background-position: center;
+      background-color: var(--bg-deep);
+      border-bottom: 1px solid var(--film-edge);
+      transition: transform 0.6s ease;
+    }
+    .scene-card:hover .scene-card-img { transform: scale(1.04); }
+    .scene-card-body { padding: 28px 26px 30px; }
     .scene-card h3 {
       font-family: var(--font-jp);
       font-weight: 700;
@@ -529,6 +599,59 @@ const wideImg = 'https://cdnspacemarket.com/uploads/attachments/1585361/image.jp
       letter-spacing: 0.05em;
     }
     .scene-card p { margin: 0; color: var(--ink-muted); line-height: 1.9; font-size: 0.95rem; }
+
+    .venue-gallery {
+      padding: 96px 0;
+      background: var(--bg);
+      border-top: 1px solid var(--film-edge);
+    }
+    @media (max-width: 900px) {
+      .venue-gallery { padding: 72px 0; }
+    }
+    .venue-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 48px;
+    }
+    @media (max-width: 700px) {
+      .venue-strip { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    }
+    .venue-strip-item {
+      margin: 0;
+      position: relative;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      border: 1px solid var(--film-edge);
+      border-radius: var(--radius);
+      background: var(--bg-deep);
+    }
+    .venue-strip-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s ease, filter 0.4s ease;
+      filter: brightness(0.85) saturate(0.9);
+    }
+    .venue-strip-item:hover img {
+      transform: scale(1.06);
+      filter: brightness(1) saturate(1);
+    }
+    .venue-strip-item figcaption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 18px 16px 14px;
+      background: linear-gradient(0deg, rgba(5,4,3,0.92) 0%, rgba(5,4,3,0) 100%);
+      color: var(--ink);
+      font-family: var(--font-aux);
+      font-style: italic;
+      font-size: 0.85rem;
+      letter-spacing: 0.14em;
+      pointer-events: none;
+    }
 
     .feature-photo {
       position: relative;

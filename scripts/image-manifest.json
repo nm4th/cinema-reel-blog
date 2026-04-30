@@ -98,6 +98,55 @@
       "style": "natural",
       "quality": "standard",
       "prompt": "Cinematic dusk view of Shinjuku station west exit area, glowing neon signs softly out of focus in warm reds and golds, wide pedestrian street, film noir composition with strong silhouettes against the lights, hint of a small entrance off to one side with warm light, soft 35mm film grain, shallow depth of field, no readable text, no clearly identifiable corporate logos"
+    },
+
+    {
+      "slug": "home-scenes",
+      "filename": "01-birthday",
+      "size": "1792x1024",
+      "style": "natural",
+      "quality": "standard",
+      "prompt": "Cinematic close-up of a glowing birthday cake with multiple lit candles on a low dark wooden table inside a private cinema room in Tokyo Shinjuku, warm gold candlelight reflecting on glassware, hint of crimson velvet sofa softly out of focus in the background, large softly glowing projection screen visible behind, deep shadows, atmospheric haze, intimate celebration aesthetic, soft 35mm film grain, shallow depth of field, no people, no readable text, no logos"
+    },
+    {
+      "slug": "home-scenes",
+      "filename": "02-oshikatsu",
+      "size": "1792x1024",
+      "style": "natural",
+      "quality": "standard",
+      "prompt": "Cinematic wide back view of three anonymous silhouettes seated on a long crimson velvet sofa, raising glowing penlights of different colors (pink, cyan, gold) toward a large softly bright projection screen showing abstract concert-like light visuals, atmospheric haze, warm gold accent lighting on side walls, deep shadows, soft 35mm film grain, shallow depth of field, intimate group viewing atmosphere, no faces visible, no readable text, no logos"
+    },
+    {
+      "slug": "home-scenes",
+      "filename": "03-date",
+      "size": "1792x1024",
+      "style": "natural",
+      "quality": "standard",
+      "prompt": "Wide cinematic back view of two anonymous silhouettes sitting close together on a low crimson velvet sofa, watching a softly glowing projection screen showing abstract warm-toned cinematic imagery (no readable text), dark intimate private cinema room in Tokyo Shinjuku, warm gold accent lighting on the side walls, atmospheric haze, deep shadows, romantic moody atmosphere, soft 35mm film grain, shallow depth of field, no faces visible"
+    },
+    {
+      "slug": "home-scenes",
+      "filename": "04-girls-night",
+      "size": "1792x1024",
+      "style": "natural",
+      "quality": "standard",
+      "prompt": "Cinematic top-down view of a low dark wooden coffee table set up for a girls night in a private cinema room — four wine glasses with red wine, a charcuterie board with cheese and fruit, small dishes of tapas, a vase with a single rose, warm candlelight from off-frame, deep crimson and gold tones in the surroundings, atmospheric haze, soft 35mm film grain, no people, no readable text, no logos"
+    },
+    {
+      "slug": "home-scenes",
+      "filename": "05-sports",
+      "size": "1792x1024",
+      "style": "natural",
+      "quality": "standard",
+      "prompt": "Cinematic wide back view of three anonymous silhouettes raising arms in celebration toward a large bright projection screen showing out-of-focus athletic stadium imagery with abstract green field tones (no readable text or recognizable team logos), warm gold ambient lighting, atmospheric haze with visible projector light rays, deep dark room with crimson velvet sofa hints, intimate sports-bar-meets-cinema atmosphere, soft 35mm film grain, shallow depth of field"
+    },
+    {
+      "slug": "home-scenes",
+      "filename": "06-shoot",
+      "size": "1792x1024",
+      "style": "natural",
+      "quality": "standard",
+      "prompt": "Cinematic close-up of a professional DSLR camera mounted on a tripod set up in a dim private cinema room, detailed lens visible in sharp focus, ring light off-frame casting warm gold rim light on the camera body, large blurred projection screen in the background showing a soft abstract glow, dark wood floor and crimson velvet sofa hinted around, soft 35mm film grain, shallow depth of field, no people, no readable text, no clearly identifiable corporate logos"
     }
   ]
 }
