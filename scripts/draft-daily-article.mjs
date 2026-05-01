@@ -46,7 +46,11 @@ const ROOT = path.resolve(import.meta.dirname, '..');
 const POSTS_DIR = path.join(ROOT, 'src', 'content', 'posts');
 
 // ─── Anthropic API call helper ─────────────────────────────────────────────
-async function callClaude({ system, messages, tools, maxTokens = 4096 }) {
+function sleep(ms) {
+  return new Promise((r) => setTimeout(r, ms));
+}
+
+async function callClaude({ system, messages, tools, maxTokens = 4096, maxRetries = 4 }) {
   const body = {
     model: MODEL,
     max_tokens: maxTokens,
@@ -55,21 +59,39 @@ async function callClaude({ system, messages, tools, maxTokens = 4096 }) {
     ...(tools ? { tools } : {}),
   };
 
-  const res = await fetch(ANTHROPIC_API, {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-      'x-api-key': ANTHROPIC_API_KEY,
-      'anthropic-version': ANTHROPIC_VERSION,
-    },
-    body: JSON.stringify(body),
-  });
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    const res = await fetch(ANTHROPIC_API, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'x-api-key': ANTHROPIC_API_KEY,
+        'anthropic-version': ANTHROPIC_VERSION,
+      },
+      body: JSON.stringify(body),
+    });
 
-  if (!res.ok) {
-    const txt = await res.text();
-    throw new Error(`Anthropic ${res.status}: ${txt.slice(0, 600)}`);
+    if (res.status === 429 && attempt < maxRetries - 1) {
+      // Anthropic Tier-1 has a per-minute token bucket; 65s clears it fully.
+      // Back off longer on later attempts in case the bucket needs longer.
+      const waitSec = 65 + 30 * attempt;
+      console.log(`⏳ 429 rate-limited; sleeping ${waitSec}s before retry (${attempt + 1}/${maxRetries - 1})…`);
+      await sleep(waitSec * 1000);
+      continue;
+    }
+
+    if (res.status >= 500 && res.status < 600 && attempt < maxRetries - 1) {
+      console.log(`⏳ ${res.status} server error; retrying in 15s (${attempt + 1}/${maxRetries - 1})…`);
+      await sleep(15_000);
+      continue;
+    }
+
+    if (!res.ok) {
+      const txt = await res.text();
+      throw new Error(`Anthropic ${res.status}: ${txt.slice(0, 600)}`);
+    }
+    return res.json();
   }
-  return res.json();
+  throw new Error('Anthropic API: exhausted retries');
 }
 
 // Squeeze the final assistant text out of a Messages API response, ignoring
@@ -201,6 +223,14 @@ console.log(`   slug: ${topic.slug}`);
 console.log(`   sources: ${topic.officialUrls?.length || 0}`);
 
 // ─── Phase B — write the article ────────────────────────────────────────────
+// Wait out the per-minute token-bucket window before firing Phase B. Phase A's
+// web_search results consume a sizable input-token chunk that's still counted
+// in the same 60-second window if we hit the API immediately afterward — on
+// Tier-1 accounts this trips the 30K input-tokens/min limit.
+const PHASE_GAP_SEC = 65;
+console.log(`⏳ pausing ${PHASE_GAP_SEC}s to clear the rate-limit window before Phase B…`);
+await sleep(PHASE_GAP_SEC * 1000);
+
 const ARTICLE_SYSTEM = `あなたは「CINEMA REEL 新宿」のブログのエディトリアルライターです。
 シネマティック・ダーク基調、文学的で上品なトーンで日本語の記事を書く。
 
