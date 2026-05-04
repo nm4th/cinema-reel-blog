@@ -104,6 +104,13 @@ if (inlineCtaCount < 2) {
   issues.push(`only ${inlineCtaCount} inline CTAs (expected ≥2)`);
 }
 
+// Visual richness gate: count iframes and figures. The minimum thresholds
+// differ by category (上映ガイド relies on YouTube iframes + venue photos;
+// lifestyle articles have DALL-E figures from the manifest).
+const iframeCount = (body.match(/<div\s+class="video-embed">/g) || []).length;
+const figureCount = (body.match(/<figure\b/g) || []).length;
+const visualTotal = iframeCount + figureCount;
+
 if (isWatchGuide) {
   const hasSourceList = /<div\s+class="source-list">/.test(body);
   if (!hasSourceList) {
@@ -114,6 +121,18 @@ if (isWatchGuide) {
     if (urlsInSourceList < 3) {
       issues.push(`source-list has only ${urlsInSourceList} URLs (expected ≥3)`);
     }
+  }
+
+  if (iframeCount < 2) {
+    issues.push(`only ${iframeCount} <iframe> embed(s) — 上映ガイド needs ≥2 official YouTube videos`);
+  }
+  if (visualTotal < 3) {
+    issues.push(`only ${visualTotal} visual elements (iframes + figures) — 上映ガイド needs ≥3 total`);
+  }
+} else {
+  // Lifestyle / other categories: rely on figure-based DALL-E imagery.
+  if (figureCount < 1 && iframeCount < 1) {
+    issues.push('no visual elements (no <figure> and no iframe)');
   }
 }
 

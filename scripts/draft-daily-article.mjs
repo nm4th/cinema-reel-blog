@@ -216,7 +216,9 @@ web_search を必ず使って事実確認したうえで、最後に以下の JS
     "factsVerified": [
       { "claim": "配信開始日 2026-XX-XX", "sources": ["url1", "url2"] }
     ],
-    "youtubeOfficialId": "<YouTube動画ID>" or null,
+    "youtubeOfficialVideos": [
+      { "id": "<11文字のYouTube動画ID>", "title": "動画タイトル", "role": "trailer" | "teaser" | "press-conf" | "interview" | "bts" | "clip" | "highlight" | "promo" }
+    ],
     "officialUrls": [
       { "title": "Netflix公式作品ページ", "url": "https://..." },
       { "title": "About Netflix プレスリリース", "url": "https://..." },
@@ -224,6 +226,21 @@ web_search を必ず使って事実確認したうえで、最後に以下の JS
     ]
   }
 }
+
+# 動画リサーチ（最重要）
+youtubeOfficialVideos は **目標 3〜5本**（最低 2 本）。Netflix Japan / ABEMA / アーティスト等 **公式 YouTube チャンネル** から、以下のような種類を組み合わせて探す:
+- 本予告 / Official Trailer
+- ティーザー / Teaser
+- プレスカンファレンス・記者会見
+- インタビュー / 対談
+- 撮影の裏側 / BTS / Behind the Scenes
+- 過去試合のハイライト（スポーツの場合）
+- 楽曲 MV（音楽イベントの場合）
+- 選手 / 出演者プロモ動画
+
+各動画 ID は **11文字の YouTube 動画 ID（dQw4w9WgXcQ 形式）**で、watch URL から抽出する。実在性を verify すること（架空の動画 ID は禁止）。
+
+公式動画が 2 本未満しか見つからない場合は decision: "skip" を選んでよい。
 
 スキップする場合:
 {
@@ -297,6 +314,28 @@ const ARTICLE_SYSTEM = `あなたは「CINEMA REEL 新宿」のブログのエ�
   <iframe src="https://www.youtube.com/embed/<VIDEO_ID>" title="<タイトル> 公式予告編" allowfullscreen loading="lazy"></iframe>
 </div>
 
+## 中盤の inline 動画埋め込み
+本文中の各 H2 の文脈に合わせて、上記 \`<div class="video-embed">\` を **複数回** 配置する（目標: 3〜5本）。同じ動画を繰り返し使わない。
+
+## 図版（figure 図 + キャプション）
+作品画像の hotlink/転載は禁止だが、**CINEMA REEL 新宿の実空間写真**は使ってよい（ユーザー所有のスペース写真）。視聴方法・選択肢・準備系のセクションで figure として挿入する:
+
+利用可能な実空間写真（Spacemarket CDN URL）:
+- スクリーン正面 → \`https://cdnspacemarket.com/uploads/attachments/1571410/image.jpg?width=1200&quality=85&format=jpg&auto=webp\`
+- 室内・ソファ → \`https://cdnspacemarket.com/uploads/attachments/1556569/image.jpg?width=1200&quality=85&format=jpg&auto=webp\`
+- 4Kプロジェクター → \`https://cdnspacemarket.com/uploads/attachments/1529635/image.jpg?width=1200&quality=85&format=jpg&auto=webp\`
+- 空間全景 → \`https://cdnspacemarket.com/uploads/attachments/1585361/image.jpg?width=1200&quality=85&format=jpg&auto=webp\`
+
+書き方:
+\`\`\`html
+<figure class="post-figure">
+  <img src="<上記のいずれか>" alt="<内容を説明する代替テキスト>" loading="lazy" />
+  <figcaption>キャプション文（イタリック体で表示される）</figcaption>
+</figure>
+\`\`\`
+
+上映ガイド記事は **最低 1 枚**、可能なら **2 枚** の venue photo figure を「視聴方法」「選択肢」「準備」系のセクションに挿入する。
+
 ## 中盤の inline CTA（記事内 2 箇所、25-35% と 60-75% の地点）
 <aside class="post-cta-inline">
   <p>新宿駅西口徒歩2分の完全貸切プライベートシネマ <strong>CINEMA REEL 新宿</strong>。最大6名・EPSON 4Kプロジェクターと大画面で、自分たちだけの上映時間を。</p>
@@ -319,19 +358,30 @@ const ARTICLE_SYSTEM = `あなたは「CINEMA REEL 新宿」のブログのエ�
 </div>
 
 # 記事構造（上映ガイド版・10セクションテンプレ）
-1. frontmatter（title / description 140-160字 / pubDate / category / tags / heroVideoId）
+1. frontmatter（title / description 140-160字 / pubDate / category / tags / heroVideoId = role: "trailer" の動画 ID）
 2. リード（3-5文）
-3. リード直後に動画ヒーロー（公式予告編 iframe）
-4. ## H2 #1: 作品概要
-5. ## H2 #2: メインキャスト
+3. リード直後に **動画ヒーロー iframe**（role: "trailer" を使用）
+4. ## H2 #1: 作品概要・配信日程
+5. ## H2 #2: メインキャスト・出演者
+   - ここに role: "interview" / "press-conf" の **iframe を1本** 埋める
 6. （ここに 1 個目の <aside class="post-cta-inline">）
-7. ## H2 #3: 公式予告編または特別映像
-8. ## H2 #4: 撮影の裏側 / 制作秘話 など
-9. ## H2 #5: 大画面で観たい人向けの選択肢（CINEMA REEL を 1 回さりげなく言及）
+7. ## H2 #3: 公式予告編・特別映像 or 過去ハイライト
+   - role: "teaser" / "clip" / "highlight" の **iframe を1本** 埋める
+8. ## H2 #4: 撮影の裏側 / 制作秘話 / 試合背景 など
+   - role: "bts" / "promo" の **iframe を1本** 埋める
+9. ## H2 #5: 大画面で観たい人向けの選択肢
+   - **<figure>** で venue photo 1 枚（スクリーン正面 or 4Kプロジェクター）を挿入
+   - CINEMA REEL を 1 回さりげなく言及
 10. （ここに 2 個目の <aside class="post-cta-inline">）
-11. ## H2 #6: グループ視聴の楽しみ方
+11. ## H2 #6: グループ視聴の楽しみ方・進行のヒント
+   - **<figure>** で venue photo 1 枚（室内・ソファ or 空間全景）を挿入
 12. ## 公式情報まとめ（<div class="source-list">）
 13. 末尾の閉じパラグラフ（CINEMA REEL を選択肢として軽く再登場）
+
+## 視覚要素の最低ライン（厳守）
+- **iframe（公式 YouTube 動画埋め込み）**: 最低 2 本、目標 3〜5 本（リード直後 + 各 H2 末尾）
+- **figure（venue photo）**: 最低 1 枚、推奨 2 枚（H2 #5 と H2 #6）
+- 両方足して **最低 3 個の視覚要素** がない記事は不採用
 
 # 季節・イベント連動ライフスタイル記事の場合
 - heroVideoId は不要、heroImage も不要（または既存 DALL-E 画像）
