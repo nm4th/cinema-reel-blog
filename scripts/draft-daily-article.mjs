@@ -120,6 +120,46 @@ function extractJsonBlock(text) {
   return JSON.parse(candidate.slice(start, end + 1));
 }
 
+// ─── Recent posts loader ───────────────────────────────────────────────────
+// Phase A needs to know what topics we've already covered so it doesn't pick
+// the same trending event again on the next day. Surfaces title + date + slug
+// for everything published in the last 14 days.
+async function getRecentPosts(days = 14) {
+  const cutoffMs = Date.now() - days * 24 * 60 * 60 * 1000;
+  let files;
+  try {
+    files = await fs.readdir(POSTS_DIR);
+  } catch {
+    return [];
+  }
+  const recent = [];
+  for (const f of files) {
+    if (!/^\d{4}-\d{2}-\d{2}-.+\.md$/.test(f)) continue;
+    const dateStr = f.slice(0, 10);
+    const dateMs = new Date(dateStr + 'T00:00:00+09:00').getTime();
+    if (dateMs < cutoffMs) continue;
+
+    let title = '(no title)';
+    let category = '';
+    let tags = '';
+    try {
+      const md = await fs.readFile(path.join(POSTS_DIR, f), 'utf8');
+      const tMatch = md.match(/^title:\s*"?([^"\n]+?)"?\s*$/m);
+      const cMatch = md.match(/^category:\s*"?([^"\n]+?)"?\s*$/m);
+      const tagMatch = md.match(/^tags:\s*\[([^\]]*)\]/m);
+      if (tMatch) title = tMatch[1].trim();
+      if (cMatch) category = cMatch[1].trim();
+      if (tagMatch) tags = tagMatch[1].trim();
+    } catch {}
+
+    recent.push({ date: dateStr, slug: f.replace(/\.md$/, ''), title, category, tags });
+  }
+  return recent.sort((a, b) => b.date.localeCompare(a.date));
+}
+
+const recentPosts = await getRecentPosts(14);
+console.log(`📚 recent posts in last 14 days: ${recentPosts.length}`);
+
 // ─── Phase A — research the topic ───────────────────────────────────────────
 const RESEARCH_SYSTEM = `あなたは新宿の完全貸切プライベートシネマ「CINEMA REEL 新宿」のエディトリアル AI です。
 施設は約19㎡（12畳）、最大6名、EPSON 4Kプロジェクター + 大型スクリーン、新宿駅西口徒歩2分。
@@ -148,8 +188,17 @@ const RESEARCH_SYSTEM = `あなたは新宿の完全貸切プライベートシ�
 - 過去同名イベントとの年号取り違えリスクが高いもの
 - CINEMA REEL にログインしていない VOD の独占配信
 
-# 重複回避
-昨日・一昨日と同じ作品/イベントは取り扱わない。
+# 重複回避（最重要・厳守）
+直近14日間に **既にカバー済みの題材は絶対に選ばない**。同じ作品・同じ興行・同じ配信ライブの「別角度の記事」も避ける（読者が同じ内容を繰り返し見せられて不快になるため）。
+別の作品 / 別の生配信 / 別の話題 を選ぶこと。同様の題材しか残っていない日は decision: "skip" を選ぶ。
+
+${recentPosts.length === 0
+  ? '直近14日間の記事: なし（重複の心配はない）'
+  : `## 直近14日間に既にカバー済みの題材
+${recentPosts.map(p => `- ${p.date} [${p.category}] ${p.title}\n  tags: ${p.tags}`).join('\n')}
+
+これらと同じ作品・同じイベント・同じ出演者中心の記事は **絶対に書かない**。`
+}
 
 # 出力フォーマット（必ず JSON のみ）
 web_search を必ず使って事実確認したうえで、最後に以下の JSON だけを出力する。前後に説明文を書かない。
