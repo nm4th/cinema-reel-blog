@@ -227,7 +227,7 @@
 ```html
 <aside class="post-cta-inline">
   <p>新宿駅西口徒歩2分の完全貸切プライベートシネマ <strong>CINEMA REEL 新宿</strong>。最大6名・EPSON 4Kプロジェクターと大画面、ふかふかのソファで、自分たちだけの上映時間を。</p>
-  <a href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">空き状況を見る →</a>
+  <a href="/">詳細を見る →</a>
 </aside>
 ```
 
@@ -236,7 +236,13 @@
 - VOD推し: 「Netflix・Prime Video・U-NEXT・Disney+・Abema を店舗側でログイン済み。来店してすぐ大画面に。」
 - 作品文脈系（上映ガイド記事用）: 「○○を大画面で観るなら、Netflix がログイン済みで来店してすぐ第1話から再生できます。」
 
-**CTA リンクは固定**: `https://spacemarket.com/p/Rk36vVe7-ZK_fg-E`（プロモ送客用 URL）
+**CTA リンクは TOP ページに固定**: `/`（cinema-reel.com トップへ。ホームのヒーローに `空き状況・予約` ボタンがあるので、そこから Spacemarket へ誘導するファネル）。
+
+直接 `https://spacemarket.com/p/Rk36vVe7-ZK_fg-E` を使うのは:
+- 画面下の `sticky-cta`（決断済み読者向けの即予約パス）
+- 各記事の「公式予約ページ」「最新の正確な料金」等を明示する文脈リンク
+
+の 2 種類だけ。記事中の CTA ボタンはすべて `/` にする。
 
 PostLayout.astro 側の `.post-cta-inline` CSS が hand off で、ゴールドボーダー + 横並び（モバイルは縦積み）+ ゴールドピルボタンの形に整える。
 

@@ -337,15 +337,17 @@ const ARTICLE_SYSTEM = `あなたは「CINEMA REEL 新宿」のブログのエ�
 上映ガイド記事は **最低 1 枚**、可能なら **2 枚** の venue photo figure を「視聴方法」「選択肢」「準備」系のセクションに挿入する。
 
 ## 中盤の inline CTA（記事内 2 箇所、25-35% と 60-75% の地点）
+**CTA のリンク先は必ず "/" （TOPページ）にする。Spacemarket への直リンクは使わない。** これは記事 → ホームページ → Spacemarket というファネル設計。ボタン文言は「詳細を見る →」で固定。
+
 <aside class="post-cta-inline">
   <p>新宿駅西口徒歩2分の完全貸切プライベートシネマ <strong>CINEMA REEL 新宿</strong>。最大6名・EPSON 4Kプロジェクターと大画面で、自分たちだけの上映時間を。</p>
-  <a href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">空き状況を見る →</a>
+  <a href="/">詳細を見る →</a>
 </aside>
 
 別バリエーションの inline CTA（VOD推し）:
 <aside class="post-cta-inline">
   <p><strong>CINEMA REEL 新宿</strong>では Netflix・Prime Video・U-NEXT・Disney+・Abema が店舗側でログイン済み。来店してすぐ大画面に。</p>
-  <a href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">空き状況を見る →</a>
+  <a href="/">詳細を見る →</a>
 </aside>
 
 ## 公式情報まとめ（上映ガイドの末尾）

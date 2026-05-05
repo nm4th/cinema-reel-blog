@@ -104,6 +104,22 @@ if (inlineCtaCount < 2) {
   issues.push(`only ${inlineCtaCount} inline CTAs (expected ≥2)`);
 }
 
+// Inline CTAs must point to "/" (homepage funnel), not the Spacemarket
+// promo URL directly. The sticky bottom CTA + the post-cta aside in
+// PostLayout handle the Spacemarket link globally; the in-article CTA's
+// job is to land readers on the homepage where they get the full pitch.
+const inlineCtaBlocks = body.match(/<aside\s+class="post-cta-inline">[\s\S]+?<\/aside>/g) || [];
+for (const block of inlineCtaBlocks) {
+  if (/href="https?:\/\/[^"]*spacemarket\.com/.test(block)) {
+    issues.push('inline post-cta links to spacemarket directly (should be href="/")');
+    break;
+  }
+  if (!/href="\/?"/.test(block) && !/href="\/#?[\w-]*"/.test(block)) {
+    issues.push('inline post-cta href is not the homepage ("/")');
+    break;
+  }
+}
+
 // Visual richness gate: count iframes and figures. The minimum thresholds
 // differ by category (上映ガイド relies on YouTube iframes + venue photos;
 // lifestyle articles have DALL-E figures from the manifest).

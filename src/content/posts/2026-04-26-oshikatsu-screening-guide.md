@@ -55,7 +55,7 @@ CINEMA REEL 新宿では、以下のVODサービスが**店舗側で契約済み
 
 <aside class="post-cta-inline">
   <p><strong>CINEMA REEL 新宿</strong>では Netflix・Prime Video・U-NEXT・Disney+・Abema を店舗側でログイン済み。来店してすぐ、推しの出演作品やライブ映像を大画面に。</p>
-  <a href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">空き状況を見る →</a>
+  <a href="/">詳細を見る →</a>
 </aside>
 
 ## 企画の組み立て方 ― よくある3パターン
@@ -161,7 +161,7 @@ CINEMA REEL 新宿では、以下のVODサービスが**店舗側で契約済み
 
 <aside class="post-cta-inline">
   <p>新宿駅西口徒歩2分の完全貸切プライベートシネマ <strong>CINEMA REEL 新宿</strong>。最大6名・EPSON 4Kプロジェクターと大画面、ふかふかのソファで、自分たちだけの上映時間を。</p>
-  <a href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">空き状況を見る →</a>
+  <a href="/">詳細を見る →</a>
 </aside>
 
 ## 上映会を盛り上げる「進行係」の役割

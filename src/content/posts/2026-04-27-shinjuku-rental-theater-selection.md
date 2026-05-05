@@ -59,7 +59,7 @@ CINEMA REEL 新宿は約19㎡（12畳）で最大6名収容。「少人数で密
 
 <aside class="post-cta-inline">
   <p>新宿駅西口徒歩2分の完全貸切プライベートシネマ <strong>CINEMA REEL 新宿</strong>。最大6名・EPSON 4Kプロジェクターと大画面、ふかふかのソファで、自分たちだけの上映時間を。</p>
-  <a href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">空き状況を見る →</a>
+  <a href="/">詳細を見る →</a>
 </aside>
 
 ## 観点4：立地とアクセス
@@ -95,7 +95,7 @@ YouTubeのみ、ゲスト自身のアカウントでログインが必要です�
 
 <aside class="post-cta-inline">
   <p><strong>CINEMA REEL 新宿</strong>では Netflix・Prime Video・U-NEXT・Disney+・Abema を店舗側でログイン済み。ご来店いただいたら、観たい作品をすぐ大画面に映して始められます。</p>
-  <a href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">空き状況を見る →</a>
+  <a href="/">詳細を見る →</a>
 </aside>
 
 ## 観点6：料金体系（時間単価・最低利用時間・付帯費用）

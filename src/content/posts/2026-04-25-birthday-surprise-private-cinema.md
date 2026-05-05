@@ -45,7 +45,7 @@ heroImage: "/images/blog/2026-04-25-birthday-surprise-private-cinema/hero.png"
 
 <aside class="post-cta-inline">
   <p>新宿駅西口徒歩2分の完全貸切プライベートシネマ <strong>CINEMA REEL 新宿</strong>。最大6名・EPSON 4Kプロジェクターと大画面、ふかふかのソファで、自分たちだけの上映時間を。</p>
-  <a href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">空き状況を見る →</a>
+  <a href="/">詳細を見る →</a>
 </aside>
 
 ## メッセージ動画を「映画館仕様」で作る
@@ -118,7 +118,7 @@ CINEMA REEL 新宿は新宿駅から徒歩2分なので、駅構内・駅ビル�
 
 <aside class="post-cta-inline">
   <p><strong>CINEMA REEL 新宿</strong>では Netflix・Prime Video・U-NEXT・Disney+・Abema を店舗側でログイン済み。ご来店いただいたら、観たい作品をすぐ大画面に映して始められます。</p>
-  <a href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">空き状況を見る →</a>
+  <a href="/">詳細を見る →</a>
 </aside>
 
 ## 当日のタイムライン例（19:00予約開始・3時間枠）
