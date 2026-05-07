@@ -45,6 +45,47 @@ const absoluteOgImage = ogImage?.startsWith('http')
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'AW-18129040375');
+
+      // Google Ads conversion: ページビュー goal (D0I0CPTHk6kcEPfnzMRD).
+      // Available globally for inline onclick uses, e.g.
+      //   <a onclick="return gtag_report_conversion(this.href)" href="...">
+      // Delays navigation until the event is acknowledged — only useful for
+      // same-tab navigation. Our Spacemarket CTAs open in a new tab, so the
+      // auto-listener below is sufficient. Kept as a documented option.
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        };
+        gtag('event', 'conversion', {
+            'send_to': 'AW-18129040375/D0I0CPTHk6kcEPfnzMRD',
+            'event_callback': callback
+        });
+        return false;
+      }
+
+      // Auto-fire the conversion on every Spacemarket link click without
+      // touching the markup. Catches the sticky CTA, hero "空き状況・予約",
+      // footer link, booking-flow CTA, contact-form note link, and any
+      // in-article body-text reference like 「予約ページ」「公式予約ページ」.
+      // All those links use target="_blank" so we don't need to delay the
+      // new-tab opening — gtag.js uses sendBeacon transport for the event,
+      // which reliably reaches Google Ads even as the new tab is being
+      // opened.
+      document.addEventListener('DOMContentLoaded', function () {
+        document
+          .querySelectorAll('a[href*="spacemarket.com"]')
+          .forEach(function (link) {
+            link.addEventListener('click', function () {
+              if (typeof gtag === 'function') {
+                gtag('event', 'conversion', {
+                  send_to: 'AW-18129040375/D0I0CPTHk6kcEPfnzMRD',
+                });
+              }
+            });
+          });
+      });
     </script>
 
     <meta charset="UTF-8" />
