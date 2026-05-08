@@ -77,33 +77,68 @@ const faqs = [
 const vodServices = [
   {
     name: 'Netflix',
+    slug: 'netflix',
     logo: '/vod-logos/netflix.jpg',
     note: 'オリジナルドラマ・映画・アニメ',
     brandColor: '#e50914',
+    contents: [
+      'Netflix オリジナルシリーズ・独占配信映画',
+      '韓国ドラマ・邦画・洋画',
+      'アニメ・ドキュメンタリー',
+      'ライブ生中継（スポーツ・MMA等の一部）',
+    ],
   },
   {
     name: 'Prime Video',
+    slug: 'prime',
     logo: '/vod-logos/prime-video.png',
     note: '映画・スポーツ・PPV',
     brandColor: '#00a8e1',
+    contents: [
+      'Amazon オリジナルシリーズ',
+      '海外ドラマ・映画',
+      'スポーツ生中継（ボクシング・サッカー等）',
+      '追加料金で観られる Prime Video チャンネル',
+    ],
   },
   {
     name: 'U-NEXT',
+    slug: 'u-next',
     logo: '/vod-logos/u-next.jpg',
     note: '邦画・洋画・アニメ・ライブ映像',
     brandColor: '#ffffff',
+    contents: [
+      '邦画・洋画（最新作も配信）',
+      'アニメ・韓ドラ',
+      'アーティストのライブ映像（独占配信多数）',
+      '雑誌読み放題機能つき',
+    ],
   },
   {
     name: 'Disney+',
+    slug: 'disney',
     logo: '/vod-logos/disney-plus.jpg',
     note: 'ディズニー / ピクサー / マーベル / SW',
     brandColor: '#0c2461',
+    contents: [
+      'ディズニー作品（クラシック〜最新）',
+      'ピクサー / マーベル / スター・ウォーズ',
+      'ナショナル ジオグラフィック',
+      'Disney+ オリジナルシリーズ',
+    ],
   },
   {
     name: 'ABEMA',
+    slug: 'abema',
     logo: '/vod-logos/abema.svg',
     note: 'スポーツ生中継 / ニュース / バラエティ',
     brandColor: '#00d264',
+    contents: [
+      'スポーツ生中継（ボクシング・サッカー・将棋等）',
+      'PPV 格闘技（独占配信多数）',
+      '恋愛リアリティショー・バラエティ',
+      'AbemaNews 24時間配信',
+    ],
   },
 ];
 
@@ -197,16 +232,12 @@ const venuePhotos = [
           約19㎡（12畳）の完全個室に、4Kプロジェクターと大型スクリーン、ふかふかのソファ。
           外の喧騒も、隣の話し声もない、自分たちだけのスクリーンが、ただそこにあります。
         </p>
-        <p>
-          Netflix・Prime Video・U-NEXT・Disney+・Abemaのアカウントは店舗側で契約済み。
-          ゲストはログイン不要、来店してすぐ大画面で本編に入れます。
-        </p>
         <ul class="bullets">
           <li>EPSON 4Kプロジェクター + 大型スクリーン</li>
-          <li>各サブスクVOD ログイン済み（Netflix / Prime / U-NEXT / Disney+ / Abema）</li>
           <li>冷蔵庫・電子レンジ・電気ケトル</li>
           <li>グラス・皿・カトラリー 各6セット</li>
           <li>新宿駅 徒歩2分 / 大江戸線新宿西口駅 徒歩1分</li>
+          <li>営業時間 7:00 – 23:00</li>
         </ul>
       </div>
     </div>
@@ -235,6 +266,26 @@ const venuePhotos = [
           </li>
         ))}
       </ul>
+
+      <div class="vod-detail-head reveal-up">
+        <p class="reel-section-num">— What's Inside</p>
+        <h3 class="vod-detail-title">どこで何が観られる？</h3>
+        <p class="vod-detail-sub">
+          各サービスで観られる代表的なコンテンツの早見表。クリックすれば作品別の視聴ガイドへ。
+        </p>
+      </div>
+
+      <div class="vod-detail-grid stagger reveal-up">
+        {vodServices.map((s) => (
+          <a class="vod-detail-card" href={`/${s.slug}/`} style={`--brand: ${s.brandColor};`}>
+            <p class="vod-detail-card-name">{s.name}</p>
+            <ul>
+              {s.contents.map((c) => <li>{c}</li>)}
+            </ul>
+            <p class="vod-detail-card-cta">特集ページを見る →</p>
+          </a>
+        ))}
+      </div>
 
       <p class="vod-foot">
         ※ YouTube はゲストご自身のアカウントでログインしてご利用ください。<br />
@@ -1343,6 +1394,111 @@ const venuePhotos = [
       font-size: 0.78rem;
       line-height: 1.9;
       letter-spacing: 0.04em;
+    }
+
+    /* VOD detail grid — "what's inside each service" */
+    .vod-detail-head {
+      margin: 64px auto 24px;
+      text-align: center;
+      max-width: 720px;
+    }
+    .vod-detail-title {
+      font-family: var(--font-jp);
+      font-weight: 700;
+      font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+      color: var(--ink);
+      letter-spacing: 0.04em;
+      margin: 12px 0 14px;
+    }
+    .vod-detail-sub {
+      color: var(--ink-muted);
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.9;
+    }
+    .vod-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-top: 32px;
+    }
+    @media (max-width: 1100px) { .vod-detail-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 700px)  { .vod-detail-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px)  { .vod-detail-grid { grid-template-columns: 1fr; } }
+
+    .vod-detail-card {
+      --brand: var(--gold);
+      display: flex;
+      flex-direction: column;
+      padding: 22px 20px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--film-edge);
+      border-radius: var(--radius);
+      transition: border-color 0.4s var(--ease-luxe), transform 0.4s var(--ease-luxe), box-shadow 0.5s var(--ease-luxe);
+      position: relative;
+      overflow: hidden;
+    }
+    .vod-detail-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--brand);
+      opacity: 0;
+      transition: opacity 0.4s var(--ease-luxe);
+    }
+    .vod-detail-card:hover {
+      border-color: var(--brand);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 36px -16px color-mix(in srgb, var(--brand) 50%, transparent);
+    }
+    .vod-detail-card:hover::before { opacity: 1; }
+    .vod-detail-card-name {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--ink);
+      letter-spacing: 0.08em;
+      margin: 0 0 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed var(--film-edge);
+    }
+    .vod-detail-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+    .vod-detail-card li {
+      font-size: 0.78rem;
+      line-height: 1.55;
+      color: var(--ink-muted);
+      padding-left: 12px;
+      position: relative;
+      font-family: var(--font-jp);
+      letter-spacing: 0.02em;
+    }
+    .vod-detail-card li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--brand);
+    }
+    .vod-detail-card-cta {
+      margin: 0;
+      font-family: var(--font-aux);
+      font-style: italic;
+      font-size: 0.78rem;
+      color: var(--gold-bright);
+      letter-spacing: 0.12em;
+      text-align: right;
+      transition: transform 0.4s var(--ease-luxe);
+    }
+    .vod-detail-card:hover .vod-detail-card-cta {
+      transform: translateX(4px);
     }
 
     /* SOCIAL PROOF banner */
