@@ -220,7 +220,10 @@ web_search を必ず使って事実確認したうえで、最後に以下の JS
     "title": "記事タイトル（日本語、'新宿で大画面で観るなら｜...' 形式）",
     "slug": "ascii-kebab-case-slug-no-japanese",
     "category": "上映ガイド" or "推し活" or "デート" or "パーティー" or "利用ガイド",
-    "tags": ["Netflix", "<作品名>", "<出演者名>", ...],
+    "tags": ["<プラットフォーム>", "<作品名>", "<出演者名>", ...],
+    // プラットフォーム タグは必ず1つ以上含める。配信元に応じて以下のいずれかを使う:
+    //   "Netflix" / "ABEMA" / "Disney+" / "U-NEXT" / "Prime Video"
+    // これがハブ・スポーク SEO の自動分類に使われるので表記揺れを避ける。
     "type": "live-broadcast" | "netflix-release" | "trending" | "seasonal-lifestyle",
     "summary": "1文の要約",
     "factsVerified": [

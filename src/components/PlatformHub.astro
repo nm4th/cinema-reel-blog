@@ -1,0 +1,535 @@
+---
+/**
+ * Reusable hub/pillar page for a single VOD platform.
+ *
+ * Each platform's page (`/netflix/`, `/abema/`, `/disney/`, `/u-next/`,
+ * `/prime/`) is a 30-line thin wrapper that passes a `platform` config
+ * to this component. Layout, queries, JSON-LD, and CSS are all here.
+ *
+ * Filters posts at build time: `posts.tags` (case-insensitive) must
+ * intersect `platform.tags`. New spoke published with the matching tag
+ * → next deploy includes it on the hub automatically.
+ */
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { resolvePostThumbnail } from '../lib/post.ts';
+
+export interface PlatformConfig {
+  /** lowercase, used as URL slug fragment (the page itself controls the path) */
+  id: string;
+  /** Display label, used in italic hero and titles, e.g., "Netflix", "ABEMA" */
+  label: string;
+  /** Lowercased tag synonyms — any post whose tags include one of these is on this hub */
+  tags: string[];
+  /** Breadcrumb label, e.g., "Netflix で観る" */
+  breadcrumbName: string;
+  /** Page <title> contribution, e.g., "Netflix の話題作" */
+  titleFragment: string;
+  /** <meta name="description"> body */
+  description: string;
+  /** Hero subtitle line(s); supports <br />. Default: "の話題作を、新宿の大画面で。" */
+  heroSubtitle?: string;
+  /** Optional value-prop intro paragraph override */
+  introBody?: string;
+}
+
+interface Props {
+  platform: PlatformConfig;
+}
+
+const { platform } = Astro.props;
+
+const posts = (await getCollection('posts', ({ data }) =>
+  !data.draft && data.tags.some((t) => platform.tags.includes(t.toLowerCase()))
+)).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const fmt = (d: Date) =>
+  new Intl.DateTimeFormat('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
+
+const liveTagged = posts.filter((p) =>
+  p.data.tags.some((t) => /^(配信ライブ|ライブ配信|生中継|PPV)/i.test(t))
+);
+const liveSlugs = new Set(liveTagged.map((p) => p.slug));
+const otherPosts = posts.filter((p) => !liveSlugs.has(p.slug));
+
+const breadcrumbs = [
+  { name: 'ホーム', url: '/' },
+  { name: '配信特集', url: '/watch/' },
+  { name: platform.breadcrumbName, url: `/${platform.id}/` },
+];
+
+const collectionItems = posts.map((p) => ({
+  url: `/blog/${p.slug}/`,
+  name: p.data.title,
+  description: p.data.description,
+  image: resolvePostThumbnail(p.data) ?? undefined,
+}));
+
+const heroBg = posts[0] ? resolvePostThumbnail(posts[0].data) : null;
+
+const heroSubtitle = platform.heroSubtitle ?? 'の話題作を、<br />新宿の大画面で。';
+const introBody =
+  platform.introBody ??
+  `CINEMA REEL 新宿は、Netflix・Prime Video・U-NEXT・Disney+・Abema を <strong>店舗側でログイン済み</strong> の状態で運営しています。ゲストがアカウント情報を入力する必要なく、来店後すぐにリモコンで観たい作品を選んで再生できる構成です。`;
+
+const pageTitle = `${platform.titleFragment}を新宿の大画面で観るなら｜CINEMA REEL 新宿`;
+---
+<Layout
+  title={pageTitle}
+  description={platform.description}
+  ogImage={heroBg ?? undefined}
+  breadcrumbs={breadcrumbs}
+  collectionPage={{
+    name: `${platform.titleFragment} 視聴ガイド集 — CINEMA REEL 新宿`,
+    description: platform.description,
+    items: collectionItems,
+  }}
+>
+  <section class="ph-hero">
+    {heroBg && (
+      <div class="ph-hero-bg" style={`background-image: url('${heroBg}');`}></div>
+    )}
+    <div class="ph-hero-tint"></div>
+    <div class="container ph-hero-inner">
+      <p class="reel-section-num">— Watch Hub</p>
+      <h1 class="ph-hero-title">
+        <span class="ph-hero-title-en italic">{platform.label}</span>
+        <span class="ph-hero-title-jp" set:html={heroSubtitle}></span>
+      </h1>
+      <p class="ph-hero-lead">
+        <strong>{platform.label}</strong> の最新ドラマ・映画・配信ライブを、新宿駅徒歩2分の<strong>完全貸切プライベートシネマ</strong>「CINEMA REEL 新宿」で観るための作品別ガイド集。EPSON 4Kプロジェクター・最大6名・ログイン済みの状態で、来店してすぐ第1話から再生できます。
+      </p>
+      <div class="ph-hero-cta">
+        <a class="btn btn-primary" href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">
+          空き状況・予約
+        </a>
+        <a class="btn btn-ghost" href="/#booking-flow">予約方法を見る</a>
+      </div>
+      <p class="ph-hero-meta">
+        <span class="hero-meta-star">★</span> 4.6 / 5.0 (43件)
+        <span class="dot">·</span> 最大6名 · 約19㎡
+        <span class="dot">·</span> 7:00 – 23:00
+      </p>
+    </div>
+  </section>
+
+  <section class="section reveal-up">
+    <div class="container">
+      <div class="ph-intro">
+        <h2 class="ph-section-title">ご来店してすぐ、{platform.label} が大画面に。</h2>
+        <p set:html={introBody}></p>
+        <p>
+          以下は、{platform.label} の話題作ごとに、配信日・キャスト・公式予告編・大画面で観るための段取りをまとめたガイド集。気になる作品をクリックすると、その作品を観るための一次情報がまとまったページに移動します。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {liveTagged.length > 0 && (
+    <section class="section reveal-up">
+      <div class="container">
+        <div class="ph-group-head">
+          <span class="reel-section-num">— Live</span>
+          <h2 class="ph-section-title">配信ライブ・PPV</h2>
+          <p class="ph-section-sub">
+            {platform.label} が配信する生中継・PPV イベント。早朝・深夜の時間帯でも、貸切で大画面で観戦できる選択肢として。
+          </p>
+        </div>
+        <div class="ph-grid stagger reveal-up">
+          {liveTagged.map((post) => {
+            const thumb = resolvePostThumbnail(post.data);
+            return (
+              <a class="ph-card" href={`/blog/${post.slug}/`}>
+                <div class="ph-card-thumb" style={thumb ? `background-image: url('${thumb}');` : ''}></div>
+                <div class="ph-card-body">
+                  <p class="ph-card-meta">
+                    <span class="cat">{post.data.category}</span>
+                    <span class="dot">·</span>
+                    <time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
+                  </p>
+                  <h3 class="ph-card-title">{post.data.title}</h3>
+                  <p class="ph-card-desc">{post.data.description}</p>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section ph-inline-cta-wrap">
+    <div class="container">
+      <aside class="post-cta-inline">
+        <p>
+          <strong>CINEMA REEL 新宿</strong>では Netflix・Prime Video・U-NEXT・Disney+・Abema が店舗側でログイン済み。来店してすぐ、観たい作品を大画面で再生できます。
+        </p>
+        <a href="/">詳細を見る →</a>
+      </aside>
+    </div>
+  </section>
+
+  {otherPosts.length > 0 && (
+    <section class="section reveal-up">
+      <div class="container">
+        <div class="ph-group-head">
+          <span class="reel-section-num">— Latest</span>
+          <h2 class="ph-section-title">最新の話題作・トレンド</h2>
+          <p class="ph-section-sub">
+            {platform.label} で配信開始日が確定している話題作、または現在ランキング上位の作品。
+          </p>
+        </div>
+        <div class="ph-grid stagger reveal-up">
+          {otherPosts.map((post) => {
+            const thumb = resolvePostThumbnail(post.data);
+            return (
+              <a class="ph-card" href={`/blog/${post.slug}/`}>
+                <div class="ph-card-thumb" style={thumb ? `background-image: url('${thumb}');` : ''}></div>
+                <div class="ph-card-body">
+                  <p class="ph-card-meta">
+                    <span class="cat">{post.data.category}</span>
+                    <span class="dot">·</span>
+                    <time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
+                  </p>
+                  <h3 class="ph-card-title">{post.data.title}</h3>
+                  <p class="ph-card-desc">{post.data.description}</p>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {posts.length === 0 && (
+    <section class="section reveal-up">
+      <div class="container">
+        <div class="ph-empty">
+          <p>
+            {platform.label} 関連の作品ガイドを準備中です。配信日が確定した話題作から順に追加していきます。
+            ほかのプラットフォームのガイドは <a href="/watch/">配信特集ページ</a> からどうぞ。
+          </p>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section section-dark reveal-up">
+    <div class="container ph-final-cta">
+      <p class="reel-section-num">— Book Your Cinema</p>
+      <h2 class="ph-section-title">作品が決まったら、新宿で大画面に。</h2>
+      <p class="ph-final-lead">
+        新宿駅西口徒歩2分の完全貸切プライベートシネマ <strong>CINEMA REEL 新宿</strong>。
+        最大6名・EPSON 4Kプロジェクター・ふかふかのソファ・主要 VOD ログイン済みで、
+        観たい作品をすぐ大画面で再生できます。
+      </p>
+      <div class="ph-final-cta-row">
+        <a class="btn btn-primary" href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">
+          空き状況・予約
+        </a>
+        <a class="btn btn-ghost" href="/#booking-flow">予約方法を見る</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .ph-hero {
+    position: relative;
+    min-height: 64vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--film-edge);
+  }
+  .ph-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.32) saturate(0.85);
+    transform: scale(1.05);
+  }
+  .ph-hero-tint {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(5,4,3,0.45) 0%, rgba(5,4,3,0.92) 100%),
+      radial-gradient(ellipse at 30% 30%, rgba(229,9,20,0.10), transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(201,169,97,0.10), transparent 60%);
+  }
+  .ph-hero-inner {
+    position: relative;
+    z-index: 2;
+    padding: 96px 0 72px;
+  }
+  .ph-hero-title {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin: 14px 0 24px;
+    line-height: 1;
+  }
+  .ph-hero-title-en {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 600;
+    font-size: clamp(3rem, 8vw, 5.6rem);
+    letter-spacing: 0.04em;
+    color: var(--gold-bright);
+  }
+  .ph-hero-title-jp {
+    font-family: var(--font-jp);
+    font-weight: 700;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    letter-spacing: 0.06em;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .ph-hero-lead {
+    max-width: 640px;
+    color: var(--ink);
+    line-height: 2;
+    margin: 0 0 32px;
+  }
+  .ph-hero-lead strong { color: var(--gold-bright); font-weight: 600; }
+  .ph-hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .ph-hero-meta {
+    margin: 0;
+    color: var(--ink-muted);
+    font-family: var(--font-aux);
+    letter-spacing: 0.16em;
+    font-size: 0.85rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+  .ph-hero-meta .dot { color: var(--ink-dim); }
+  .hero-meta-star { color: var(--gold-bright); }
+
+  @media (max-width: 600px) {
+    .ph-hero { min-height: auto; }
+    .ph-hero-inner { padding: 60px 0 56px; }
+    .ph-hero-cta .btn { flex: 1 1 0; min-width: 0; padding: 12px 16px; font-size: 0.85rem; letter-spacing: 0.1em; }
+  }
+
+  .ph-intro { max-width: 760px; margin: 0 auto; }
+  .ph-section-title {
+    font-family: var(--font-jp);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--ink);
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+    margin: 12px 0 18px;
+  }
+  .ph-intro p {
+    color: #ece1cb;
+    line-height: 2;
+    margin: 0 0 1.5em;
+  }
+  .ph-intro :global(strong) { color: var(--gold-bright); font-weight: 600; }
+
+  .ph-group-head { margin-bottom: 40px; }
+  .ph-section-sub {
+    color: var(--ink-muted);
+    max-width: 720px;
+    margin: 0;
+    line-height: 1.9;
+  }
+
+  .ph-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+    margin-top: 40px;
+  }
+  @media (max-width: 700px) {
+    .ph-grid { grid-template-columns: 1fr; gap: 20px; }
+  }
+
+  .ph-card {
+    background: var(--bg-card);
+    border: 1px solid var(--film-edge);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.4s var(--ease-luxe), transform 0.4s var(--ease-luxe), box-shadow 0.5s var(--ease-luxe);
+    box-shadow: 0 4px 16px -8px rgba(0,0,0,0.6);
+  }
+  .ph-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-3px);
+    box-shadow: 0 18px 48px -16px rgba(201,169,97,0.25);
+  }
+  .ph-card-thumb {
+    aspect-ratio: 16 / 9;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--bg-deep);
+    border-bottom: 1px solid var(--film-edge);
+    transition: transform 0.8s var(--ease-luxe), filter 0.5s var(--ease-luxe);
+    filter: brightness(0.88) saturate(0.92);
+  }
+  .ph-card:hover .ph-card-thumb {
+    transform: scale(1.04);
+    filter: brightness(1) saturate(1.05);
+  }
+  .ph-card-body { padding: 26px 26px 28px; flex: 1; display: flex; flex-direction: column; }
+  .ph-card-meta {
+    font-family: var(--font-aux);
+    letter-spacing: 0.16em;
+    color: var(--ink-muted);
+    font-size: 0.78rem;
+    margin: 0 0 14px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .ph-card-meta .cat { color: var(--gold); }
+  .ph-card-meta .dot { color: var(--ink-dim); }
+  .ph-card-title {
+    font-family: var(--font-jp);
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 1.08rem;
+    line-height: 1.55;
+    margin: 0 0 12px;
+    letter-spacing: 0.04em;
+    transition: color 0.3s var(--ease-luxe);
+  }
+  .ph-card:hover .ph-card-title { color: var(--gold-bright); }
+  .ph-card-desc {
+    color: var(--ink-muted);
+    font-size: 0.9rem;
+    line-height: 1.85;
+    margin: 0;
+  }
+
+  .ph-empty {
+    color: var(--ink-muted);
+    text-align: center;
+    padding: 40px 0 60px;
+    line-height: 2;
+  }
+  .ph-empty :global(a) {
+    color: var(--gold-bright);
+    border-bottom: 1px dashed var(--gold);
+  }
+
+  .ph-inline-cta-wrap { padding: 32px 0; }
+  .ph-inline-cta-wrap :global(.post-cta-inline) {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 22px 26px;
+    border: 1px solid var(--gold);
+    background: linear-gradient(180deg, rgba(201,169,97,0.06), transparent);
+    border-radius: var(--radius);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 22px;
+    align-items: center;
+  }
+  .ph-inline-cta-wrap :global(.post-cta-inline p) {
+    margin: 0;
+    font-family: var(--font-jp);
+    color: var(--ink);
+    font-size: 0.92rem;
+    line-height: 1.85;
+    letter-spacing: 0.04em;
+  }
+  .ph-inline-cta-wrap :global(.post-cta-inline strong) {
+    color: var(--gold-bright);
+    font-weight: 600;
+  }
+  .ph-inline-cta-wrap :global(.post-cta-inline a) {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 22px;
+    background: var(--gold);
+    color: var(--bg-deep);
+    font-family: var(--font-display);
+    font-style: italic;
+    letter-spacing: 0.16em;
+    font-size: 0.88rem;
+    white-space: nowrap;
+    transition: background 0.3s var(--ease-luxe), transform 0.4s var(--ease-luxe);
+  }
+  .ph-inline-cta-wrap :global(.post-cta-inline a:hover) {
+    background: var(--gold-bright);
+    transform: translateY(-2px);
+  }
+  @media (max-width: 600px) {
+    .ph-inline-cta-wrap :global(.post-cta-inline) {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    .ph-inline-cta-wrap :global(.post-cta-inline a) { justify-self: center; }
+  }
+
+  .ph-final-cta {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .ph-final-lead {
+    color: var(--ink-muted);
+    line-height: 2;
+    margin: 0 0 32px;
+  }
+  .ph-final-lead :global(strong) { color: var(--gold-bright); font-weight: 600; }
+  .ph-final-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 32px;
+    font-family: var(--font-display);
+    font-style: italic;
+    letter-spacing: 0.16em;
+    font-size: 0.95rem;
+    transition: background 0.3s var(--ease-luxe), color 0.3s var(--ease-luxe), border-color 0.3s var(--ease-luxe), transform 0.4s var(--ease-luxe), box-shadow 0.4s var(--ease-luxe);
+    cursor: pointer;
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--bg-deep);
+    border-color: var(--gold);
+  }
+  .btn-primary:hover {
+    background: var(--gold-bright);
+    border-color: var(--gold-bright);
+    box-shadow: 0 8px 32px -10px rgba(232,200,120,0.7);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--ink-dim);
+  }
+  .btn-ghost:hover { color: var(--gold-bright); border-color: var(--gold); }
+
+  .section { padding: 80px 0; }
+  .section-dark {
+    background: var(--bg-deep);
+    border-top: 1px solid var(--film-edge);
+    border-bottom: 1px solid var(--film-edge);
+  }
+  @media (max-width: 900px) { .section { padding: 60px 0; } }
+</style>

@@ -273,48 +273,63 @@ PostLayout.astro 側の `.post-cta-inline` CSS が hand off で、ゴールド�
 
 ## ハブ＆スポーク構造（SEO topic cluster）
 
-**目的**: 「Netflix 大画面 新宿」「Netflix 新宿」のような **大きいキーワードを Pillar (ハブ) ページが取り**、各作品ガイド記事 (Spoke) がロングテールを取って、サイト全体の topical authority を Google に積み上げる。
+**目的**: 「Netflix 大画面 新宿」のような **大きいキーワードを Pillar (ハブ) ページ** が取り、各作品ガイド記事 (Spoke) がロングテールを取って、サイト全体の topical authority を Google に積み上げる。
 
-**現状のハブ**:
-- `/netflix/` — Netflix 特集（`src/pages/netflix.astro`）
-  - URL は固定、中身は build 時に「タグに `Netflix` を含む posts」を query して動的に生成
-  - 新しい上映ガイド記事を pubilsh するたびに、次の deploy で hub のグリッドに自動追加される
-  - 配信ライブ系（タグに `配信ライブ` `ライブ配信` `生中継` `PPV`）と一般作品で section 分け
+### サイトの 3 階層構造
 
-**構造**:
 ```
-/netflix/  (Pillar / Hub)
-   ├─ /blog/<work-1>/  (Spoke)
-   ├─ /blog/<work-2>/  (Spoke)
-   └─ /blog/<live-1>/  (Spoke)
+/watch/  (Meta hub — 5 platform cards + latest articles)
+   ├─ /netflix/  (Pillar) → /blog/<netflix-work-1>/, …
+   ├─ /abema/    (Pillar) → /blog/<abema-event-1>/, …
+   ├─ /disney/   (Pillar) → /blog/<disney-work-1>/, …
+   ├─ /u-next/   (Pillar) → /blog/<u-next-work-1>/, …
+   └─ /prime/    (Pillar) → /blog/<prime-work-1>/, …
 ```
 
-**ハブ → スポーク の内部リンク**:
-- ハブの spoke grid から各作品ページへ
-- 自動生成、メンテ不要
+URL は全て **固定**、中身は build 時に **content collection を query して動的生成**。新スポーク publish → 次の deploy で対応するハブのグリッドに自動追加。
 
-**スポーク → ハブ の内部リンク**:
-- PostLayout.astro が `tags` を見て、`netflix` が含まれていれば記事ヒーロー直下に「Netflix 特集を見る →」chip を自動表示
-- 将来 `/abema/` `/disney/` 等を増やすなら `hubLinks` 配列に追加するだけで自動対応
+### 共通実装
 
-**SEO 構造化データ**:
-- Pillar ページに `CollectionPage` JSON-LD（item list 含む）
-- 各 spoke は既に `BlogPosting` JSON-LD 持ってる
-- 両方に `BreadcrumbList`
+- **`src/components/PlatformHub.astro`** が全 5 プラットフォーム共通の Pillar テンプレ。各 `src/pages/<platform>.astro` は `platform` config を渡すだけの 30 行ラッパー。
+- **`src/pages/watch.astro`** が Meta hub。5 プラットフォームのカード + 横断的な最新記事一覧。
+- 配信ライブ系（タグに `配信ライブ` `ライブ配信` `生中継` `PPV`）と一般作品で section 分け、各 hub ページ内で。
 
-**ハブ追加の手順（将来 Abema / Disney+ 等）**:
-1. `src/pages/<platform>.astro` を作成（netflix.astro をひな形にコピー）
-2. `getCollection` のフィルタ条件を `tag.toLowerCase() === '<platform>'` に変更
-3. ヘッダー nav に追加
-4. PostLayout.astro の `hubLinks` 配列に判定追加
-5. CLAUDE.md にハブ一覧を追記
+### タグ・URL マッピング
 
-**コンバージョン設計（最終目的）**:
-- Pillar ページ最上部にヒーロー + 「空き状況・予約」CTA
-- spoke grid 後に inline CTA（`/` へ）
+| URL | label | match tags（lowercase） |
+|---|---|---|
+| `/netflix/` | Netflix | `netflix` |
+| `/abema/` | ABEMA | `abema` |
+| `/disney/` | Disney+ | `disney+`, `disney plus`, `disney`, `ディズニープラス`, `ディズニー+` |
+| `/u-next/` | U-NEXT | `u-next`, `unext`, `u next` |
+| `/prime/` | Prime Video | `prime video`, `prime`, `amazon prime video`, `amazon prime`, `プライムビデオ` |
+
+**新規記事を作るときの frontmatter tags**: 上記 label のいずれか（`Netflix` / `ABEMA` / `Disney+` / `U-NEXT` / `Prime Video`）を必ず1つ含める。auto-pipeline の Phase A プロンプトでも明示済み。
+
+### ハブ → スポーク の内部リンク
+ハブの spoke grid から各作品ページへ自動リンク（メンテ不要）
+
+### スポーク → ハブ の内部リンク
+PostLayout.astro の `HUB_REGISTRY` 配列が `tags` を判定し、該当ハブへの「○○ 特集を見る →」chip を記事ヒーロー直下に自動表示（複数該当の場合は複数 chip 並列）
+
+### SEO 構造化データ
+- Pillar ページ: `CollectionPage` JSON-LD（item list 含む）+ `BreadcrumbList`
+- Meta hub `/watch/`: `BreadcrumbList`
+- Spoke: `BlogPosting` + `BreadcrumbList`
+
+### コンバージョン設計（最終目的: Spacemarket 予約）
+- 全 hub ページ最上部にヒーロー + 「空き状況・予約」CTA
+- spoke grid 後に inline CTA（ホーム `/` へ誘導）
 - ページ末尾に再 CTA セクション
 - sticky bottom CTA は site-wide で常時表示
 - 各 spoke 記事内も inline CTA × 2 + post-cta aside を維持
+
+### 新ハブを追加する場合（将来 Hulu / WOWOW 等）
+1. `src/pages/<platform>.astro` を作成（既存ラッパーをひな形に）
+2. ヘッダー nav は変更不要（`/watch/` 経由で集約）
+3. PostLayout.astro の `HUB_REGISTRY` に1行追加
+4. `src/pages/watch.astro` の `PLATFORMS` 配列にカード情報追加
+5. CLAUDE.md のタグマッピング表に1行追加
 
 ## 新規記事の作り方
 

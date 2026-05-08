@@ -32,14 +32,32 @@ const breadcrumbs = [
 ];
 
 // Hub backlinks: if the article is tagged for a platform that has a
-// pillar/hub page (currently just Netflix), surface a small chip near
-// the post title that links back to the hub. Strengthens the
-// hub→spoke→hub internal link cycle for SEO.
+// pillar/hub page, surface a small chip near the post title that links
+// back. Strengthens the hub→spoke→hub internal link cycle for SEO.
+// Mirrors the platform definitions in src/pages/watch.astro.
 const tagsLower = (tags ?? []).map((t) => t.toLowerCase());
-const hubLinks: Array<{ label: string; href: string }> = [];
-if (tagsLower.includes('netflix')) {
-  hubLinks.push({ label: 'Netflix 特集を見る →', href: '/netflix/' });
-}
+const HUB_REGISTRY: Array<{ matchTags: string[]; label: string; href: string }> = [
+  { matchTags: ['netflix'], label: 'Netflix 特集を見る →', href: '/netflix/' },
+  { matchTags: ['abema'], label: 'ABEMA 特集を見る →', href: '/abema/' },
+  {
+    matchTags: ['disney+', 'disney plus', 'disney', 'ディズニープラス', 'ディズニー+'],
+    label: 'Disney+ 特集を見る →',
+    href: '/disney/',
+  },
+  {
+    matchTags: ['u-next', 'unext', 'u next', 'u-Next'.toLowerCase()],
+    label: 'U-NEXT 特集を見る →',
+    href: '/u-next/',
+  },
+  {
+    matchTags: ['prime video', 'prime', 'amazon prime video', 'amazon prime', 'プライムビデオ'],
+    label: 'Prime Video 特集を見る →',
+    href: '/prime/',
+  },
+];
+const hubLinks = HUB_REGISTRY.filter((h) =>
+  h.matchTags.some((mt) => tagsLower.includes(mt))
+);
 ---
 <Layout
   title={`${title}｜CINEMA REEL 新宿`}

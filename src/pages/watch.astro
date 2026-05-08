@@ -1,0 +1,507 @@
+---
+/**
+ * Meta-hub at `/watch/` — top-level entry point in the topic-cluster
+ * SEO topology. Lists all 5 platform hubs as cards and surfaces the
+ * latest spoke articles across all platforms.
+ *
+ * Search funnel:
+ *   Google ("VOD 大画面 新宿" / "Netflix Abema 大画面")
+ *     → /watch/  (this page, broad-keyword landing)
+ *     → /<platform>/  (platform-specific hub)
+ *     → /blog/<slug>/  (work-specific spoke)
+ *     → Spacemarket (booking)
+ */
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { resolvePostThumbnail } from '../lib/post.ts';
+
+const PLATFORMS = [
+  {
+    id: 'netflix',
+    label: 'Netflix',
+    blurb: 'オリジナルドラマ・映画・アニメ・配信ライブ。',
+    logoSrc: '/vod-logos/netflix.jpg',
+    tags: ['netflix'],
+    accent: '#e50914',
+  },
+  {
+    id: 'abema',
+    label: 'ABEMA',
+    blurb: 'PPV ボクシング・スポーツ生中継・バラエティ。',
+    logoSrc: '/vod-logos/abema.svg',
+    tags: ['abema'],
+    accent: '#00d264',
+  },
+  {
+    id: 'disney',
+    label: 'Disney+',
+    blurb: 'ディズニー / ピクサー / マーベル / スター・ウォーズ。',
+    logoSrc: '/vod-logos/disney-plus.jpg',
+    tags: ['disney+', 'disney plus', 'disney', 'ディズニープラス', 'ディズニー+'],
+    accent: '#0c2461',
+  },
+  {
+    id: 'u-next',
+    label: 'U-NEXT',
+    blurb: '邦画・洋画・アニメ・ライブ映像の独占配信。',
+    logoSrc: '/vod-logos/u-next.jpg',
+    tags: ['u-next', 'unext', 'u next', 'u-Next'],
+    accent: '#ffffff',
+  },
+  {
+    id: 'prime',
+    label: 'Prime Video',
+    blurb: '映画・スポーツ PPV・独占配信ドラマ。',
+    logoSrc: '/vod-logos/prime-video.png',
+    tags: ['prime video', 'prime', 'amazon prime video', 'amazon prime', 'プライムビデオ'],
+    accent: '#00a8e1',
+  },
+];
+
+const allPosts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
+
+// Annotate each platform with its current count of matching posts.
+const platformsWithCount = PLATFORMS.map((p) => ({
+  ...p,
+  count: allPosts.filter((post) =>
+    post.data.tags.some((t) => p.tags.includes(t.toLowerCase()))
+  ).length,
+}));
+
+// Latest watch-guide articles across all platforms.
+const latestPosts = allPosts
+  .filter((p) => p.data.category === '上映ガイド')
+  .slice(0, 6);
+
+const fmt = (d: Date) =>
+  new Intl.DateTimeFormat('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
+
+const breadcrumbs = [
+  { name: 'ホーム', url: '/' },
+  { name: '配信特集', url: '/watch/' },
+];
+---
+<Layout
+  title="VOD 配信特集｜Netflix・ABEMA・Disney+・U-NEXT・Prime Video の話題作を新宿の大画面で"
+  description="Netflix・ABEMA・Disney+・U-NEXT・Prime Video の話題作を、新宿駅徒歩2分の完全貸切プライベートシネマで観るためのガイド集。プラットフォーム別に作品をまとめています。"
+  breadcrumbs={breadcrumbs}
+>
+  <section class="watch-hero">
+    <div class="watch-hero-tint"></div>
+    <div class="container watch-hero-inner">
+      <p class="reel-section-num">— Watch Hub</p>
+      <h1 class="watch-hero-title">
+        <span class="italic">VOD</span><br />
+        配信特集
+      </h1>
+      <p class="watch-hero-lead">
+        Netflix・ABEMA・Disney+・U-NEXT・Prime Video——CINEMA REEL 新宿で <strong>店舗側ログイン済み</strong> の主要 VOD すべてを、新宿駅徒歩2分・最大6名・完全貸切のプライベートシネマで大画面で。プラットフォーム別の作品ガイド集です。
+      </p>
+      <div class="watch-hero-cta">
+        <a class="btn btn-primary" href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">
+          空き状況・予約
+        </a>
+        <a class="btn btn-ghost" href="/#booking-flow">予約方法を見る</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="watch-group-head reveal-up">
+        <h2 class="watch-section-title">プラットフォーム別の特集</h2>
+        <p class="watch-section-sub">
+          観たい作品が決まっている方は、配信元のプラットフォームのページから作品ガイドへどうぞ。
+        </p>
+      </div>
+
+      <ul class="platform-grid stagger reveal-up">
+        {platformsWithCount.map((p) => (
+          <li class="platform-card" style={`--accent: ${p.accent};`}>
+            <a href={`/${p.id}/`}>
+              <div class="platform-logo">
+                <img src={p.logoSrc} alt={`${p.label} ロゴ`} loading="lazy" />
+              </div>
+              <h3 class="platform-name">{p.label}</h3>
+              <p class="platform-blurb">{p.blurb}</p>
+              <p class="platform-count">
+                {p.count > 0 ? `${p.count} 件の作品ガイド` : '記事を準備中'}
+                <span class="arrow">→</span>
+              </p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section nf-inline-cta-wrap">
+    <div class="container">
+      <aside class="post-cta-inline">
+        <p>
+          <strong>CINEMA REEL 新宿</strong>では Netflix・Prime Video・U-NEXT・Disney+・ABEMA が店舗側でログイン済み。来店してすぐ、観たい作品を大画面で再生できます。
+        </p>
+        <a href="/">詳細を見る →</a>
+      </aside>
+    </div>
+  </section>
+
+  {latestPosts.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <div class="watch-group-head reveal-up">
+          <span class="reel-section-num">— Latest</span>
+          <h2 class="watch-section-title">最新の作品ガイド</h2>
+          <p class="watch-section-sub">
+            プラットフォームを問わず、直近に公開した作品ガイド一覧です。
+          </p>
+        </div>
+        <div class="latest-grid stagger reveal-up">
+          {latestPosts.map((post) => {
+            const thumb = resolvePostThumbnail(post.data);
+            return (
+              <a class="latest-card" href={`/blog/${post.slug}/`}>
+                <div class="latest-card-thumb" style={thumb ? `background-image: url('${thumb}');` : ''}></div>
+                <div class="latest-card-body">
+                  <p class="latest-card-meta">
+                    <span class="cat">{post.data.category}</span>
+                    <span class="dot">·</span>
+                    <time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
+                  </p>
+                  <h3 class="latest-card-title">{post.data.title}</h3>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section section-dark reveal-up">
+    <div class="container watch-final-cta">
+      <p class="reel-section-num">— Book Your Cinema</p>
+      <h2 class="watch-section-title">作品が決まったら、新宿で大画面に。</h2>
+      <p class="watch-final-lead">
+        新宿駅西口徒歩2分の完全貸切プライベートシネマ <strong>CINEMA REEL 新宿</strong>。
+        最大6名・EPSON 4Kプロジェクターで、観たい作品をすぐ大画面で再生できます。
+      </p>
+      <div class="watch-final-cta-row">
+        <a class="btn btn-primary" href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">
+          空き状況・予約
+        </a>
+        <a class="btn btn-ghost" href="/#booking-flow">予約方法を見る</a>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .watch-hero {
+      position: relative;
+      min-height: 56vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--film-edge);
+      background: var(--bg-deep);
+    }
+    .watch-hero-tint {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(5,4,3,0.4) 0%, rgba(5,4,3,0.95) 100%),
+        radial-gradient(ellipse at 25% 25%, rgba(229,9,20,0.10), transparent 60%),
+        radial-gradient(ellipse at 75% 75%, rgba(201,169,97,0.10), transparent 60%);
+    }
+    .watch-hero-inner {
+      position: relative;
+      z-index: 2;
+      padding: 96px 0 72px;
+    }
+    .watch-hero-title {
+      font-family: var(--font-jp);
+      font-weight: 700;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      letter-spacing: 0.06em;
+      line-height: 1.4;
+      color: var(--ink);
+      margin: 14px 0 28px;
+    }
+    .watch-hero-title .italic {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-weight: 600;
+      font-size: clamp(3rem, 8vw, 5.6rem);
+      color: var(--gold-bright);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      display: inline-block;
+      margin-right: 16px;
+    }
+    .watch-hero-lead {
+      max-width: 720px;
+      color: var(--ink);
+      line-height: 2;
+      margin: 0 0 32px;
+    }
+    .watch-hero-lead strong { color: var(--gold-bright); font-weight: 600; }
+    .watch-hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    @media (max-width: 600px) {
+      .watch-hero-inner { padding: 60px 0 56px; }
+      .watch-hero-cta .btn { flex: 1 1 0; min-width: 0; padding: 12px 16px; font-size: 0.85rem; letter-spacing: 0.1em; }
+    }
+
+    .watch-group-head { margin-bottom: 40px; }
+    .watch-section-title {
+      font-family: var(--font-jp);
+      font-weight: 700;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--ink);
+      letter-spacing: 0.04em;
+      line-height: 1.5;
+      margin: 12px 0 18px;
+    }
+    .watch-section-sub {
+      color: var(--ink-muted);
+      max-width: 720px;
+      margin: 0;
+      line-height: 1.9;
+    }
+
+    .platform-grid {
+      list-style: none;
+      padding: 0;
+      margin: 48px 0 0;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+    }
+    @media (max-width: 1100px) { .platform-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 700px) { .platform-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; } }
+
+    .platform-card {
+      --accent: var(--gold);
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--film-edge);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.4s var(--ease-luxe), transform 0.4s var(--ease-luxe), box-shadow 0.5s var(--ease-luxe);
+    }
+    .platform-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.4s var(--ease-luxe);
+    }
+    .platform-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 18px 48px -16px color-mix(in srgb, var(--accent) 50%, transparent);
+    }
+    .platform-card:hover::before { opacity: 1; }
+    .platform-card a {
+      display: block;
+      padding: 28px 22px 26px;
+      text-align: center;
+      height: 100%;
+    }
+    .platform-logo {
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+    .platform-logo img {
+      max-width: 100%;
+      max-height: 56px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 12px;
+      filter: brightness(0.95);
+      transition: filter 0.4s var(--ease-luxe), transform 0.4s var(--ease-luxe);
+    }
+    .platform-card[style*="ffffff"] .platform-logo img,
+    .platform-card:nth-child(4) .platform-logo img {
+      /* Keep U-NEXT (white-on-black logo) un-tweaked */
+    }
+    .platform-card:hover .platform-logo img { filter: brightness(1.1); transform: scale(1.04); }
+    .platform-name {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--ink);
+      margin: 0 0 8px;
+      letter-spacing: 0.08em;
+    }
+    .platform-blurb {
+      margin: 0 0 14px;
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      line-height: 1.7;
+      font-family: var(--font-jp);
+      letter-spacing: 0.04em;
+      min-height: 2.6em;
+    }
+    .platform-count {
+      margin: 14px 0 0;
+      font-size: 0.78rem;
+      color: var(--gold);
+      font-family: var(--font-aux);
+      font-style: italic;
+      letter-spacing: 0.12em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .platform-count .arrow {
+      transition: transform 0.4s var(--ease-luxe);
+    }
+    .platform-card:hover .platform-count .arrow { transform: translateX(4px); }
+
+    .latest-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+    @media (max-width: 900px) { .latest-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .latest-grid { grid-template-columns: 1fr; } }
+    .latest-card {
+      background: var(--bg-card);
+      border: 1px solid var(--film-edge);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.4s var(--ease-luxe), transform 0.4s var(--ease-luxe);
+    }
+    .latest-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+    .latest-card-thumb {
+      aspect-ratio: 16 / 9;
+      background-size: cover;
+      background-position: center;
+      background-color: var(--bg-deep);
+      border-bottom: 1px solid var(--film-edge);
+    }
+    .latest-card-body { padding: 20px 22px 24px; }
+    .latest-card-meta {
+      font-family: var(--font-aux);
+      letter-spacing: 0.16em;
+      color: var(--ink-muted);
+      font-size: 0.74rem;
+      margin: 0 0 10px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .latest-card-meta .cat { color: var(--gold); }
+    .latest-card-meta .dot { color: var(--ink-dim); }
+    .latest-card-title {
+      font-family: var(--font-jp);
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 1rem;
+      line-height: 1.55;
+      margin: 0;
+      letter-spacing: 0.04em;
+      transition: color 0.3s var(--ease-luxe);
+    }
+    .latest-card:hover .latest-card-title { color: var(--gold-bright); }
+
+    .nf-inline-cta-wrap { padding: 32px 0; }
+    .nf-inline-cta-wrap :global(.post-cta-inline) {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 22px 26px;
+      border: 1px solid var(--gold);
+      background: linear-gradient(180deg, rgba(201,169,97,0.06), transparent);
+      border-radius: var(--radius);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 22px;
+      align-items: center;
+    }
+    .nf-inline-cta-wrap :global(.post-cta-inline p) {
+      margin: 0;
+      font-family: var(--font-jp);
+      color: var(--ink);
+      font-size: 0.92rem;
+      line-height: 1.85;
+      letter-spacing: 0.04em;
+    }
+    .nf-inline-cta-wrap :global(.post-cta-inline strong) {
+      color: var(--gold-bright);
+      font-weight: 600;
+    }
+    .nf-inline-cta-wrap :global(.post-cta-inline a) {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 22px;
+      background: var(--gold);
+      color: var(--bg-deep);
+      font-family: var(--font-display);
+      font-style: italic;
+      letter-spacing: 0.16em;
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+    .nf-inline-cta-wrap :global(.post-cta-inline a:hover) { background: var(--gold-bright); transform: translateY(-2px); }
+    @media (max-width: 600px) {
+      .nf-inline-cta-wrap :global(.post-cta-inline) { grid-template-columns: 1fr; text-align: center; }
+      .nf-inline-cta-wrap :global(.post-cta-inline a) { justify-self: center; }
+    }
+
+    .watch-final-cta { max-width: 720px; margin: 0 auto; text-align: center; }
+    .watch-final-lead {
+      color: var(--ink-muted);
+      line-height: 2;
+      margin: 0 0 32px;
+    }
+    .watch-final-lead strong { color: var(--gold-bright); font-weight: 600; }
+    .watch-final-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 32px;
+      font-family: var(--font-display);
+      font-style: italic;
+      letter-spacing: 0.16em;
+      font-size: 0.95rem;
+      transition: background 0.3s var(--ease-luxe), color 0.3s var(--ease-luxe), border-color 0.3s var(--ease-luxe), transform 0.4s var(--ease-luxe), box-shadow 0.4s var(--ease-luxe);
+      cursor: pointer;
+      border: 1px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary { background: var(--gold); color: var(--bg-deep); border-color: var(--gold); }
+    .btn-primary:hover { background: var(--gold-bright); border-color: var(--gold-bright); box-shadow: 0 8px 32px -10px rgba(232,200,120,0.7); }
+    .btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink-dim); }
+    .btn-ghost:hover { color: var(--gold-bright); border-color: var(--gold); }
+
+    .section { padding: 80px 0; }
+    .section-dark { background: var(--bg-deep); border-top: 1px solid var(--film-edge); border-bottom: 1px solid var(--film-edge); }
+    @media (max-width: 900px) { .section { padding: 60px 0; } }
+  </style>
+</Layout>
