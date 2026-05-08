@@ -333,6 +333,19 @@ PostLayout.astro の `HUB_REGISTRY` 配列が `tags` を判定し、該当ハブ
 
 ## 新規記事の作り方
 
+### バッチ生成（プラットフォーム別に複数本一気に作る）
+
+`.github/workflows/batch-articles.yml` を `workflow_dispatch` で起動。
+入力 `count_per_platform`（デフォルト3）と `platforms`（カンマ区切り、空欄=全5プラットフォーム）に応じて、各プラットフォームの題材を順に N 本生成する。
+
+内部的には `draft-daily-article.mjs` を `PLATFORM_HINT=<platform>` 環境変数つきで複数回呼び出す。Phase A の system prompt にプラットフォーム制約が追加され、その配信元の題材だけが選ばれる仕組み。
+
+主な用途:
+- 各プラットフォームのハブを最初に「3記事ぶん」のスポークでシードする初期セットアップ
+- ある特定プラットフォームだけ記事数を増やしたい時（例: `platforms=disney`, `count_per_platform=5`）
+
+コスト目安: 1記事あたり Anthropic Sonnet で約 $0.30、5プラットフォーム × 3記事 = 約 $4.50。
+
 ### 自動（デフォルト・毎日 08:00 JST）
 
 `.github/workflows/daily-article-auto.yml` が cron で自動実行:

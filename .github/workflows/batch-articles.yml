@@ -1,0 +1,171 @@
+name: Batch Seed Articles per Platform
+
+# One-shot batch generator: produces N articles for each VOD platform
+# in a single workflow run. Used to populate the platform hubs (/netflix/,
+# /abema/, /disney/, /u-next/, /prime/) when starting from empty.
+#
+# Each article goes through the same Phase A research / Phase B writing /
+# lint / publish pipeline as the daily cron, but with a PLATFORM_HINT
+# env var that biases Phase A to pick from that platform only.
+#
+# Cost: ~$0.30/article × N × 5 platforms. Default 3 each = ~$4.50.
+# Runtime: ~3 minutes per article × 15 = ~45 minutes wall.
+
+on:
+  workflow_dispatch:
+    inputs:
+      count_per_platform:
+        description: 'How many articles to generate per platform (1-5)'
+        type: string
+        default: '3'
+      platforms:
+        description: 'Comma-separated platform hints (netflix,abema,disney,u-next,prime). Empty = all 5.'
+        type: string
+        default: ''
+      auto_publish:
+        description: 'Commit passing articles to main (else open PRs)'
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: batch-articles
+  cancel-in-progress: false
+
+jobs:
+  batch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Configure git identity
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+      - name: Run batch generator
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          COUNT_PER_PLATFORM: ${{ inputs.count_per_platform }}
+          PLATFORMS_INPUT: ${{ inputs.platforms }}
+          AUTO_PUBLISH: ${{ inputs.auto_publish }}
+        run: |
+          set -e
+
+          # Build the platform list
+          if [[ -n "$PLATFORMS_INPUT" ]]; then
+            PLATFORMS=($(echo "$PLATFORMS_INPUT" | tr ',' '\n' | tr -d ' '))
+          else
+            PLATFORMS=(netflix abema disney u-next prime)
+          fi
+          COUNT=${COUNT_PER_PLATFORM:-3}
+
+          echo "::notice::Batch plan — platforms: ${PLATFORMS[*]} | count each: $COUNT"
+
+          published=0
+          skipped=0
+          drafts=0
+
+          for platform in "${PLATFORMS[@]}"; do
+            for i in $(seq 1 $COUNT); do
+              echo ""
+              echo "============================================"
+              echo " ▶ ${platform} (${i}/${COUNT})"
+              echo "============================================"
+
+              # Generate one article. If skip / lint fail, log and continue.
+              # We don't `set -e` inside the loop so a single failure
+              # doesn't kill the whole batch.
+              set +e
+              PLATFORM_HINT="$platform" node scripts/draft-daily-article.mjs > /tmp/draft.log 2>&1
+              draft_exit=$?
+              cat /tmp/draft.log
+              set -e
+
+              if [[ $draft_exit -ne 0 ]]; then
+                echo "::warning::draft step failed for $platform run $i (exit $draft_exit)"
+                continue
+              fi
+
+              # Find the markdown that was just written. The script logged
+              # 'wrote <path>' on success.
+              path=$(grep -oE 'wrote [^ ]+\.md' /tmp/draft.log | head -1 | awk '{print $2}')
+              if [[ -z "$path" ]]; then
+                echo "::warning::draft skipped or produced no path for $platform run $i"
+                skipped=$((skipped + 1))
+                continue
+              fi
+
+              # Lint
+              set +e
+              node scripts/lint-article.mjs "$path"
+              lint_exit=$?
+              set -e
+
+              git add "$path"
+              if git diff --cached --quiet; then
+                echo "no diff staged; skipping commit"
+                continue
+              fi
+
+              if [[ $lint_exit -eq 0 && "$AUTO_PUBLISH" == "true" ]]; then
+                # Auto-publish
+                title=$(grep -m1 '^title:' "$path" | sed 's/title:\s*//;s/^"//;s/"$//')
+                git commit -m "feat(post): batch publish — ${title}"
+                # Push with rebase retry (other batch articles may push between)
+                for attempt in 1 2 3; do
+                  if git push origin HEAD:main; then
+                    echo "::notice::published ${path}"
+                    published=$((published + 1))
+                    break
+                  fi
+                  echo "Push rejected; rebasing and retrying…"
+                  git fetch origin main
+                  git rebase origin/main || { git rebase --abort; break; }
+                done
+              else
+                # Lint failed (or auto_publish=false) — keep the draft staged
+                # but don't commit/push during the batch. We'll deal with
+                # leftovers after the loop.
+                echo "::warning::lint failed for ${path} — leaving as uncommitted draft"
+                git restore --staged "$path"
+                drafts=$((drafts + 1))
+              fi
+
+              # Small delay between articles to spread the per-minute API
+              # rate limit even more (script already has 65s gap between
+              # Phase A and Phase B, but stacking back-to-back batches
+              # can still saturate Tier-1).
+              sleep 5
+            done
+          done
+
+          echo ""
+          echo "============================================"
+          echo " Batch complete"
+          echo "   published: $published"
+          echo "   skipped:   $skipped"
+          echo "   drafts:    $drafts"
+          echo "============================================"
+
+          # If any drafts are still uncommitted, push them as a single PR
+          # so the user can review.
+          if [[ -n "$(git status --porcelain src/content/posts/)" ]]; then
+            echo "::warning::Some draft articles failed lint and need review"
+            git add src/content/posts/
+            git stash push -m "batch-drafts-$(date +%s)"
+            echo "::notice::failed drafts saved to git stash for manual review"
+          fi

@@ -258,34 +258,19 @@ const venuePhotos = [
       <ul class="vod-grid stagger reveal-up">
         {vodServices.map((s) => (
           <li class="vod-card" data-service={s.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')} style={`--brand: ${s.brandColor};`}>
-            <div class="vod-logo-wrap">
-              <img src={s.logo} alt={`${s.name} ロゴ`} loading="lazy" />
-            </div>
-            <p class="vod-name">{s.name}</p>
-            <p class="vod-note">{s.note}</p>
+            <a href={`/${s.slug}/`} class="vod-card-link">
+              <div class="vod-logo-wrap">
+                <img src={s.logo} alt={`${s.name} ロゴ`} loading="lazy" />
+              </div>
+              <p class="vod-name">{s.name}</p>
+              <ul class="vod-contents">
+                {s.contents.map((c) => <li>{c}</li>)}
+              </ul>
+              <p class="vod-card-cta">特集ページを見る →</p>
+            </a>
           </li>
         ))}
       </ul>
-
-      <div class="vod-detail-head reveal-up">
-        <p class="reel-section-num">— What's Inside</p>
-        <h3 class="vod-detail-title">どこで何が観られる？</h3>
-        <p class="vod-detail-sub">
-          各サービスで観られる代表的なコンテンツの早見表。クリックすれば作品別の視聴ガイドへ。
-        </p>
-      </div>
-
-      <div class="vod-detail-grid stagger reveal-up">
-        {vodServices.map((s) => (
-          <a class="vod-detail-card" href={`/${s.slug}/`} style={`--brand: ${s.brandColor};`}>
-            <p class="vod-detail-card-name">{s.name}</p>
-            <ul>
-              {s.contents.map((c) => <li>{c}</li>)}
-            </ul>
-            <p class="vod-detail-card-cta">特集ページを見る →</p>
-          </a>
-        ))}
-      </div>
 
       <p class="vod-foot">
         ※ YouTube はゲストご自身のアカウントでログインしてご利用ください。<br />
@@ -1298,7 +1283,7 @@ const venuePhotos = [
     }
     .booking-flow-inner { position: relative; z-index: 1; }
 
-    /* VOD SHOWCASE */
+    /* VOD SHOWCASE — single unified card grid */
     .vod-showcase { padding: 96px 0; }
     .vod-grid {
       list-style: none;
@@ -1306,21 +1291,21 @@ const venuePhotos = [
       margin: 56px 0 32px;
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 18px;
+      gap: 16px;
     }
-    @media (max-width: 900px) { .vod-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 600px) { .vod-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
+    @media (max-width: 1100px) { .vod-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 700px)  { .vod-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
+    @media (max-width: 480px)  { .vod-grid { grid-template-columns: 1fr; } }
 
     .vod-card {
       --brand: var(--gold);
       position: relative;
-      padding: 28px 18px 22px;
       background: var(--bg-card);
       border: 1px solid var(--film-edge);
       border-radius: var(--radius);
-      text-align: center;
       transition: border-color 0.4s var(--ease-luxe), transform 0.4s var(--ease-luxe), box-shadow 0.5s var(--ease-luxe);
       overflow: hidden;
+      display: flex;
     }
     .vod-card::before {
       content: '';
@@ -1332,6 +1317,7 @@ const venuePhotos = [
       background: var(--brand);
       opacity: 0;
       transition: opacity 0.4s var(--ease-luxe);
+      z-index: 1;
     }
     .vod-card:hover {
       border-color: var(--brand);
@@ -1339,12 +1325,19 @@ const venuePhotos = [
       box-shadow: 0 14px 40px -16px color-mix(in srgb, var(--brand) 50%, transparent);
     }
     .vod-card:hover::before { opacity: 1; }
+    .vod-card-link {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 28px 20px 22px;
+      text-align: center;
+    }
     .vod-logo-wrap {
       height: 72px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
     .vod-logo-wrap img {
       max-width: 100%;
@@ -1360,8 +1353,7 @@ const venuePhotos = [
       filter: brightness(1.1);
       transform: scale(1.04);
     }
-    /* ABEMA is a horizontal wordmark, not a square app icon — give it
-       wider room and remove the rounded-square treatment. */
+    /* ABEMA is a horizontal wordmark, not a square app icon */
     .vod-card[data-service="abema"] .vod-logo-wrap img {
       max-height: 36px;
       max-width: 90%;
@@ -1374,106 +1366,25 @@ const venuePhotos = [
     .vod-name {
       font-family: var(--font-display);
       font-style: italic;
-      font-size: 1rem;
+      font-size: 1.05rem;
       color: var(--ink);
-      margin: 0 0 6px;
-      letter-spacing: 0.08em;
-    }
-    .vod-note {
-      margin: 0;
-      font-size: 0.72rem;
-      color: var(--ink-muted);
-      letter-spacing: 0.04em;
-      line-height: 1.5;
-      font-family: var(--font-jp);
-    }
-    .vod-foot {
-      margin: 32px 0 0;
-      text-align: center;
-      color: var(--ink-dim);
-      font-size: 0.78rem;
-      line-height: 1.9;
-      letter-spacing: 0.04em;
-    }
-
-    /* VOD detail grid — "what's inside each service" */
-    .vod-detail-head {
-      margin: 64px auto 24px;
-      text-align: center;
-      max-width: 720px;
-    }
-    .vod-detail-title {
-      font-family: var(--font-jp);
-      font-weight: 700;
-      font-size: clamp(1.3rem, 2.6vw, 1.7rem);
-      color: var(--ink);
-      letter-spacing: 0.04em;
-      margin: 12px 0 14px;
-    }
-    .vod-detail-sub {
-      color: var(--ink-muted);
-      margin: 0;
-      font-size: 0.92rem;
-      line-height: 1.9;
-    }
-    .vod-detail-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 14px;
-      margin-top: 32px;
-    }
-    @media (max-width: 1100px) { .vod-detail-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 700px)  { .vod-detail-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 480px)  { .vod-detail-grid { grid-template-columns: 1fr; } }
-
-    .vod-detail-card {
-      --brand: var(--gold);
-      display: flex;
-      flex-direction: column;
-      padding: 22px 20px 18px;
-      background: var(--bg-card);
-      border: 1px solid var(--film-edge);
-      border-radius: var(--radius);
-      transition: border-color 0.4s var(--ease-luxe), transform 0.4s var(--ease-luxe), box-shadow 0.5s var(--ease-luxe);
-      position: relative;
-      overflow: hidden;
-    }
-    .vod-detail-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--brand);
-      opacity: 0;
-      transition: opacity 0.4s var(--ease-luxe);
-    }
-    .vod-detail-card:hover {
-      border-color: var(--brand);
-      transform: translateY(-3px);
-      box-shadow: 0 14px 36px -16px color-mix(in srgb, var(--brand) 50%, transparent);
-    }
-    .vod-detail-card:hover::before { opacity: 1; }
-    .vod-detail-card-name {
-      font-family: var(--font-display);
-      font-style: italic;
-      font-size: 1rem;
-      color: var(--ink);
-      letter-spacing: 0.08em;
       margin: 0 0 14px;
       padding-bottom: 12px;
+      letter-spacing: 0.08em;
       border-bottom: 1px dashed var(--film-edge);
     }
-    .vod-detail-card ul {
+    .vod-contents {
       list-style: none;
       padding: 0;
-      margin: 0 0 16px;
+      margin: 0 0 18px;
       display: flex;
       flex-direction: column;
       gap: 8px;
       flex: 1;
+      text-align: left;
     }
-    .vod-detail-card li {
-      font-size: 0.78rem;
+    .vod-contents li {
+      font-size: 0.76rem;
       line-height: 1.55;
       color: var(--ink-muted);
       padding-left: 12px;
@@ -1481,13 +1392,13 @@ const venuePhotos = [
       font-family: var(--font-jp);
       letter-spacing: 0.02em;
     }
-    .vod-detail-card li::before {
+    .vod-contents li::before {
       content: '—';
       position: absolute;
       left: 0;
       color: var(--brand);
     }
-    .vod-detail-card-cta {
+    .vod-card-cta {
       margin: 0;
       font-family: var(--font-aux);
       font-style: italic;
@@ -1497,8 +1408,16 @@ const venuePhotos = [
       text-align: right;
       transition: transform 0.4s var(--ease-luxe);
     }
-    .vod-detail-card:hover .vod-detail-card-cta {
+    .vod-card:hover .vod-card-cta {
       transform: translateX(4px);
+    }
+    .vod-foot {
+      margin: 32px 0 0;
+      text-align: center;
+      color: var(--ink-dim);
+      font-size: 0.78rem;
+      line-height: 1.9;
+      letter-spacing: 0.04em;
     }
 
     /* SOCIAL PROOF banner */

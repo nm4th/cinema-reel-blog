@@ -42,6 +42,23 @@ const today = process.env.FORCE_DATE || new Date().toISOString().slice(0, 10);
 const todayDate = new Date(today + 'T00:00:00+09:00');
 const dayOfWeekJp = ['日', '月', '火', '水', '木', '金', '土'][todayDate.getDay()];
 
+// Optional bias: when set, Phase A is asked to pick a topic from this
+// specific platform's content. Used by the batch workflow that fills
+// each platform hub with N seeded articles in one run.
+const PLATFORM_HINT = (process.env.PLATFORM_HINT || '').toLowerCase().trim();
+const PLATFORM_LABEL_BY_HINT = {
+  netflix: 'Netflix',
+  abema: 'ABEMA',
+  disney: 'Disney+',
+  'u-next': 'U-NEXT',
+  prime: 'Prime Video',
+};
+const platformLabel = PLATFORM_HINT ? PLATFORM_LABEL_BY_HINT[PLATFORM_HINT] : null;
+if (PLATFORM_HINT && !platformLabel) {
+  console.error(`Unknown PLATFORM_HINT: ${PLATFORM_HINT}. Expected one of: ${Object.keys(PLATFORM_LABEL_BY_HINT).join(', ')}`);
+  process.exit(1);
+}
+
 const ROOT = path.resolve(import.meta.dirname, '..');
 const POSTS_DIR = path.join(ROOT, 'src', 'content', 'posts');
 
@@ -262,9 +279,18 @@ youtubeOfficialVideos は **題材タイプによって下限が異なる**:
 console.log(`📅 today: ${today} (${dayOfWeekJp})`);
 console.log('🔍 Phase A: researching today\'s topic…');
 
+const platformConstraint = platformLabel
+  ? `
+
+# 今回の追加制約（重要）
+題材は **${platformLabel}** 配信のものに限定して選ぶこと。${platformLabel} で観られる作品 / 配信ライブ / PPV / オリジナル番組から1つ選ぶ。他のプラットフォームの題材は採用しない。
+frontmatter の tags には必ず "${platformLabel}" を含める。
+${platformLabel} で2件以上の独立公式ソースで確認できる題材が見つからない場合のみ skip 可。`
+  : '';
+
 const researchUserMsg = `今日は ${today}（${dayOfWeekJp}曜日）。
 CINEMA REEL 新宿のブログに今日公開する上映ガイド記事の題材を1つ選んで、JSON で返してください。
-web_search を使って必ず複数ソースで事実確認すること。`;
+web_search を使って必ず複数ソースで事実確認すること。${platformConstraint}`;
 
 const researchResp = await callClaude({
   system: RESEARCH_SYSTEM,
