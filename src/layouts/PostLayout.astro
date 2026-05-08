@@ -30,6 +30,16 @@ const breadcrumbs = [
   { name: category, url: `/blog/category/${encodeURIComponent(category)}/` },
   { name: title, url: Astro.url.pathname },
 ];
+
+// Hub backlinks: if the article is tagged for a platform that has a
+// pillar/hub page (currently just Netflix), surface a small chip near
+// the post title that links back to the hub. Strengthens the
+// hub→spoke→hub internal link cycle for SEO.
+const tagsLower = (tags ?? []).map((t) => t.toLowerCase());
+const hubLinks: Array<{ label: string; href: string }> = [];
+if (tagsLower.includes('netflix')) {
+  hubLinks.push({ label: 'Netflix 特集を見る →', href: '/netflix/' });
+}
 ---
 <Layout
   title={`${title}｜CINEMA REEL 新宿`}
@@ -59,6 +69,13 @@ const breadcrumbs = [
 
     <div class="container post-grid">
       <div class="post-content">
+        {hubLinks.length > 0 && (
+          <nav class="post-hub-links" aria-label="関連特集">
+            {hubLinks.map((h) => (
+              <a class="post-hub-chip" href={h.href}>{h.label}</a>
+            ))}
+          </nav>
+        )}
         <slot />
 
         {tags.length > 0 && (
@@ -392,6 +409,34 @@ const breadcrumbs = [
       transition: background 0.25s ease;
     }
     .post-cta-btn:hover { background: var(--gold-bright); color: var(--bg-deep); }
+
+    /* Hub backlinks (SEO topic-cluster) — chip-style links near the
+       top of the article body, pointing to a pillar page. Only renders
+       when the post matches a hub. */
+    .post-hub-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 32px;
+    }
+    .post-hub-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 16px;
+      border: 1px solid var(--gold);
+      color: var(--gold-bright);
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      border-radius: 999px;
+      transition: background 0.3s var(--ease-luxe), color 0.3s var(--ease-luxe), transform 0.4s var(--ease-luxe);
+    }
+    .post-hub-chip:hover {
+      background: var(--gold);
+      color: var(--bg-deep);
+      transform: translateY(-1px);
+    }
 
     .post-side { display: flex; flex-direction: column; gap: 24px; position: sticky; top: 96px; align-self: start; }
     .post-side-card {

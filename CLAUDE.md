@@ -271,6 +271,51 @@ PostLayout.astro 側の `.post-cta-inline` CSS が hand off で、ゴールド�
 
 **タグ**は自由なので、`Netflix` `Abema` `配信ライブ` `話題作` `<作品名>` `<出演者名>` を毎回足す。
 
+## ハブ＆スポーク構造（SEO topic cluster）
+
+**目的**: 「Netflix 大画面 新宿」「Netflix 新宿」のような **大きいキーワードを Pillar (ハブ) ページが取り**、各作品ガイド記事 (Spoke) がロングテールを取って、サイト全体の topical authority を Google に積み上げる。
+
+**現状のハブ**:
+- `/netflix/` — Netflix 特集（`src/pages/netflix.astro`）
+  - URL は固定、中身は build 時に「タグに `Netflix` を含む posts」を query して動的に生成
+  - 新しい上映ガイド記事を pubilsh するたびに、次の deploy で hub のグリッドに自動追加される
+  - 配信ライブ系（タグに `配信ライブ` `ライブ配信` `生中継` `PPV`）と一般作品で section 分け
+
+**構造**:
+```
+/netflix/  (Pillar / Hub)
+   ├─ /blog/<work-1>/  (Spoke)
+   ├─ /blog/<work-2>/  (Spoke)
+   └─ /blog/<live-1>/  (Spoke)
+```
+
+**ハブ → スポーク の内部リンク**:
+- ハブの spoke grid から各作品ページへ
+- 自動生成、メンテ不要
+
+**スポーク → ハブ の内部リンク**:
+- PostLayout.astro が `tags` を見て、`netflix` が含まれていれば記事ヒーロー直下に「Netflix 特集を見る →」chip を自動表示
+- 将来 `/abema/` `/disney/` 等を増やすなら `hubLinks` 配列に追加するだけで自動対応
+
+**SEO 構造化データ**:
+- Pillar ページに `CollectionPage` JSON-LD（item list 含む）
+- 各 spoke は既に `BlogPosting` JSON-LD 持ってる
+- 両方に `BreadcrumbList`
+
+**ハブ追加の手順（将来 Abema / Disney+ 等）**:
+1. `src/pages/<platform>.astro` を作成（netflix.astro をひな形にコピー）
+2. `getCollection` のフィルタ条件を `tag.toLowerCase() === '<platform>'` に変更
+3. ヘッダー nav に追加
+4. PostLayout.astro の `hubLinks` 配列に判定追加
+5. CLAUDE.md にハブ一覧を追記
+
+**コンバージョン設計（最終目的）**:
+- Pillar ページ最上部にヒーロー + 「空き状況・予約」CTA
+- spoke grid 後に inline CTA（`/` へ）
+- ページ末尾に再 CTA セクション
+- sticky bottom CTA は site-wide で常時表示
+- 各 spoke 記事内も inline CTA × 2 + post-cta aside を維持
+
 ## 新規記事の作り方
 
 ### 自動（デフォルト・毎日 08:00 JST）

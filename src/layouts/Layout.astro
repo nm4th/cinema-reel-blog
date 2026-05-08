@@ -14,6 +14,11 @@ export interface Props {
   breadcrumbs?: Array<{ name: string; url: string }>;
   faqs?: Array<{ q: string; a: string }>;
   howto?: { name: string; description?: string; steps: Array<{ name: string; text: string }> };
+  collectionPage?: {
+    name: string;
+    description: string;
+    items: Array<{ url: string; name: string; description?: string; image?: string }>;
+  };
 }
 
 const {
@@ -26,6 +31,7 @@ const {
   breadcrumbs,
   faqs,
   howto,
+  collectionPage,
 } = Astro.props;
 
 const siteUrl = 'https://cinema-reel.com';
@@ -250,6 +256,30 @@ const absoluteOgImage = ogImage?.startsWith('http')
         })),
       })} />
     )}
+
+    {collectionPage && (
+      <script type="application/ld+json" set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: collectionPage.name,
+        description: collectionPage.description,
+        url: canonicalUrl,
+        inLanguage: 'ja',
+        isPartOf: { '@type': 'WebSite', url: siteUrl + '/', name: 'CINEMA REEL 新宿' },
+        mainEntity: {
+          '@type': 'ItemList',
+          numberOfItems: collectionPage.items.length,
+          itemListElement: collectionPage.items.map((it, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            url: it.url.startsWith('http') ? it.url : new URL(it.url, siteUrl).href,
+            name: it.name,
+            ...(it.description ? { description: it.description } : {}),
+            ...(it.image ? { image: it.image } : {}),
+          })),
+        },
+      })} />
+    )}
   </head>
   <body class={bodyClass}>
     <div class="scroll-progress" aria-hidden="true"></div>
@@ -270,7 +300,7 @@ const absoluteOgImage = ogImage?.startsWith('http')
           </span>
         </a>
         <nav class="site-nav" aria-label="メインナビゲーション">
-          <a href="/#vod">配信</a>
+          <a href="/netflix/">Netflix 特集</a>
           <a href="/#scenes">利用シーン</a>
           <a href="/#price">料金</a>
           <a href="/#booking-flow">予約方法</a>
