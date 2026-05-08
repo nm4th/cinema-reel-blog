@@ -139,8 +139,13 @@ if (isWatchGuide) {
     }
   }
 
-  if (iframeCount < 2) {
-    issues.push(`only ${iframeCount} <iframe> embed(s) — 上映ガイド needs ≥2 official YouTube videos`);
+  // 上映ガイドの視覚密度ルール:
+  //   - iframe ≥ 1（最低 1 本の公式動画）
+  //   - iframe + figure 合計 ≥ 3（venue photo の figure で補える）
+  // 一般作品は iframe 3〜5 が普通、live broadcast は iframe 1〜2 + figure 2〜3 で
+  // 視覚密度を確保するパターン。どちらも合計 3 以上で pass。
+  if (iframeCount < 1) {
+    issues.push('上映ガイド without any iframe embed — need ≥1 official YouTube video');
   }
   if (visualTotal < 3) {
     issues.push(`only ${visualTotal} visual elements (iframes + figures) — 上映ガイド needs ≥3 total`);
