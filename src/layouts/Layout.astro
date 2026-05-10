@@ -318,7 +318,7 @@ const absoluteOgImage = ogImage?.startsWith('http')
       <slot />
     </main>
 
-    <aside class="sticky-cta" aria-label="LINE 友だち追加・予約への導線">
+    <aside class="sticky-cta" aria-label="LINE 友だち追加への導線">
       <div class="sticky-cta-inner">
         <div class="sticky-cta-meta">
           <span class="sticky-cta-en">CINEMA REEL 新宿</span>
@@ -328,9 +328,6 @@ const absoluteOgImage = ogImage?.startsWith('http')
           <a class="sticky-cta-line" href="https://lin.ee/tw32ssM" target="_blank" rel="noopener noreferrer" aria-label="LINE 友だち追加">
             <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><path fill="currentColor" d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.629-.63.346 0 .631.285.631.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
             <span class="sticky-cta-line-label">LINE で友だち追加</span>
-          </a>
-          <a class="sticky-cta-btn" href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer" aria-label="今すぐ予約（スペースマーケット）">
-            今すぐ予約
           </a>
         </div>
       </div>
@@ -849,30 +846,6 @@ const absoluteOgImage = ogImage?.startsWith('http')
         transform: translateY(-1px);
       }
       .sticky-cta-line svg { flex-shrink: 0; }
-      /* SECONDARY (Spacemarket booking) — outline / smaller, gold accent */
-      .sticky-cta-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 10px 18px;
-        background: transparent;
-        color: var(--gold-bright);
-        border: 1px solid rgba(201, 169, 97, 0.5);
-        font-family: var(--font-jp);
-        font-weight: 600;
-        letter-spacing: 0.08em;
-        font-size: 0.82rem;
-        white-space: nowrap;
-        flex-shrink: 0;
-        border-radius: var(--radius);
-        transition: background 0.25s var(--ease-luxe), color 0.25s var(--ease-luxe), border-color 0.25s var(--ease-luxe), transform 0.4s var(--ease-luxe);
-      }
-      .sticky-cta-btn:hover {
-        background: rgba(201, 169, 97, 0.12);
-        color: var(--gold-bright);
-        border-color: var(--gold);
-        transform: translateY(-1px);
-      }
       @media (prefers-reduced-motion: reduce) {
         .sticky-cta-line::after { display: none; }
       }
@@ -882,7 +855,6 @@ const absoluteOgImage = ogImage?.startsWith('http')
         .sticky-cta-buttons { gap: 8px; flex: 1; justify-content: flex-end; }
         .sticky-cta-line { padding: 12px 18px; font-size: 0.85rem; letter-spacing: 0.06em; gap: 7px; }
         .sticky-cta-line-label { font-size: 0.85rem; }
-        .sticky-cta-btn { padding: 10px 14px; font-size: 0.78rem; letter-spacing: 0.06em; }
       }
       @media print {
         .sticky-cta { display: none; }
