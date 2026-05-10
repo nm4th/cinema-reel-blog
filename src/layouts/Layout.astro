@@ -300,16 +300,15 @@ const absoluteOgImage = ogImage?.startsWith('http')
           </span>
         </a>
         <nav class="site-nav" aria-label="メインナビゲーション">
-          <a href="/watch/">配信特集</a>
+          <a href="/#features">特徴</a>
           <a href="/#scenes">利用シーン</a>
           <a href="/#price">料金</a>
-          <a href="/#booking-flow">予約方法</a>
-          <a href="/#faq">FAQ</a>
           <a href="/#access">アクセス</a>
+          <a href="/watch/">配信特集</a>
           <a href="/blog/">ブログ</a>
         </nav>
         <a class="cta-pill" href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer">
-          予約する
+          空き状況を確認
         </a>
       </div>
     </header>
@@ -625,20 +624,21 @@ const absoluteOgImage = ogImage?.startsWith('http')
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        padding: 10px 22px;
-        border: 1px solid var(--gold);
-        color: var(--gold-bright);
-        font-family: var(--font-display);
-        font-style: italic;
-        letter-spacing: 0.12em;
-        font-size: 0.9rem;
-        background: linear-gradient(180deg, rgba(201,169,97,0.06), transparent);
-        transition: background 0.25s var(--ease-luxe), color 0.25s var(--ease-luxe), transform 0.4s var(--ease-luxe);
+        padding: 11px 22px;
+        background: var(--crimson);
+        color: var(--ink);
+        border: 1px solid var(--crimson);
+        font-family: var(--font-jp);
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        font-size: 0.88rem;
+        transition: background 0.25s var(--ease-luxe), border-color 0.25s var(--ease-luxe), transform 0.4s var(--ease-luxe), box-shadow 0.4s var(--ease-luxe);
         position: relative;
         overflow: hidden;
         will-change: transform;
         white-space: nowrap;
         flex-shrink: 0;
+        border-radius: var(--radius);
       }
       .cta-pill::after {
         content: '';
@@ -647,14 +647,16 @@ const absoluteOgImage = ogImage?.startsWith('http')
         left: -120%;
         width: 60%;
         height: 100%;
-        background: linear-gradient(100deg, transparent, rgba(255,255,255,0.18), transparent);
+        background: linear-gradient(100deg, transparent, rgba(255,255,255,0.22), transparent);
         transform: skewX(-22deg);
         animation: shimmer 6s var(--ease-soft-out) infinite;
         pointer-events: none;
       }
       .cta-pill:hover {
-        background: var(--gold);
-        color: var(--bg-deep);
+        background: var(--crimson-bright);
+        border-color: var(--crimson-bright);
+        color: var(--ink);
+        box-shadow: 0 6px 20px -8px rgba(178,34,34,0.6);
       }
       @keyframes shimmer {
         0%, 65% { left: -120%; }
