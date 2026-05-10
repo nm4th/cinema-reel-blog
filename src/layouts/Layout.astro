@@ -52,7 +52,7 @@ const absoluteOgImage = ogImage?.startsWith('http')
       gtag('js', new Date());
       gtag('config', 'AW-18129040375');
 
-      // Google Ads conversion: LINE 友だち追加 goal (D0I0CPTHk6kcEPfnzMRD).
+      // Google Ads conversion: LINE 友だち追加 goal (1yefCJrQzKocEPfnzMRD).
       // Available globally for inline onclick uses, e.g.
       //   <a onclick="return gtag_report_conversion(this.href)" href="...">
       // Delays navigation until the event is acknowledged — only useful
@@ -65,7 +65,9 @@ const absoluteOgImage = ogImage?.startsWith('http')
           }
         };
         gtag('event', 'conversion', {
-            'send_to': 'AW-18129040375/D0I0CPTHk6kcEPfnzMRD',
+            'send_to': 'AW-18129040375/1yefCJrQzKocEPfnzMRD',
+            'value': 300.0,
+            'currency': 'JPY',
             'event_callback': callback
         });
         return false;
@@ -86,7 +88,9 @@ const absoluteOgImage = ogImage?.startsWith('http')
             link.addEventListener('click', function () {
               if (typeof gtag === 'function') {
                 gtag('event', 'conversion', {
-                  send_to: 'AW-18129040375/D0I0CPTHk6kcEPfnzMRD',
+                  send_to: 'AW-18129040375/1yefCJrQzKocEPfnzMRD',
+                  value: 300.0,
+                  currency: 'JPY',
                 });
               }
             });
