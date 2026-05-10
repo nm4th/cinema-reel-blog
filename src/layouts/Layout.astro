@@ -52,11 +52,11 @@ const absoluteOgImage = ogImage?.startsWith('http')
       gtag('js', new Date());
       gtag('config', 'AW-18129040375');
 
-      // Google Ads conversion: ページビュー goal (D0I0CPTHk6kcEPfnzMRD).
+      // Google Ads conversion: LINE 友だち追加 goal (D0I0CPTHk6kcEPfnzMRD).
       // Available globally for inline onclick uses, e.g.
       //   <a onclick="return gtag_report_conversion(this.href)" href="...">
-      // Delays navigation until the event is acknowledged — only useful for
-      // same-tab navigation. Our Spacemarket CTAs open in a new tab, so the
+      // Delays navigation until the event is acknowledged — only useful
+      // for same-tab navigation. Our LINE CTAs open in a new tab, so the
       // auto-listener below is sufficient. Kept as a documented option.
       function gtag_report_conversion(url) {
         var callback = function () {
@@ -71,17 +71,17 @@ const absoluteOgImage = ogImage?.startsWith('http')
         return false;
       }
 
-      // Auto-fire the conversion on every Spacemarket link click without
-      // touching the markup. Catches the sticky CTA, hero "空き状況・予約",
-      // footer link, booking-flow CTA, contact-form note link, and any
-      // in-article body-text reference like 「予約ページ」「公式予約ページ」.
-      // All those links use target="_blank" so we don't need to delay the
-      // new-tab opening — gtag.js uses sendBeacon transport for the event,
-      // which reliably reaches Google Ads even as the new tab is being
-      // opened.
+      // Auto-fire the Google Ads conversion on every LINE friend-add link
+      // click. The site uses lin.ee/tw32ssM as the single LINE shortlink,
+      // so we match a[href*="lin.ee"]. This catches the header pill, hero
+      // CTA, sticky bottom bar, access section CTA, and the LINE callout
+      // band — i.e. every primary CTA after the LINE-first refactor.
+      // All LINE links use target="_blank"; we don't delay the new-tab
+      // opening because gtag.js uses sendBeacon for the event, which
+      // reliably reaches Google Ads even as the new tab is being opened.
       document.addEventListener('DOMContentLoaded', function () {
         document
-          .querySelectorAll('a[href*="spacemarket.com"]')
+          .querySelectorAll('a[href*="lin.ee"]')
           .forEach(function (link) {
             link.addEventListener('click', function () {
               if (typeof gtag === 'function') {
@@ -326,7 +326,7 @@ const absoluteOgImage = ogImage?.startsWith('http')
         </div>
         <div class="sticky-cta-buttons">
           <a class="sticky-cta-line" href="https://lin.ee/tw32ssM" target="_blank" rel="noopener noreferrer" aria-label="LINE 友だち追加">
-            <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><path fill="currentColor" d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.629-.63.346 0 .631.285.631.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><path fill="currentColor" d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.510-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.629-.63.346 0 .631.285.631.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
             <span class="sticky-cta-line-label">LINE で友だち追加</span>
           </a>
         </div>
