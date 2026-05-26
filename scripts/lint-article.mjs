@@ -179,6 +179,35 @@ if (charCount > 5500) issues.push(`body too long: ${charCount} chars (max 5500)`
 // ─── Recent duplicate check ───────────────────────────────────────────────
 // Compare the stem of this article's slug against posts from the last 14 days.
 // Reject if a strong stem match exists (same work / event).
+
+// Generic slug tokens that appear across many unrelated articles. They must
+// NOT count toward duplicate detection — only distinctive subject tokens
+// (work / artist / event names) should. Otherwise every Netflix article
+// collides on netflix+month+year and gets false-flagged as a duplicate.
+const GENERIC_SLUG_TOKENS = new Set([
+  // platforms / sources
+  'netflix', 'abema', 'disney', 'disneyplus', 'prime', 'primevideo', 'video',
+  'unext', 'hulu', 'wowow', 'amazon', 'vod',
+  // format / boilerplate
+  'watch', 'guide', 'viewing', 'view', 'cinema', 'shinjuku', 'live', 'stream',
+  'streaming', 'release', 'releases', 'ppv', 'movie', 'film', 'series',
+  'season', 'special', 'drama', 'anime', 'new', 'top', 'the', 'and', 'for',
+  'with', 'reel',
+  // months
+  'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov',
+  'dec', 'january', 'february', 'march', 'april', 'june', 'july', 'august',
+  'september', 'october', 'november', 'december',
+  // years
+  '2024', '2025', '2026', '2027', '2028',
+]);
+
+const distinctiveSlugTokens = (stem) =>
+  new Set(
+    stem
+      .split('-')
+      .filter((t) => t.length >= 3 && !GENERIC_SLUG_TOKENS.has(t)),
+  );
+
 const filename = path.basename(filepath);
 const slugStem = filename.replace(/^\d{4}-\d{2}-\d{2}-/, '').replace(/\.md$/, '');
 const today = new Date(filename.slice(0, 10) + 'T00:00:00+09:00');
@@ -196,13 +225,17 @@ try {
       issues.push(`exact slug duplicate within 14 days: ${f}`);
       continue;
     }
-    // Loose stem overlap — share ≥3 hyphenated tokens? Catch repeats like
-    // 2026-04-30-kujo-no-taizai-... vs 2026-04-25-kujo-no-taizai-...
-    const aTokens = new Set(slugStem.split('-').filter((t) => t.length >= 3));
-    const bTokens = new Set(otherStem.split('-').filter((t) => t.length >= 3));
+    // Loose stem overlap — but only count DISTINCTIVE subject tokens (work /
+    // artist / event names). Generic tokens (platform, format, month, year)
+    // appear in most slugs, so counting them false-flagged unrelated articles
+    // like "netflix-avatar-...-june-2026" vs "netflix-...-kenkadokugaku-june-2026"
+    // (shared: netflix,june,2026). Strip those, then require ≥2 real overlaps —
+    // enough to catch genuine repeats like kujo-no-taizai × kujo-no-taizai.
+    const aTokens = distinctiveSlugTokens(slugStem);
+    const bTokens = distinctiveSlugTokens(otherStem);
     const shared = [...aTokens].filter((t) => bTokens.has(t));
-    if (shared.length >= 3) {
-      issues.push(`possible duplicate within 14 days: ${f} (shared tokens: ${shared.join(',')})`);
+    if (shared.length >= 2) {
+      issues.push(`possible duplicate within 14 days: ${f} (shared subject tokens: ${shared.join(',')})`);
     }
   }
 } catch (err) {
