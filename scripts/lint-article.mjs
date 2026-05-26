@@ -47,8 +47,6 @@ const FORBIDDEN = [
   // exaggerated claims (景品表示法対策)
   '最高の', '業界一', '日本一', 'No.1', 'No1', '世界一',
   '絶対に', '必ず', '100%', '完璧',
-  // factually wrong about CINEMA REEL
-  '完全防音', '防音性が高い', '防音性の高い',
   // contradicts spacemarket precautions
   '声出しは自由', '大声OK', '拍手OK', '叫びOK',
   '声を張り上げ', // "声を張り上げて" etc
@@ -161,6 +159,26 @@ if (isWatchGuide) {
 for (const phrase of FORBIDDEN) {
   if (body.includes(phrase)) {
     issues.push(`forbidden phrase: "${phrase}"`);
+  }
+}
+
+// Soundproofing claims are only a problem as a POSITIVE assertion. The venue
+// legitimately discloses "完全防音ではありません / 防音性が高いわけではない"
+// per CLAUDE.md, so a naive substring match over-blocked valid disclaimers.
+// Flag only when the claim is NOT negated within the next ~20 chars.
+const SOUNDPROOF_CLAIMS = ['完全防音', '防音性が高い', '防音性の高い'];
+for (const phrase of SOUNDPROOF_CLAIMS) {
+  let from = 0;
+  while (true) {
+    const idx = body.indexOf(phrase, from);
+    if (idx === -1) break;
+    const after = body.slice(idx + phrase.length, idx + phrase.length + 20);
+    const negated = /な(い|く)|ありませ|ございませ|では|じゃな|とは言え|ではな/.test(after);
+    if (!negated) {
+      issues.push(`forbidden phrase (positive soundproof claim): "${phrase}"`);
+      break;
+    }
+    from = idx + phrase.length;
   }
 }
 
