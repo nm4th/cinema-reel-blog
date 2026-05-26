@@ -65,6 +65,21 @@ const spaceFeatures = [
     body: '高画質・高音質で没入感を体験。',
   },
   {
+    icon: 'airplay',
+    title: 'iPhone ミラーリング（AirPlay）',
+    body: 'スマホの画面をそのまま大画面に投影。※室内Wi-Fi接続が必要です。',
+  },
+  {
+    icon: 'hdmi',
+    title: 'HDMI で PC 接続',
+    body: 'ノートPCをHDMIケーブルで繋いでスクリーンに投影できます。',
+  },
+  {
+    icon: 'disc',
+    title: 'BD / DVD プレイヤー',
+    body: 'お持ちのブルーレイ・DVDをそのまま再生できます。',
+  },
+  {
     icon: 'sofa',
     title: 'ふかふかソファ',
     body: 'ゆったりくつろげる快適ソファ。',
@@ -396,6 +411,15 @@ const vodServices = [
                   )}
                   {f.icon === 'kitchen' && (
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M4 11h16"/><circle cx="8" cy="7" r="0.5" fill="currentColor"/><circle cx="8" cy="16" r="0.5" fill="currentColor"/></svg>
+                  )}
+                  {f.icon === 'airplay' && (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 17H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-1"/><path d="M12 14l4 6H8z" fill="currentColor" stroke="none"/></svg>
+                  )}
+                  {f.icon === 'hdmi' && (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 20h20"/></svg>
+                  )}
+                  {f.icon === 'disc' && (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>
                   )}
                 </span>
                 <div>
