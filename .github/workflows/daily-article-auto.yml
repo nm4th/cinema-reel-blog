@@ -1,9 +1,11 @@
 name: Daily Auto-Article
 
 on:
-  schedule:
-    # 08:00 JST = 23:00 UTC the previous day
-    - cron: '0 23 * * *'
+  # Daily cron paused at user's request — uncomment the two lines below
+  # to resume automatic publishing at 08:00 JST.
+  # schedule:
+  #   # 08:00 JST = 23:00 UTC the previous day
+  #   - cron: '0 23 * * *'
   workflow_dispatch:
     inputs:
       force_date:
