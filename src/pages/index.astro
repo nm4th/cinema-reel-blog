@@ -224,9 +224,8 @@ const vodServices = [
       <div class="hero-veil"></div>
       <div class="hero-grain"></div>
     </div>
-    <div class="container">
-      <div class="hero-inner">
-        <span class="hero-eyebrow">SHINJUKU · PRIVATE CINEMA</span>
+    <div class="hero-inner">
+      <span class="hero-eyebrow">SHINJUKU · PRIVATE CINEMA</span>
         <h1 class="hero-title">
           新宿駅徒歩2分。<br />
           完全貸切の、<br />
@@ -259,7 +258,6 @@ const vodServices = [
           <span class="hero-perk">🎁 LINE 友だち追加で予約料金 10% OFF</span><br />
           デート・記念日・女子会・推し活・スポーツ観戦など、あらゆるシーンに最適。
         </p>
-      </div>
     </div>
   </section>
 
@@ -439,7 +437,7 @@ const vodServices = [
     </div>
   </section>
 
-  <!-- PRICE (3 main cards, 土日祝 highlighted in crimson) -->
+  <!-- PRICE (5 plans, 土日祝 highlighted in crimson) -->
   <section id="price" class="price">
     <div class="container">
       <div class="section-head center reveal-up">
@@ -448,30 +446,46 @@ const vodServices = [
       <div class="price-grid stagger reveal-up">
         <div class="price-card">
           <p class="price-tag">平日朝昼割</p>
-          <p class="price-cond">7:00〜17:00</p>
+          <p class="price-cond">7:00〜17:00 / 最低2h</p>
           <div class="price-amount">
-            <span class="price-currency">¥</span><span class="price-value">300</span><span class="price-unit">/h〜</span>
+            <span class="price-currency">¥</span><span class="price-value">562</span><span class="price-unit">/h〜</span>
           </div>
           <span class="price-icon" aria-hidden="true">☀</span>
         </div>
         <div class="price-card">
           <p class="price-tag">平日通常</p>
-          <p class="price-cond">17:00〜23:00</p>
+          <p class="price-cond">17:00〜23:00 / 最低3h</p>
           <div class="price-amount">
-            <span class="price-currency">¥</span><span class="price-value">700</span><span class="price-unit">/h〜</span>
+            <span class="price-currency">¥</span><span class="price-value">800</span><span class="price-unit">/h〜</span>
           </div>
           <span class="price-icon" aria-hidden="true">🌙</span>
         </div>
+        <div class="price-card">
+          <p class="price-tag">平日長期</p>
+          <p class="price-cond">5時間以上 / 平日</p>
+          <div class="price-amount">
+            <span class="price-currency">¥</span><span class="price-value">680</span><span class="price-unit">/h〜</span>
+          </div>
+          <span class="price-icon" aria-hidden="true">🛏</span>
+        </div>
         <div class="price-card hl">
           <p class="price-tag">土日祝</p>
-          <p class="price-cond">7:00〜23:00</p>
+          <p class="price-cond">7:00〜23:00 / 最低3h</p>
           <div class="price-amount">
-            <span class="price-currency">¥</span><span class="price-value">2,000</span><span class="price-unit">/h〜</span>
+            <span class="price-currency">¥</span><span class="price-value">2,030</span><span class="price-unit">/h〜</span>
           </div>
           <span class="price-icon" aria-hidden="true">🗓</span>
         </div>
+        <div class="price-card">
+          <p class="price-tag">土日祝長期</p>
+          <p class="price-cond">5時間以上 / 土日祝</p>
+          <div class="price-amount">
+            <span class="price-currency">¥</span><span class="price-value">1,940</span><span class="price-unit">/h〜</span>
+          </div>
+          <span class="price-icon" aria-hidden="true">🛏</span>
+        </div>
       </div>
-      <p class="price-note">※ 維持管理費 ¥2,000 / 利用</p>
+      <p class="price-note">※ 維持管理費 ¥2,000 / 利用 ／ ※ 表示は税込・1時間あたりの単価です</p>
       <aside class="price-perk reveal-up">
         <span class="price-perk-icon" aria-hidden="true">🎁</span>
         <div class="price-perk-text">
@@ -800,11 +814,17 @@ const vodServices = [
     .hero-inner {
       position: relative;
       z-index: 1;
-      max-width: 560px;
-      padding: 96px 0 80px;
+      max-width: 600px;
+      /* anchored close to the viewport's left edge (not the centered
+         container) so the text doesn't drift into the middle on wide
+         viewports while the photo subject sits on the right */
+      padding: 96px 24px 80px clamp(24px, 6vw, 96px);
     }
     @media (max-width: 1100px) {
-      .hero-inner { max-width: 520px; padding: 80px 0 64px; }
+      .hero-inner {
+        max-width: 540px;
+        padding: 80px 20px 64px clamp(20px, 6vw, 64px);
+      }
     }
     .hero-eyebrow {
       display: inline-block;
@@ -898,7 +918,7 @@ const vodServices = [
         background:
           linear-gradient(180deg, rgba(5,4,3,0.3) 0%, rgba(5,4,3,0.1) 25%, rgba(5,4,3,0.7) 62%, rgba(5,4,3,0.96) 100%);
       }
-      .hero-inner { padding: 56px 0 48px; max-width: 100%; }
+      .hero-inner { padding: 56px 20px 48px; max-width: 100%; }
     }
 
     /* ─── LINE button (PRIMARY CTA) ──────────────────────────── */
@@ -1262,14 +1282,14 @@ const vodServices = [
     .price { padding: 80px 0; background: var(--bg); }
     .price-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
       margin-top: 48px;
     }
-    @media (max-width: 700px) { .price-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 480px) { .price-grid { grid-template-columns: 1fr; } }
     .price-card {
       position: relative;
-      padding: 32px 28px 28px;
+      padding: 24px 22px 22px;
       background: var(--bg-card);
       border: 1px solid var(--film-edge);
       border-radius: var(--radius);
@@ -1291,10 +1311,12 @@ const vodServices = [
     }
     .price-card.hl .price-tag { color: var(--ink); }
     .price-cond {
-      margin: 0 0 18px;
+      margin: 0 0 16px;
       color: var(--ink-muted);
-      font-size: 0.78rem;
+      font-size: 0.74rem;
       letter-spacing: 0.04em;
+      line-height: 1.5;
+      min-height: 2.2em;
     }
     .price-amount {
       display: flex;
@@ -1312,7 +1334,7 @@ const vodServices = [
     .price-value {
       font-family: var(--font-display);
       font-weight: 600;
-      font-size: 2.6rem;
+      font-size: clamp(1.7rem, 2.2vw, 2.3rem);
       color: var(--ink);
       line-height: 1;
     }
