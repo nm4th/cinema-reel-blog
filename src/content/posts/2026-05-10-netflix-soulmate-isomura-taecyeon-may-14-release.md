@@ -59,7 +59,7 @@ heroVideoId: "2ADAp1mA3vo"
 Netflixは4K HDR対応のプランを提供しており、対応デバイスと高速インターネット接続があれば、映画館に近い画質で楽しめる。特に、都市のロケーション撮影が多い本作では、HDRの広い色域が夜景や自然光の再現に効果を発揮する。音響面でも、5.1chサラウンドに対応しているため、ホームシアターシステムがあれば臨場感が増す。
 
 <figure class="post-figure">
-  <img src="https://cdnspacemarket.com/uploads/attachments/1571410/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿のスクリーン正面から見た大画面投影空間" loading="lazy" />
+  <img src="https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿のスクリーン正面から見た大画面投影空間" loading="lazy" />
   <figcaption>完全貸切のプライベート空間で、4Kプロジェクターによる大画面投影を独占できる環境</figcaption>
 </figure>
 
@@ -72,7 +72,7 @@ Netflixは4K HDR対応のプランを提供しており、対応デバイスと�
 グループ視聴では、途中で一時停止して意見交換をしたり、印象的なシーンを振り返ったりする柔軟性が求められる。完全貸切の空間であれば、他の観客を気にせずそうした進行が可能だ。また、全8話を一度に観る場合は、途中で休憩を挟むことも重要になる。軽食や飲み物を用意し、リラックスした雰囲気で鑑賞を続けることで、長時間の視聴も苦にならない。
 
 <figure class="post-figure">
-  <img src="https://cdnspacemarket.com/uploads/attachments/1556569/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿の室内ソファとくつろぎの空間" loading="lazy" />
+  <img src="https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿の室内ソファとくつろぎの空間" loading="lazy" />
   <figcaption>ソファと快適な照明が整った室内で、長時間の鑑賞も疲れにくい設計</figcaption>
 </figure>
 

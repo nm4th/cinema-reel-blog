@@ -20,7 +20,7 @@ RIZIN.53は2026年5月10日（日）14時00分に開始、会場はGLION ARENA K
 スマートテレビやFire TV Stick、Chromecastを使えば、リビングの大画面に映すことも可能。ただし画面サイズや音響設備が限られる自宅環境では、パンチの衝撃音や観客の歓声が十分に伝わらない場合もある。格闘技の迫力は映像だけでなく、音と空間の一体感が作り出すものだ。
 
 <figure class="post-figure">
-  <img src="https://cdnspacemarket.com/uploads/attachments/1571410/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿のスクリーン正面から見た室内全景" loading="lazy" />
+  <img src="https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿のスクリーン正面から見た室内全景" loading="lazy" />
   <figcaption>大画面プロジェクターと音響設備を備えたプライベート空間で、生配信の臨場感を最大限に引き出す環境が整っている。</figcaption>
 </figure>
 
@@ -62,7 +62,7 @@ RIZIN.53の公開計量は試合前日に実施され、RIZIN公式YouTubeチャ
 新宿駅西口徒歩2分の場所にある完全貸切プライベートシネマ「CINEMA REEL 新宿」は、EPSON 4Kプロジェクターと大画面スクリーンを備え、ABEMAへのログインも施設側で対応済み。最大6名まで利用でき、来店してすぐに配信を大画面で開始できる。防音性は完全ではないが、通常の会話や応援の声なら問題なく、自宅以上にリラックスした環境で観戦できる。
 
 <figure class="post-figure">
-  <img src="https://cdnspacemarket.com/uploads/attachments/1529635/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="EPSON 4Kプロジェクターのクローズアップ写真" loading="lazy" />
+  <img src="https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="EPSON 4Kプロジェクターのクローズアップ写真" loading="lazy" />
   <figcaption>4K解像度のプロジェクターが、選手の表情や動きのディテールまで鮮明に映し出す。</figcaption>
 </figure>
 
@@ -73,7 +73,7 @@ RIZIN.53の公開計量は試合前日に実施され、RIZIN公式YouTubeチャ
 飲み物や軽食を持ち込める環境であれば、試合の合間にリフレッシュしながら次の試合への期待を高められる。CINEMA REEL 新宿は飲食持ち込み自由で、冷蔵庫と電子レンジも完備。試合前に近隣のコンビニで調達し、配信開始前にセッティングを済ませておけば、中断なく観戦に集中できる。
 
 <figure class="post-figure">
-  <img src="https://cdnspacemarket.com/uploads/attachments/1556569/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="ソファとテーブルが配置された室内の様子" loading="lazy" />
+  <img src="https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="ソファとテーブルが配置された室内の様子" loading="lazy" />
   <figcaption>6名まで着席可能なソファ配置で、全員が画面を見渡しやすく、長時間の視聴も快適に過ごせる。</figcaption>
 </figure>
 
@@ -95,7 +95,7 @@ ABEMAのPPVチケットは、前売り期限の5月9日23時59分までに購入
 RIZIN.53は複数の試合が連続するため、全体を通して観た後、印象に残った試合やシーンをランキング形式で話し合うのも一つの楽しみ方。誰が一番技術的に優れていたか、誰のパフォーマンスが予想外だったか、次回大会で観たい対戦カードは何かなど、話題は尽きない。プライベート空間なら周囲を気にせず、試合後もゆっくり会話を続けられる。
 
 <figure class="post-figure">
-  <img src="https://cdnspacemarket.com/uploads/attachments/1585361/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿の空間全景" loading="lazy" />
+  <img src="https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿の空間全景" loading="lazy" />
   <figcaption>試合後も余韻を共有できる、プライベートな空間設計が特徴。</figcaption>
 </figure>
 

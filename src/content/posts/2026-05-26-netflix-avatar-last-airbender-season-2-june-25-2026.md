@@ -57,7 +57,7 @@ Netflix『アバター: 伝説の少年アン』シーズン2は、**2026年6月
 一方で、実写化には常に「イメージの再現」という課題がつきまとう。元素を操る超常的な力をどう映像化するか、衣装や美術をどこまで原作に寄せるか。制作チームはCG技術の進化とロケーション撮影を駆使し、アニメの世界観を現実の質感へと翻訳していく。その挑戦の成果は、配信開始とともに明らかになる。
 
 <figure class="post-figure">
-  <img src="https://cdnspacemarket.com/uploads/attachments/1571410/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿のスクリーン正面、4Kプロジェクター投影による大画面視聴環境" loading="lazy" />
+  <img src="https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿のスクリーン正面、4Kプロジェクター投影による大画面視聴環境" loading="lazy" />
   <figcaption>大画面で世界観に没入する——4K投影とサラウンド音響が、土の王国の壮大な映像美を引き立てる。</figcaption>
 </figure>
 
@@ -83,7 +83,7 @@ Netflixドラマは配信サービスの性質上、自宅のテレビやモバ�
 視聴中の**飲食の準備**も、体験の質を左右する。長時間の視聴では適度な休憩と水分補給が必要だ。軽食やドリンクを持ち込める環境であれば、エピソード間の小休止にリフレッシュできる。ただし、食事の音や匂いが他の参加者の集中を妨げないよう、配慮は忘れずに。
 
 <figure class="post-figure">
-  <img src="https://cdnspacemarket.com/uploads/attachments/1556569/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿の室内、ソファとクッションが配置されたリラックス空間" loading="lazy" />
+  <img src="https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿の室内、ソファとクッションが配置されたリラックス空間" loading="lazy" />
   <figcaption>仲間と語らいながら、自分たちのペースで物語を進める——完全貸切だからこそ得られる自由な視聴体験。</figcaption>
 </figure>
 

@@ -47,7 +47,7 @@ Netflix 版ではこの設定を現代日本に置き換え、脚本を『アン
 ロケ地には東京都内の実在する高校や商店街、河川敷などが選ばれ、若者たちの生活圏をリアルに描写する。武内監督は「喧嘩は非日常だが、その舞台は徹底的に日常であるべきだ」という演出方針を貫き、撮影現場では地元住民の協力を得ながら深夜ロケも敢行したという。そうした制作の熱量が、予告編の一瞬一瞬に宿っている。
 
 <figure class="post-figure">
-  <img src="https://cdnspacemarket.com/uploads/attachments/1571410/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿のスクリーン正面から見た大画面とプロジェクター、室内全景" loading="lazy" />
+  <img src="https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿のスクリーン正面から見た大画面とプロジェクター、室内全景" loading="lazy" />
   <figcaption>大画面で観れば、格闘シーンの迫力と若者たちの表情の機微がさらに際立つ。</figcaption>
 </figure>
 
@@ -69,7 +69,7 @@ EPSON 製 4K プロジェクターと100インチ超のスクリーン、最大6
 おすすめの進行は、まず第1話を全員で観てキャラクターと設定を共有し、第2話以降は各自のペースで一時停止や巻き戻しを自由に行う方式。特に原作既読者と未読者が混ざっている場合は、「原作だとここが違う」といった会話が自然に発生し、作品理解が深まる。終盤のクライマックスに差し掛かったら、再び全員で集中して観る——こうしたメリハリのある鑑賞スタイルが、貸切空間では可能になる。
 
 <figure class="post-figure">
-  <img src="https://cdnspacemarket.com/uploads/attachments/1556569/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿の室内、ソファとテーブルが配置された鑑賞空間" loading="lazy" />
+  <img src="https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿の室内、ソファとテーブルが配置された鑑賞空間" loading="lazy" />
   <figcaption>ソファに座って友人と語り合いながら、一気見する贅沢。</figcaption>
 </figure>
 

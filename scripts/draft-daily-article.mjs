@@ -358,10 +358,10 @@ const ARTICLE_SYSTEM = `あなたは「CINEMA REEL 新宿」のブログのエ�
 作品画像の hotlink/転載は禁止だが、**CINEMA REEL 新宿の実空間写真**は使ってよい（ユーザー所有のスペース写真）。視聴方法・選択肢・準備系のセクションで figure として挿入する:
 
 利用可能な実空間写真（Spacemarket CDN URL）:
-- スクリーン正面 → \`https://cdnspacemarket.com/uploads/attachments/1571410/image.jpg?width=1200&quality=85&format=jpg&auto=webp\`
-- 室内・ソファ → \`https://cdnspacemarket.com/uploads/attachments/1556569/image.jpg?width=1200&quality=85&format=jpg&auto=webp\`
-- 4Kプロジェクター → \`https://cdnspacemarket.com/uploads/attachments/1529635/image.jpg?width=1200&quality=85&format=jpg&auto=webp\`
-- 空間全景 → \`https://cdnspacemarket.com/uploads/attachments/1585361/image.jpg?width=1200&quality=85&format=jpg&auto=webp\`
+- スクリーン正面 → \`https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp\`
+- 室内・ソファ → \`https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp\`
+- 4Kプロジェクター → \`https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp\`
+- 空間全景 → \`https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp\`
 
 書き方:
 \`\`\`html

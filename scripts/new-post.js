@@ -69,7 +69,7 @@ pubDate: ${ymd}
 category: "${category}"
 tags:
 ${tagsYaml}
-heroImage: "https://cdnspacemarket.com/uploads/attachments/1571410/image.jpg?width=1200&quality=85&format=jpg&auto=webp"
+heroImage: "https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp"
 draft: true
 ---
 

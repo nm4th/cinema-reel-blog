@@ -61,7 +61,7 @@ VFX チームは、ハリウッド映画に匹敵するクオリティを韓国�
 自宅のテレビで観るのも一つの手だが、友人や家族と一緒に盛り上がりたい場合、プライベートな空間で大画面と音響が整った環境を選ぶのも有効だ。新宿エリアには、Netflix がログイン済みで、来店後すぐに視聴を開始できるスペースがある。EPSON の 4K プロジェクターと 100 インチ超のスクリーンを備えた完全貸切の空間なら、コメディシーンで大笑いしても、アクションシーンでリアクションを共有しても、周囲を気にする必要がない。
 
 <figure class="post-figure">
-  <img src="https://cdnspacemarket.com/uploads/attachments/1571410/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿のスクリーン正面" loading="lazy" />
+  <img src="https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿のスクリーン正面" loading="lazy" />
   <figcaption>100インチ超の大画面で、超能力バトルの迫力を体感する</figcaption>
 </figure>
 
@@ -81,7 +81,7 @@ VFX チームは、ハリウッド映画に匹敵するクオリティを韓国�
 エピソードの区切りで休憩を挟み、感想をシェアする時間を設けるのもおすすめだ。Netflix の自動再生機能をオフにしておけば、自然なペースで進行できる。長時間視聴になる場合は、軽食や飲み物を持ち込み、リラックスした雰囲気を保つことが大切だ。
 
 <figure class="post-figure">
-  <img src="https://cdnspacemarket.com/uploads/attachments/1556569/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿の室内・ソファ" loading="lazy" />
+  <img src="https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿の室内・ソファ" loading="lazy" />
   <figcaption>ゆったりとしたソファで、長時間視聴も快適に</figcaption>
 </figure>
 

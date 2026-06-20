@@ -75,7 +75,7 @@ Most Valuable Promotions が公開した「MVP UNCUT」では、3 試合すべ�
 ## 大画面で観る選択肢：日曜午前の配信をどう楽しむか
 
 <figure class="post-figure">
-  <img src="https://cdnspacemarket.com/uploads/attachments/1571410/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿のスクリーン正面、暗い室内で大画面と低めのソファが並ぶ" loading="lazy" />
+  <img src="https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿のスクリーン正面、暗い室内で大画面と低めのソファが並ぶ" loading="lazy" />
   <figcaption>新宿駅西口徒歩2分・約19㎡の完全貸切空間。日曜日の Netflix 配信を、生活音の届かない大画面で。</figcaption>
 </figure>
 
@@ -93,7 +93,7 @@ Most Valuable Promotions が公開した「MVP UNCUT」では、3 試合すべ�
 ## グループ視聴の楽しみ方：試合の前後をどう過ごすか
 
 <figure class="post-figure">
-  <img src="https://cdnspacemarket.com/uploads/attachments/1556569/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿の室内、クリムゾンのソファと低めのテーブルが並ぶ落ち着いた空間" loading="lazy" />
+  <img src="https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿の室内、クリムゾンのソファと低めのテーブルが並ぶ落ち着いた空間" loading="lazy" />
   <figcaption>クリムゾンのソファに肩を並べて、試合の合間に技の解説を交わせる距離感。</figcaption>
 </figure>
 

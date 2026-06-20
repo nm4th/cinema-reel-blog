@@ -99,10 +99,10 @@
 
 ### 画像URL（スペマCDN・著作権OK）
 
-メイン: `https://cdnspacemarket.com/uploads/attachments/1571410/image.jpg`
-室内:   `https://cdnspacemarket.com/uploads/attachments/1556569/image.jpg`
-設備:   `https://cdnspacemarket.com/uploads/attachments/1529635/image.jpg`
-全景:   `https://cdnspacemarket.com/uploads/attachments/1585361/image.jpg`
+メイン: `https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg`
+室内:   `https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg`
+設備:   `https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg`
+全景:   `https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg`
 
 末尾に `?width=1200&quality=85&format=jpg&auto=webp` を付けて最適化。
 

@@ -20,7 +20,7 @@ heroVideoId: "r5-hNdpOy1w"
 会場はゼビオアリーナ仙台。客席の熱気は画面越しにも伝わるが、自宅やカフェの小さなモニターでは打撃の重さや選手の息づかいが平板に見えてしまう。PPVライブは一度きり、再放送やアーカイブ公開がいつになるかは不明だ。この日のために調整を重ねてきた選手たちの姿を、できるだけ大きな画面で受け止めたい。
 
 <figure class="post-figure">
-  <img src="https://cdnspacemarket.com/uploads/attachments/1571410/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿のスクリーン正面から見た大画面プロジェクター投影" loading="lazy" />
+  <img src="https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="CINEMA REEL 新宿のスクリーン正面から見た大画面プロジェクター投影" loading="lazy" />
   <figcaption>100インチ超の大画面は、リング上の細かな駆け引きまで鮮明に映し出す。</figcaption>
 </figure>
 
@@ -42,7 +42,7 @@ heroVideoId: "r5-hNdpOy1w"
 各試合の対戦相手や試合順は公式サイトで順次発表される。RIZINの大会は、一試合ごとに空気が変わり、観客の熱量がリング上の選手を後押しする。生配信ではその瞬間をリアルタイムで共有できるが、小さな画面では臨場感が薄れてしまう。仲間と一緒に大画面で観戦すれば、誰かが放ったパンチやテイクダウンの瞬間に、自然と声が上がる。
 
 <figure class="post-figure">
-  <img src="https://cdnspacemarket.com/uploads/attachments/1529635/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="EPSON 4Kプロジェクターを設置した貸切シアター空間" loading="lazy" />
+  <img src="https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="EPSON 4Kプロジェクターを設置した貸切シアター空間" loading="lazy" />
   <figcaption>4K対応プロジェクターは、選手の汗や表情まで鮮明に映し出す。</figcaption>
 </figure>
 
@@ -68,7 +68,7 @@ heroVideoId: "r5-hNdpOy1w"
 持ち込みルールは各施設によって異なるため、事前に確認しておきたい。飲食物の準備、座席の配置、音量調整など、細かな点を詰めておけば当日はスムーズに観戦に集中できる。長時間の配信でも、貸切空間なら自分たちのペースで楽しめる。
 
 <figure class="post-figure">
-  <img src="https://cdnspacemarket.com/uploads/attachments/1556569/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="ゆったりとしたソファが配置された貸切シアター室内" loading="lazy" />
+  <img src="https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp" alt="ゆったりとしたソファが配置された貸切シアター室内" loading="lazy" />
   <figcaption>長時間の生配信でも、リラックスした姿勢で観戦を続けられる空間設計。</figcaption>
 </figure>
 
