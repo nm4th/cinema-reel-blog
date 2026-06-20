@@ -11,10 +11,10 @@ const fmt = (d: Date) =>
   new Intl.DateTimeFormat('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
 
 const heroImg = 'https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1600&quality=85&format=jpg&auto=webp';
-const wideImg = 'https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1600&quality=85&format=jpg&auto=webp';
 const interiorImg = 'https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp';
-const equipImg = 'https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp';
-const panoImg = 'https://cdnspacemarket.com/uploads/attachments/1617919/image.jpg?width=1200&quality=85&format=jpg&auto=webp';
+const galleryImg1 = 'https://cdnspacemarket.com/uploads/attachments/1612427/image.jpg?width=1200&quality=85&format=jpg&auto=webp';
+const galleryImg2 = 'https://cdnspacemarket.com/uploads/attachments/1556569/image.jpg?width=1200&quality=85&format=jpg&auto=webp';
+const galleryImg3 = 'https://cdnspacemarket.com/uploads/attachments/1529698/image.jpg?width=1200&quality=85&format=jpg&auto=webp';
 
 const sceneImg = (n: string) => `/images/blog/home-scenes/${n}.png`;
 
@@ -429,9 +429,9 @@ const vodServices = [
           </ul>
         </div>
         <div class="space-gallery">
-          <a class="gallery-thumb" href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer" style={`background-image: url('${heroImg}');`} aria-label="ギャラリー1"></a>
-          <a class="gallery-thumb" href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer" style={`background-image: url('${equipImg}');`} aria-label="ギャラリー2"></a>
-          <a class="gallery-thumb" href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer" style={`background-image: url('${panoImg}');`} aria-label="ギャラリー3"></a>
+          <a class="gallery-thumb" href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer" style={`background-image: url('${galleryImg1}');`} aria-label="ギャラリー1"></a>
+          <a class="gallery-thumb" href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer" style={`background-image: url('${galleryImg2}');`} aria-label="ギャラリー2"></a>
+          <a class="gallery-thumb" href="https://spacemarket.com/p/Rk36vVe7-ZK_fg-E" target="_blank" rel="noopener noreferrer" style={`background-image: url('${galleryImg3}');`} aria-label="ギャラリー3"></a>
         </div>
       </div>
     </div>
